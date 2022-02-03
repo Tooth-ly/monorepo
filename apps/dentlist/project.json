@@ -1,0 +1,39 @@
+{
+  "root": "apps/dentlist",
+  "sourceRoot": "apps/dentlist/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dentlist",
+        "main": "apps/dentlist/src/index.ts",
+        "tsConfig": "apps/dentlist/tsconfig.app.json",
+        "assets": ["apps/dentlist/*.md"]
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "dentlist:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dentlist/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/dentlist"],
+      "options": {
+        "jestConfig": "apps/dentlist/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

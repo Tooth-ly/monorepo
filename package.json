@@ -5,19 +5,48 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
   },
   "private": true,
   "dependencies": {
-    "@nrwl/js": "^13.7.1"
+    "@nrwl/js": "^13.7.1",
+    "@types/connect-redis": "^0.0.18",
+    "@types/dotenv-safe": "^8.1.2",
+    "@types/ioredis": "^4.28.7",
+    "apollo-server-express": "^3.6.2",
+    "argon2": "^0.28.4",
+    "connect-redis": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "graphql": "^15.3.0",
+    "ioredis": "^4.28.4",
+    "pg": "^8.7.1",
+    "ts-node": "^10.4.0",
+    "tslib": "^2.0.0",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@nrwl/cli": "13.7.1",
+    "@nrwl/eslint-plugin-nx": "13.7.1",
+    "@nrwl/jest": "13.7.1",
+    "@nrwl/linter": "13.7.1",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/tao": "13.7.1",
     "@nrwl/workspace": "13.7.1",
+    "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
+    "@typescript-eslint/eslint-plugin": "~5.10.0",
+    "@typescript-eslint/parser": "~5.10.0",
+    "eslint": "~8.7.0",
+    "eslint-config-prettier": "8.1.0",
+    "jest": "27.2.3",
     "prettier": "^2.5.1",
+    "ts-jest": "27.0.5",
     "typescript": "~4.5.2"
   }
 }
