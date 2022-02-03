@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "dentlist": "apps/dentlist"
+    "dentlist": "apps/dentlist",
+    "unicorn": "apps/unicorn",
+    "unicorn-e2e": "apps/unicorn-e2e"
   }
 }

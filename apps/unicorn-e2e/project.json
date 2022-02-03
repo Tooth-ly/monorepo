@@ -1,0 +1,28 @@
+{
+  "root": "apps/unicorn-e2e",
+  "sourceRoot": "apps/unicorn-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/unicorn-e2e/cypress.json",
+        "devServerTarget": "unicorn:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "unicorn:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/unicorn-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["unicorn"]
+}
