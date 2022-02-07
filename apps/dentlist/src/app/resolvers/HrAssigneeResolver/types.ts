@@ -20,6 +20,9 @@ export class Hr_Assignee_Response {
 
 @InputType()
 export class Hr_Assignee_Input {
+  @Field(() => Int) // for graphql type
+  id: number;
+
   @Field()
   name: string;
 
@@ -29,14 +32,20 @@ export class Hr_Assignee_Input {
   @Field(() => String)
   birth_date: Date;
 
-  @Field(() => Int, { defaultValue: 0 })
-  requirement_level?: number;
-
-  @Field(() => Int, { defaultValue: 1 })
-  type?: number;
+  @Field(() => Int)
+  requirement_level: number;
 
   @Field(() => String)
-  mail?: string;
+  type: string;
+
+  @Field(() => String)
+  mail: string;
+
+  @Field(() => String)
+  createdAt: Date;
+
+  @Field(() => String)
+  updatedAt: Date;
 }
 
 @InputType()
@@ -44,14 +53,17 @@ export class Hr_Assignee_Update_Input {
   @Field()
   name?: string;
 
+  @Field()
+  password?: string;
+
   @Field(() => String)
   birth_date?: Date;
 
-  @Field(() => Int, { defaultValue: 0 })
+  @Field(() => Int)
   requirement_level?: number;
 
-  @Field(() => Int, { defaultValue: 1 })
-  type?: number;
+  @Field(() => String)
+  type?: string;
 
   @Field(() => String)
   mail?: string;

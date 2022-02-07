@@ -31,9 +31,9 @@ export class Hr_Assignee extends BaseEntity {
   @Column('int', { nullable: true })
   requirement_level: number
 
-  @Field(() => Int)
-  @Column('int', { default: 1 })
-  type: number
+  @Field(() => String)
+  @Column()
+  type: string 
 
   @Field(() => String)
   @Column()
