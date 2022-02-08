@@ -20,19 +20,16 @@ export class File_Response {
 
 @InputType()
 export class File_Input {
-  @Field()
-  id: number;
-
-  @Field()
-  patient_id: number;
-
-  @Field()
+  @Field(() => Number)
   file_number: number;
 
-  @Field()
+  @Field(() => Number)
+  patient_id: number;
+
+  @Field(() => String, { nullable: true })
   photo_url: string;
 
-  @Field()
+  @Field(() => Number, { nullable: true })
   assignee_id: number;
 
   @Field(() => String)
@@ -46,9 +43,6 @@ export class File_Input {
 export class File_Update_Input {
   @Field({ nullable: true })
   patient_id?: number;
-
-  @Field({ nullable: true })
-  file_number?: number;
 
   @Field({ nullable: true })
   photo_url?: string;

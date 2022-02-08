@@ -23,25 +23,25 @@ export class File_Resolver {
   }
 
   @Query(() => File)
-  file(@Arg('id') id: string) {
-    return File.findOne(id);
+  file(@Arg('file_number') file_number: number) {
+    return File.findOne(file_number);
   }
 
   // crud: update
   @Mutation(() => Boolean)
   async updateFile(
-    @Arg('id', () => Int) id: number,
+    @Arg('file_number', () => Int) file_number: number,
     @Arg('input', () => File_Input)
     input: File_Update_Input
   ) {
-    await File.update({ id }, input); // search by id and update but input
+    await File.update({ file_number }, input); // search by id and update but input
     return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
-  async deleteFile(@Arg('id', () => Int) id: number) {
-    await File.delete({ id });
+  async deleteFile(@Arg('file_number', () => Int) file_number: number) {
+    await File.delete({ file_number });
     return true;
   }
 }

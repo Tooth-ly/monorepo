@@ -13,21 +13,17 @@ import {
 export class File extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id: number;
-
-  @Field()
-  @Column({ type: 'decimal', nullable: true })
-  patient_id: number;
-
-  @Field()
-  @Column({ type: 'decimal', nullable: true })
   file_number: number;
 
-  @Field()
-  @Column()
+  @Field(() => Number, { nullable: true })
+  @Column({ type: 'number', nullable: true })
+  patient_id: number;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   photo_url: string;
 
-  @Field()
+  @Field(() => Number, { nullable: true })
   @Column({ type: 'decimal', nullable: true })
   assignee_id: number;
 

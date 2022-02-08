@@ -15,8 +15,12 @@ export class Service extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column({ type: 'decimal', nullable: true })
+  @Field(() => Number)
+  @Column({ type: 'int' })
+  service_id: number;
+
+  @Field(() => Number)
+  @Column({ type: 'int' })
   file_number: number;
 
   @Field(() => String)

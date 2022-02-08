@@ -4,24 +4,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
-  @Field()
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Field({ nullable: true })
-  @Column({ type: 'decimal', nullable: true })
-  length: number;
-
+export class Person extends BaseEntity {
   @Field({ nullable: true })
   @Column({ type: 'int', nullable: true })
   age: number;
+
+  @Field(() => Number)
+  @Column({ type: 'number' })
+  patient_number: number;
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
