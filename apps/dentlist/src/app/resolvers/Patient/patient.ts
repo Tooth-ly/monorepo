@@ -1,4 +1,4 @@
-import { Patient } from 'src/app/entities/Patient';
+import { Patient } from '../../entities/Patient';
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Patient_Input, Patient_Response, Patient_Update_Input } from './types';
 

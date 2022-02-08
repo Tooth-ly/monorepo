@@ -10,7 +10,11 @@ import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 import { createConnection, getConnectionOptions } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
-import { HelloResolver } from './resolvers/HelloResolver';
+import { File_Resolver } from './resolvers/File/file';
+import { Hr_Assignee_Resolver } from './resolvers/HrAssignee/hr_assignee';
+import { Patient_Resolver } from './resolvers/Patient/patient';
+import { Person_Resolver } from './resolvers/Person/person';
+import { Task_Resolver } from './resolvers/TaskResolver/task';
 
 export const redis = new Redis(process.env['REDIS_URL']);
 export const main = async () => {
@@ -51,7 +55,13 @@ export const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver],
+      resolvers: [
+        File_Resolver,
+        Patient_Resolver,
+        Person_Resolver,
+        Task_Resolver,
+        Hr_Assignee_Resolver,
+      ],
       validate: false,
     }),
     context: ({ req, res }) => ({

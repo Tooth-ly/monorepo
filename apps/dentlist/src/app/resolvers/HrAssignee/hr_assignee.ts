@@ -1,6 +1,6 @@
-import argon2 from 'argon2'
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from '../../constants'
-import { MyContext } from '../../types'
+import argon2 from 'argon2';
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from '../../constants';
+import { MyContext } from '../../types';
 import {
   Arg,
   Ctx,
@@ -10,55 +10,55 @@ import {
   Query,
   Resolver,
   Root,
-} from 'type-graphql'
-import { Hr_Assignee } from '../../entities/Hr_Assignee'
+} from 'type-graphql';
+import { Hr_Assignee } from '../../entities/Hr_Assignee';
 import {
   Hr_Assignee_Input,
   Hr_Assignee_Response,
   Hr_Assignee_Update_Input,
-} from './types'
-import { validateHrAssignee } from './validation'
+} from './types';
+import { validateHrAssignee } from './validation';
 
-@Resolver()
-export class hr_assignee_resolver {
+@Resolver(Hr_Assignee)
+export class Hr_Assignee_Resolver {
   // crud: create
   @Mutation(() => Hr_Assignee)
   async createHrAssignees(
     @Arg('input', () => Hr_Assignee_Input) input: Hr_Assignee_Input,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
-    const errors = validateHrAssignee(input)
+    const errors = validateHrAssignee(input);
     if (errors) {
-      return { errors }
+      return { errors };
     }
 
-    const hashedPassword = await argon2.hash(input.password) // .verify unenc
-    input.password = hashedPassword
+    const hashedPassword = await argon2.hash(input.password); // .verify unenc
+    input.password = hashedPassword;
 
-    const hr_assignee = await Hr_Assignee.create(input).save() // insert and select
+    const hr_assignee = await Hr_Assignee.create(input).save(); // insert and select
 
     // store user id session
     // this will set a cookie on the user
     // keep them logged in
-    req.session.hr_assignee_Id = hr_assignee.id
+    req.session.hr_assignee_Id = hr_assignee.id;
 
     return {
       hr_assignee,
-    }
+    };
   }
 
   // crud: read
   @Query(() => [Hr_Assignee])
   hrAssignees() {
-    return Hr_Assignee.find()
+    return Hr_Assignee.find();
   }
 
   @Query(() => Hr_Assignee)
   hrAssignee(@Arg('id') id: string, @Ctx() { req }: MyContext) {
     if (!req.session.hr_assignee_Id) {
-      return null
+      return null;
     }
-    return Hr_Assignee.findOne(id)
+    return Hr_Assignee.findOne(id);
   }
 
   // crud: update
@@ -68,25 +68,25 @@ export class hr_assignee_resolver {
     @Arg('input', () => Hr_Assignee_Update_Input)
     input: Hr_Assignee_Update_Input
   ) {
-    await Hr_Assignee.update({ id }, input) // search by id and update but input
-    return true
+    await Hr_Assignee.update({ id }, input); // search by id and update but input
+    return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
   async deleteHrAssignees(@Arg('id', () => Int) id: number) {
-    await Hr_Assignee.delete({ id })
-    return true
+    await Hr_Assignee.delete({ id });
+    return true;
   }
 
   @FieldResolver(() => String)
   email(@Root() hr_assignee: Hr_Assignee, @Ctx() { req }: MyContext) {
     // this is the current user and its ok to show them their own email
     if (req.session.hr_assignee_Id === hr_assignee.id) {
-      return hr_assignee.mail
+      return hr_assignee.mail;
     }
     // current user wants to see someone elses email
-    return ''
+    return '';
   }
 
   @Mutation(() => Hr_Assignee_Response)
@@ -103,11 +103,11 @@ export class hr_assignee_resolver {
             message: 'length must be greater than 2',
           },
         ],
-      }
+      };
     }
 
-    const key = FORGET_PASSWORD_PREFIX + token
-    const hr_assignee_id = await redis.get(key)
+    const key = FORGET_PASSWORD_PREFIX + token;
+    const hr_assignee_id = await redis.get(key);
     if (!hr_assignee_id) {
       return {
         errors: [
@@ -116,11 +116,11 @@ export class hr_assignee_resolver {
             message: 'token expired',
           },
         ],
-      }
+      };
     }
 
-    const hr_assignee_id_num = parseInt(hr_assignee_id)
-    const hr_assignee = await Hr_Assignee.findOne(hr_assignee_id_num)
+    const hr_assignee_id_num = parseInt(hr_assignee_id);
+    const hr_assignee = await Hr_Assignee.findOne(hr_assignee_id_num);
 
     if (!hr_assignee) {
       return {
@@ -130,7 +130,7 @@ export class hr_assignee_resolver {
             message: 'user no longer exists',
           },
         ],
-      }
+      };
     }
 
     await Hr_Assignee.update(
@@ -138,14 +138,14 @@ export class hr_assignee_resolver {
       {
         password: await argon2.hash(newPassword),
       }
-    )
+    );
 
-    await redis.del(key)
+    await redis.del(key);
 
     // log in user after change password
-    req.session.hr_assignee_Id = hr_assignee.id
+    req.session.hr_assignee_Id = hr_assignee.id;
 
-    return { hr_assignee }
+    return { hr_assignee };
   }
 
   @Mutation(() => Hr_Assignee_Response)
@@ -154,7 +154,7 @@ export class hr_assignee_resolver {
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
-    const hr_assignee = await Hr_Assignee.findOne({ mail: Email })
+    const hr_assignee = await Hr_Assignee.findOne({ mail: Email });
     if (!hr_assignee) {
       return {
         errors: [
@@ -163,9 +163,9 @@ export class hr_assignee_resolver {
             message: "Email doesn't exist",
           },
         ],
-      }
+      };
     }
-    const valid = await argon2.verify(hr_assignee.password, password)
+    const valid = await argon2.verify(hr_assignee.password, password);
     if (!valid) {
       return {
         errors: [
@@ -174,30 +174,30 @@ export class hr_assignee_resolver {
             message: 'incorrect password',
           },
         ],
-      }
+      };
     }
 
-    req.session.hr_assignee_Id = hr_assignee.id
-    console.log('req user id', req.session.hr_assignee_Id)
+    req.session.hr_assignee_Id = hr_assignee.id;
+    console.log('req user id', req.session.hr_assignee_Id);
 
     return {
       hr_assignee,
-    }
+    };
   }
 
   @Mutation(() => Boolean)
   logout(@Ctx() { req, res }: MyContext) {
     return new Promise((resolve) =>
       req.session.destroy((err) => {
-        res.clearCookie(COOKIE_NAME)
+        res.clearCookie(COOKIE_NAME);
         if (err) {
-          console.log(err)
-          resolve(false)
-          return
+          console.log(err);
+          resolve(false);
+          return;
         }
 
-        resolve(true)
+        resolve(true);
       })
-    )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Hr_Assignee } from '../..//entities/Hr_Assignee';
+import { Hr_Assignee } from '../../entities/Hr_Assignee';
 import { ObjectType, Field, InputType, Int } from 'type-graphql';
 
 @ObjectType()
@@ -40,12 +40,6 @@ export class Hr_Assignee_Input {
 
   @Field(() => String)
   mail: string;
-
-  @Field(() => String)
-  createdAt: Date;
-
-  @Field(() => String)
-  updatedAt: Date;
 }
 
 @InputType()

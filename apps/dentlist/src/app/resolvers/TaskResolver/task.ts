@@ -1,4 +1,4 @@
-import { Task } from 'src/app/entities/Task';
+import { Task } from '../../entities/Task';
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Task_Input, Task_Response, Task_Update_Input } from './types';
 import { validateTask } from './validation';

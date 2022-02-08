@@ -34,12 +34,6 @@ export class Task_Input {
 
   @Field(() => String)
   title: string;
-
-  @Field(() => String)
-  createdAt: Date;
-
-  @Field(() => String)
-  updatedAt: Date;
 }
 
 @InputType()

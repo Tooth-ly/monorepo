@@ -1,4 +1,4 @@
-import { Patient } from 'src/app/entities/Patient';
+import { Patient } from '../../entities/Patient';
 import { ObjectType, Field, InputType } from 'type-graphql';
 
 @ObjectType()
@@ -25,12 +25,6 @@ export class Patient_Input {
 
   @Field(() => String)
   medical_condition: string;
-
-  @Field(() => String)
-  createdAt: Date;
-
-  @Field(() => String)
-  updatedAt: Date;
 }
 
 @InputType()
