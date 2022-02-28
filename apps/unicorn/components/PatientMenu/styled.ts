@@ -2,9 +2,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div({
   backgroundColor: '#bfeff8',
-  fontFamily: 'Segoe UI',
+  fontFamily: 'Sans',
   paddingBottom: '10px',
   paddingTop: '1px',
+  marginTop: '-10px'
 })
 
 export const GreenCircle = styled.span`
@@ -25,10 +26,11 @@ export const StatusContainer = styled.div({
   borderRadius: '10px',
   paddingRight: '7px',
   paddingLeft: '7px',
-  width: '110px',
+  width: '135px',
 })
 
 export const Text = styled.p({
   fontWeight: 600,
   fontSize: '17px',
+  cursor: 'default'
 })

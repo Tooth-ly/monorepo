@@ -42,7 +42,7 @@ export const PatientMenu: React.FC<PatientMenuProps> = ({ id, name, status }) =>
                     border={0}
                     borderRadius={'10px'}
                     p={'0px 15px'}
-                    fontFamily={'Segoe UI'}
+                    fontFamily={'Sans'}
                 >Create</Button>
             </Flex>
         </Container >

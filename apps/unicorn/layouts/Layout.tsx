@@ -2,7 +2,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { CLIENT } from "../env";
-import NavBar from "../components/NavBar";
 
 interface LayoutProps {
   layoutType: "Default" | "Keyboard" | "NoBgColor";
@@ -23,7 +22,6 @@ const Layout: React.FC<LayoutProps> = ({
       <ApolloProvider client={client}>
         <LayoutContainerKeyboard>
           <GlobalStyle />
-          <NavBar />
           <main>{children}</main>
         </LayoutContainerKeyboard>
       </ApolloProvider>
@@ -35,7 +33,6 @@ const Layout: React.FC<LayoutProps> = ({
       <ApolloProvider client={client}>
         <LayoutContainer>
           <GlobalStyle />
-          <NavBar />
         </LayoutContainer>
         <main>{children}</main>
       </ApolloProvider>
@@ -46,7 +43,6 @@ const Layout: React.FC<LayoutProps> = ({
     <ApolloProvider client={client}>
       <LayoutContainer>
         <GlobalStyle />
-        <NavBar />
         <main>{children}</main>
       </LayoutContainer>
     </ApolloProvider>

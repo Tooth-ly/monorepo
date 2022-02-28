@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "dentlist": "apps/dentlist",
+    "mobileapp": "apps/mobileapp",
+    "mobileapp-e2e": "apps/mobileapp-e2e",
     "unicorn": "apps/unicorn",
     "unicorn-e2e": "apps/unicorn-e2e"
   }
