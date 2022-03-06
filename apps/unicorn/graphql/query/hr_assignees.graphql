@@ -1,0 +1,13 @@
+query HrAssignees {
+  hrAssignees {
+    email
+    updatedAt
+    createdAt
+    mail
+    hr_type
+    profile_pic_url
+    password
+    name
+    id
+  }
+}

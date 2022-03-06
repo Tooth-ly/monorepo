@@ -1,0 +1,12 @@
+query Patient($patientId: String!) {
+  patient(id: $patientId) {
+    id
+    file_number
+    name
+    gender
+    age
+    createdAt
+    cat_id
+    updatedAt
+  }
+}

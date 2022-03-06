@@ -1,0 +1,13 @@
+mutation CreateHrAssignee($input: Hr_Assignee_Input!) {
+  createHrAssignee(input: $input) {
+    id
+    name
+    password
+    profile_pic_url
+    hr_type
+    createdAt
+    mail
+    updatedAt
+    email
+  }
+}

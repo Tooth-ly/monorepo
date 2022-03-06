@@ -1,0 +1,12 @@
+query Patients {
+  patients {
+    id
+    file_number
+    name
+    gender
+    age
+    cat_id
+    createdAt
+    updatedAt
+  }
+}

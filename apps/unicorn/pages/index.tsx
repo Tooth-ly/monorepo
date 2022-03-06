@@ -19,7 +19,6 @@ index.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
 const Container = styled.div`
   font-family: 'Sans';
-  /* height: 55vh; */
   height: 100%;
   width: 100%;
 `;

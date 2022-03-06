@@ -1,12 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div({
-  backgroundColor: '#bfeff8',
+  backgroundColor: '#DFFAFF',
   fontFamily: 'Sans',
   paddingBottom: '10px',
   paddingTop: '1px',
-  marginTop: '-10px'
-})
+  marginTop: '-10px',
+});
 
 export const GreenCircle = styled.span`
   height: 20px;
@@ -15,7 +15,16 @@ export const GreenCircle = styled.span`
   border-radius: 50%;
   display: inline-block;
   padding: 0px;
-`
+`;
+
+export const RedCircle = styled.span`
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 0px;
+`;
 
 export const StatusContainer = styled.div({
   backgroundColor: 'white',
@@ -27,10 +36,10 @@ export const StatusContainer = styled.div({
   paddingRight: '7px',
   paddingLeft: '7px',
   width: '135px',
-})
+});
 
 export const Text = styled.p({
   fontWeight: 600,
   fontSize: '17px',
-  cursor: 'default'
-})
+  cursor: 'default',
+});

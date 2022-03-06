@@ -1,0 +1,3 @@
+mutation DeleteHrAssignee($deleteHrAssigneeId: Int!) {
+  deleteHrAssignee(id: $deleteHrAssigneeId)
+}

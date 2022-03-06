@@ -1,0 +1,13 @@
+query Task($taskId: String!) {
+  task(id: $taskId) {
+    id
+    service_log_id
+    stage
+    description
+    name
+    assignee_notes
+    date
+    createdAt
+    updatedAt
+  }
+}

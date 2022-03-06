@@ -8,7 +8,7 @@ export const Container = styled.div({
 export const Name = styled.p({
   fontSize: '20px',
   margin: '0px',
-  padding: '5px',
+  padding: '10px',
   cursor: 'pointer',
   textAlign: 'center',
 });

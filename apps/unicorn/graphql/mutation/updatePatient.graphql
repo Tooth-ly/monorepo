@@ -1,0 +1,3 @@
+mutation UpdatePatient($input: Patient_Input!, $updatePatientId: Int!) {
+  updatePatient(input: $input, id: $updatePatientId)
+}

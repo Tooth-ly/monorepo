@@ -1,0 +1,13 @@
+query Tasks {
+  tasks {
+    id
+    service_log_id
+    stage
+    name
+    description
+    assignee_notes
+    date
+    createdAt
+    updatedAt
+  }
+}

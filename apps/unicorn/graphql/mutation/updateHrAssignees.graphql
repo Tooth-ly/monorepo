@@ -1,0 +1,6 @@
+mutation UpdateHrAssignee(
+  $input: Hr_Assignee_Update_Input!
+  $updateHrAssigneeId: Int!
+) {
+  updateHrAssignee(input: $input, id: $updateHrAssigneeId)
+}

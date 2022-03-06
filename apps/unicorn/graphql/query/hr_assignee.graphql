@@ -1,0 +1,13 @@
+query HrAssignee($hrAssigneeId: String!) {
+  hrAssignee(id: $hrAssigneeId) {
+    id
+    name
+    password
+    email
+    profile_pic_url
+    hr_type
+    mail
+    createdAt
+    updatedAt
+  }
+}

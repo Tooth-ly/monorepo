@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { Grid, useMediaQuery, Flex } from '@chakra-ui/react';
+import { Grid, useMediaQuery, Flex, Box } from '@chakra-ui/react';
 import { MainDashboardCardData } from '../../data';
 import MainDashboardCard from '../MainDashboardCard';
 import { P } from './styled';
@@ -29,7 +29,7 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
       );
     else
       return (
-        <Flex direction={'column'}>
+        <Flex flexDirection={'column'}>
           <Grid
             templateColumns={'repeat(auto-fill, minmax(150px, 1fr))'}
             rowGap={50}

@@ -3,7 +3,7 @@ import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import React from 'react';
-import { NavContainer, NavContainer900 } from './styled';
+import { NavContainer900 } from './styled';
 
 interface NavBarProps {}
 
@@ -50,7 +50,19 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
           </Box>
         </Flex>
       ) : (
-        <NavContainer900>mobile</NavContainer900>
+        <NavContainer900>
+          <Box p={0} m={1} cursor={'pointer'} onClick={() => router.push('/')}>
+            <Image src={'/icons8-module-90.png'} width={45} height={45} />
+          </Box>
+          <Box
+            m={1}
+            p={0}
+            cursor={'pointer'}
+            onClick={() => router.push('./user-profile')}
+          >
+            <Image src={'/icons8-user-90.png'} width={45} height={45} />
+          </Box>
+        </NavContainer900>
       )}
     </>
   );

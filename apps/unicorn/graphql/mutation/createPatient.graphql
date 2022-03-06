@@ -1,0 +1,12 @@
+mutation CreatePatient($input: Patient_Input!) {
+  createPatient(input: $input) {
+    id
+    file_number
+    name
+    gender
+    age
+    cat_id
+    createdAt
+    updatedAt
+  }
+}

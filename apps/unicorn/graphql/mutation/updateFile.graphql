@@ -1,0 +1,3 @@
+mutation UpdateFile($input: File_Input!, $fileNumber: Int!) {
+  updateFile(input: $input, file_number: $fileNumber)
+}
