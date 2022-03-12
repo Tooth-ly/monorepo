@@ -8,6 +8,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum Stage {
+  New = 'New',
+  Pending = 'Pending',
+  Done = 'Done',
+}
+
 @ObjectType()
 @Entity()
 export class Task extends BaseEntity {
@@ -16,20 +22,28 @@ export class Task extends BaseEntity {
   id: number;
 
   @Field(() => Number)
-  @Column({ type: 'int' })
-  sid: number;
+  @Column({ type: 'number' })
+  service_log_id: number;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
-  required_level: number;
+  @Field(() => Stage)
+  @Column({ type: 'text' })
+  stage: Stage;
 
   @Field(() => String)
   @Column({ type: 'text' })
-  description: string;
+  name: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  description?: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  assignee_notes: string;
 
   @Field(() => String)
-  @Column({ type: 'text' })
-  title: string;
+  @CreateDateColumn()
+  date: Date;
 
   @Field(() => String)
   @CreateDateColumn()

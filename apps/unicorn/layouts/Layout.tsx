@@ -1,23 +1,23 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { CLIENT } from "../env";
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import React from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
+import { CLIENT } from '../env';
 
 interface LayoutProps {
-  layoutType: "Default" | "Keyboard" | "NoBgColor";
+  layoutType: 'Default' | 'Keyboard' | 'NoBgColor';
 }
 
 const client = new ApolloClient({
   uri: CLIENT,
   cache: new InMemoryCache(),
-  credentials: "include",
+  credentials: 'include',
 });
 
 const Layout: React.FC<LayoutProps> = ({
   children,
-  layoutType = "Default",
+  layoutType = 'Default',
 }) => {
-  if (layoutType === "Keyboard") {
+  if (layoutType === 'Keyboard') {
     return (
       <ApolloProvider client={client}>
         <LayoutContainerKeyboard>
@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({
     );
   }
 
-  if (layoutType === "NoBgColor") {
+  if (layoutType === 'NoBgColor') {
     return (
       <ApolloProvider client={client}>
         <LayoutContainer>
@@ -41,10 +41,10 @@ const Layout: React.FC<LayoutProps> = ({
 
   return (
     <ApolloProvider client={client}>
-      <LayoutContainer>
-        <GlobalStyle />
-        <main>{children}</main>
-      </LayoutContainer>
+      {/* <LayoutContainer> */}
+      <GlobalStyle />
+      <main>{children}</main>
+      {/* </LayoutContainer> */}
     </ApolloProvider>
   );
 };

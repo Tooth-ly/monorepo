@@ -41,7 +41,7 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
 pfiles.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
 const Title = styled.p({
-  fontSize: '30px',
+  fontSize: '25px',
   fontWeight: 'bold',
   textDecoration: 'none',
   cursor: 'pointer',

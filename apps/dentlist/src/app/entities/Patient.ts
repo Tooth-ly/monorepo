@@ -8,6 +8,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum Gender {
+  female = 'female',
+  male = 'male',
+  other = 'other',
+}
+
 @ObjectType()
 @Entity()
 export class Patient extends BaseEntity {
@@ -17,15 +23,23 @@ export class Patient extends BaseEntity {
 
   @Field(() => Number)
   @Column({ type: 'number' })
-  user_id: number;
-
-  @Field(() => Number)
-  @Column({ type: 'number' })
   file_number: number;
 
   @Field(() => String)
-  @Column()
-  medical_condition: string;
+  @Column({ type: 'text' })
+  name: string;
+
+  @Field(() => Gender)
+  @Column({ type: 'text' })
+  gender: Gender;
+
+  @Field(() => Number)
+  @Column({ type: 'number' })
+  age: number;
+
+  @Field(() => Number)
+  @Column({ type: 'number' })
+  cat_id: number;
 
   @Field(() => String)
   @CreateDateColumn()

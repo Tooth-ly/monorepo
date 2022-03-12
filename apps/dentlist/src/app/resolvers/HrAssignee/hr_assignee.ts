@@ -23,7 +23,7 @@ import { validateHrAssignee } from './validation';
 export class Hr_Assignee_Resolver {
   // crud: create
   @Mutation(() => Hr_Assignee)
-  async createHrAssignees(
+  async createHrAssignee(
     @Arg('input', () => Hr_Assignee_Input) input: Hr_Assignee_Input,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
@@ -74,7 +74,7 @@ export class Hr_Assignee_Resolver {
 
   // crud: delete
   @Mutation(() => Boolean)
-  async deleteHrAssignees(@Arg('id', () => Int) id: number) {
+  async deleteHrAssignee(@Arg('id', () => Int) id: number) {
     await Hr_Assignee.delete({ id });
     return true;
   }

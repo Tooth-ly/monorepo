@@ -1,45 +1,24 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Grid,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Service } from '../../data';
 import { Task } from '../Task';
 import {
-  Container,
   InnerServiceDone,
   InnerServiceInProgress,
   InnerServiceNew,
 } from './styled';
-import { AddIcon } from '@chakra-ui/icons';
 
 interface PatientServiceProps {
   serviceData?: Service;
-  patientId?: number;
 }
 
 export const PatientService: React.FC<PatientServiceProps> = ({
   serviceData,
-  patientId,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const initialRef = React.useRef<any>();
-  const finalRef = React.useRef<any>();
+  const router = useRouter();
+  const patientId = router.query.patientId as unknown as number;
 
   if (serviceData && patientId)
     return (
@@ -68,42 +47,20 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                     <Task title={task.title} content={task.content} />
                   </Box>
                 ))}
-                <Box m={'7px'} onClick={onOpen}>
+                <Box
+                  m={'7px'}
+                  onClick={() =>
+                    router.push(`/Patient/${patientId}/createTask`)
+                  }
+                >
                   <Task plusSign={true} />
                 </Box>
-                <Modal
-                  initialFocusRef={initialRef}
-                  finalFocusRef={finalRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Create a Task</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
-                      <FormControl>
-                        <FormLabel>Title</FormLabel>
-                        <Input ref={initialRef} placeholder="Title" />
-                      </FormControl>
-
-                      <FormControl mt={4}>
-                        <FormLabel>Content</FormLabel>
-                        <Input placeholder="Content" />
-                      </FormControl>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3}>
-                        Save
-                      </Button>
-                      <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
               </>
             ) : (
-              <Box m={'7px'} onClick={onOpen}>
+              <Box
+                m={'7px'}
+                onClick={() => router.push(`/Patient/${patientId}/createTask`)}
+              >
                 <Task plusSign={true} />
               </Box>
             )}
@@ -121,42 +78,20 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                     </Box>
                   </>
                 ))}
-                <Box m={'7px'} onClick={onOpen}>
+                <Box
+                  m={'7px'}
+                  onClick={() =>
+                    router.push(`/Patient/${patientId}/createTask`)
+                  }
+                >
                   <Task plusSign={true} />
                 </Box>
-                <Modal
-                  initialFocusRef={initialRef}
-                  finalFocusRef={finalRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Create a Task</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
-                      <FormControl>
-                        <FormLabel>Title</FormLabel>
-                        <Input ref={initialRef} placeholder="Title" />
-                      </FormControl>
-
-                      <FormControl mt={4}>
-                        <FormLabel>Content</FormLabel>
-                        <Input placeholder="Content" />
-                      </FormControl>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3}>
-                        Save
-                      </Button>
-                      <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
               </>
             ) : (
-              <Box m={'7px'} onClick={onOpen}>
+              <Box
+                m={'7px'}
+                onClick={() => router.push(`/Patient/${patientId}/createTask`)}
+              >
                 <Task plusSign={true} />
               </Box>
             )}
@@ -174,75 +109,25 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                     </Box>
                   </>
                 ))}
-                <Box m={'7px'} onClick={onOpen}>
+                <Box
+                  m={'7px'}
+                  onClick={() =>
+                    router.push(`/Patient/${patientId}/createTask`)
+                  }
+                >
                   <Task plusSign={true} />
                 </Box>
-                <Modal
-                  initialFocusRef={initialRef}
-                  finalFocusRef={finalRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Create a Task</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
-                      <FormControl>
-                        <FormLabel>Title</FormLabel>
-                        <Input ref={initialRef} placeholder="Title" />
-                      </FormControl>
-
-                      <FormControl mt={4}>
-                        <FormLabel>Content</FormLabel>
-                        <Input placeholder="Content" />
-                      </FormControl>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3}>
-                        Save
-                      </Button>
-                      <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
               </>
             ) : (
               <>
-                <Box m={'7px'} onClick={onOpen}>
+                <Box
+                  m={'7px'}
+                  onClick={() =>
+                    router.push(`/Patient/${patientId}/createTask`)
+                  }
+                >
                   <Task plusSign={true} />
                 </Box>
-                <Modal
-                  initialFocusRef={initialRef}
-                  finalFocusRef={finalRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Create a Task</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
-                      <FormControl>
-                        <FormLabel>Title</FormLabel>
-                        <Input ref={initialRef} placeholder="Title" />
-                      </FormControl>
-
-                      <FormControl mt={4}>
-                        <FormLabel>Content</FormLabel>
-                        <Input placeholder="Content" />
-                      </FormControl>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3}>
-                        Save
-                      </Button>
-                      <Button onClick={onClose}>Cancel</Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
               </>
             )}
           </InnerServiceDone>
@@ -258,34 +143,9 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         p={'10px'}
         justifyContent={'center'}
         alignItems={'center'}
-        onClick={onOpen}
+        onClick={() => router.push(`/Patient/${patientId}/createService`)}
       >
         <AddIcon w={50} h={50} m={10} />
-        <Modal
-          initialFocusRef={initialRef}
-          finalFocusRef={finalRef}
-          isOpen={isOpen}
-          onClose={onClose}
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create a Service</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>Title</FormLabel>
-                <Input ref={initialRef} placeholder="Title" />
-              </FormControl>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3}>
-                Save
-              </Button>
-              <Button onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
       </Flex>
     );
 };

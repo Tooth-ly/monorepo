@@ -15,13 +15,13 @@ export class Service extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
-  service_id: number;
+  @Field(() => String)
+  @Column({ type: 'text' })
+  name: string;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
-  file_number: number;
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  description?: string;
 
   @Field(() => String)
   @CreateDateColumn()

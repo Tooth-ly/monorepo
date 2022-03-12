@@ -1,5 +1,5 @@
-import { Hr_Assignee } from '../../entities/Hr_Assignee';
-import { ObjectType, Field, InputType, Int } from 'type-graphql';
+import { Field, InputType, Int, ObjectType } from 'type-graphql';
+import { Hr_Assignee, HR_Type } from '../../entities/Hr_Assignee';
 
 @ObjectType()
 export class FieldError {
@@ -29,36 +29,36 @@ export class Hr_Assignee_Input {
   @Field()
   password: string;
 
-  @Field(() => String)
-  birth_date: Date;
+  @Field()
+  profile_pic_url: string;
 
-  @Field(() => Int)
-  requirement_level: number;
-
-  @Field(() => String)
-  type: string;
+  @Field(() => HR_Type)
+  hr_type: HR_Type;
 
   @Field(() => String)
   mail: string;
+
+  @Field(() => String)
+  createdAt: Date;
+
+  @Field(() => String)
+  updatedAt: Date;
 }
 
 @InputType()
 export class Hr_Assignee_Update_Input {
   @Field()
-  name?: string;
+  name: string;
 
   @Field()
-  password?: string;
+  password: string;
+
+  @Field()
+  profile_pic_url: string;
+
+  @Field(() => HR_Type)
+  hr_type: HR_Type;
 
   @Field(() => String)
-  birth_date?: Date;
-
-  @Field(() => Int)
-  requirement_level?: number;
-
-  @Field(() => String)
-  type?: string;
-
-  @Field(() => String)
-  mail?: string;
+  mail: string;
 }

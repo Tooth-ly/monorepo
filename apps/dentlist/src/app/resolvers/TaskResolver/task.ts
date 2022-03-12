@@ -2,6 +2,7 @@ import { Task } from '../../entities/Task';
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { Task_Input, Task_Response, Task_Update_Input } from './types';
 import { validateTask } from './validation';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class Task_Resolver {
@@ -53,7 +54,14 @@ export class Task_Resolver {
 
   // tasks by service id
   @Query(() => [Task])
-  tasksByService(@Arg('sid', () => Int) sid: number) {
-    return Task.find({ sid });
+  async tasksByService(@Arg('sid', () => Int) sid: number) {
+    const tasks = await getConnection()
+    .createQueryBuilder()
+    .select("task")
+    .from(Task, "task")
+    .where("task.sid = :sid", { sid })
+    .getMany()
+    console.log('tasks by service:', tasks)
+    return tasks
   }
 }

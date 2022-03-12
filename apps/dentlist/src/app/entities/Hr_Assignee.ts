@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -6,44 +6,47 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm'
+} from 'typeorm';
+
+export enum HR_Type {
+  Admin = 'Admin',
+  Doctor = 'Doctor',
+  Student = 'Student',
+  Employee = 'Employee',
+}
 
 @ObjectType() // for graphql class
 @Entity()
 export class Hr_Assignee extends BaseEntity {
   @Field(() => Int) // for graphql type
   @PrimaryGeneratedColumn() // for db type
-  id: number
+  id: number;
 
   @Field()
   @Column()
-  name: string
+  name: string;
 
   @Field()
   @Column()
-  password: string
+  password: string;
 
-  @Field(() => String)
-  @CreateDateColumn()
-  birth_date: Date
+  @Field()
+  @Column()
+  profile_pic_url: string;
 
-  @Field(() => Int)
-  @Column('int', { nullable: true })
-  requirement_level: number
+  @Field(() => HR_Type)
+  @Column({ type: 'text' })
+  hr_type: HR_Type;
 
   @Field(() => String)
   @Column()
-  type: string 
-
-  @Field(() => String)
-  @Column()
-  mail: string
+  mail: string;
 
   @Field(() => String)
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @Field(() => String)
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 }

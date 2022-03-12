@@ -9,7 +9,10 @@ interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
-  const [isLargerThan900] = useMediaQuery('(min-width: 900px)');
+  const [isLargerThan900, isDisplayingInBrowser] = useMediaQuery([
+    '(min-width: 900px)',
+    '(display-mode: browser)',
+  ]);
 
   const signout = () => {
     console.log('yeet out');
@@ -17,7 +20,21 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
 
   return (
     <>
-      {isLargerThan900 ? (
+      {!isLargerThan900 && isDisplayingInBrowser ? (
+        <NavContainer900>
+          <Box p={0} m={1} cursor={'pointer'} onClick={() => router.push('/')}>
+            <Image src={'/icons8-module-90.png'} width={45} height={45} />
+          </Box>
+          <Box
+            m={1}
+            p={0}
+            cursor={'pointer'}
+            onClick={() => router.push('./user-profile')}
+          >
+            <Image src={'/icons8-user-90.png'} width={45} height={45} />
+          </Box>
+        </NavContainer900>
+      ) : (
         <Flex
           direction={'column'}
           justifyContent={'space-between'}
@@ -49,20 +66,6 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
             />
           </Box>
         </Flex>
-      ) : (
-        <NavContainer900>
-          <Box p={0} m={1} cursor={'pointer'} onClick={() => router.push('/')}>
-            <Image src={'/icons8-module-90.png'} width={45} height={45} />
-          </Box>
-          <Box
-            m={1}
-            p={0}
-            cursor={'pointer'}
-            onClick={() => router.push('./user-profile')}
-          >
-            <Image src={'/icons8-user-90.png'} width={45} height={45} />
-          </Box>
-        </NavContainer900>
       )}
     </>
   );

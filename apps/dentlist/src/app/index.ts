@@ -7,13 +7,15 @@ import express from 'express';
 import session from 'express-session';
 import Redis from 'ioredis';
 import 'reflect-metadata';
-import { buildSchema } from 'type-graphql';
+import { buildSchema, registerEnumType } from 'type-graphql';
 import { createConnection, getConnectionOptions } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
+import { HR_Type } from './entities/Hr_Assignee';
+import { Gender } from './entities/Patient';
+import { Stage } from './entities/Task';
 import { File_Resolver } from './resolvers/File/file';
 import { Hr_Assignee_Resolver } from './resolvers/HrAssignee/hr_assignee';
 import { Patient_Resolver } from './resolvers/Patient/patient';
-import { Person_Resolver } from './resolvers/Person/person';
 import { Task_Resolver } from './resolvers/TaskResolver/task';
 
 export const redis = new Redis(process.env['REDIS_URL']);
@@ -53,12 +55,15 @@ export const main = async () => {
     })
   );
 
+  registerEnumType(Stage, { name: 'Stage' });
+  registerEnumType(Gender, { name: 'Gender' });
+  registerEnumType(HR_Type, { name: 'HR_Type' });
+
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
         File_Resolver,
         Patient_Resolver,
-        Person_Resolver,
         Task_Resolver,
         Hr_Assignee_Resolver,
       ],

@@ -1,5 +1,5 @@
-import { Patient } from '../../entities/Patient';
-import { ObjectType, Field, InputType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
+import { Gender, Patient } from '../../entities/Patient';
 
 @ObjectType()
 export class FieldError {
@@ -23,15 +23,36 @@ export class Patient_Input {
   @Field()
   id: number;
 
+  @Field(() => Number)
+  file_number: number;
+
   @Field(() => String)
-  medical_condition: string;
+  name: string;
+
+  @Field(() => Gender)
+  gender: Gender;
+
+  @Field(() => Number)
+  age: number;
+
+  @Field(() => Number)
+  cat_id: number;
 }
 
 @InputType()
 export class Patient_Update_Input {
-  @Field()
-  id?: number;
+  @Field(() => Number, { nullable: true })
+  file_number?: number;
 
-  @Field(() => String)
-  medical_condition?: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
+
+  @Field(() => Gender, { nullable: true })
+  gender?: Gender;
+
+  @Field(() => Number, { nullable: true })
+  age?: number;
+
+  @Field(() => Number, { nullable: true })
+  cat_id?: number;
 }

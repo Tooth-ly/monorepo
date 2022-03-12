@@ -1,11 +1,26 @@
 import styled from 'styled-components';
 
+export const Container900 = styled.div({
+  backgroundColor: '#DFFAFF',
+  fontFamily: 'Sans',
+  paddingBottom: '10px',
+  paddingTop: '1px',
+  marginTop: '-10px',
+  display: 'grid',
+  // templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'},
+  gridTemplateColumns: '110px 1fr',
+});
+
 export const Container = styled.div({
   backgroundColor: '#DFFAFF',
   fontFamily: 'Sans',
   paddingBottom: '10px',
   paddingTop: '1px',
   marginTop: '-10px',
+  display: 'grid',
+  // templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'},
+  gridTemplateColumns: '90px 1fr',
+  padding: '17px',
 });
 
 export const GreenCircle = styled.span`

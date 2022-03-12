@@ -1,5 +1,5 @@
-import { Task } from '../..//entities/Task';
-import { ObjectType, Field, InputType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
+import { Stage, Task } from '../..//entities/Task';
 
 @ObjectType()
 export class FieldError {
@@ -20,33 +20,42 @@ export class Task_Response {
 
 @InputType()
 export class Task_Input {
-  @Field()
-  id: number;
-
   @Field(() => Number)
-  sid: number;
+  service_log_id: number;
 
-  @Field(() => Number)
-  required_level: number;
+  @Field(() => Stage)
+  stage: Stage;
 
   @Field(() => String)
-  description: string;
+  name: string;
+
+  @Field(() => String, { nullable: true })
+  description?: string;
+
+  @Field(() => String, { nullable: true })
+  assignee_notes: string;
 
   @Field(() => String)
-  title: string;
+  date: Date;
 }
 
 @InputType()
 export class Task_Update_Input {
-  @Field(() => Number)
-  sid?: number;
+  @Field(() => Number, { nullable: true })
+  service_log_id?: number;
 
-  @Field(() => Number)
-  required_level?: number;
+  @Field(() => Stage, { nullable: true })
+  stage?: Stage;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
+  name?: string;
+
+  @Field(() => String, { nullable: true })
   description?: string;
 
-  @Field(() => String)
-  title?: string;
+  @Field(() => String, { nullable: true })
+  assignee_notes?: string;
+
+  @Field(() => String, { nullable: true })
+  date?: Date;
 }
