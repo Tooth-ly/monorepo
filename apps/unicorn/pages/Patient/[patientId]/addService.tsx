@@ -3,9 +3,9 @@ import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-interface createServiceProps {}
+interface addServiceProps {}
 
-const createService: NextLayoutComponentType<createServiceProps> = ({}) => {
+const addService: NextLayoutComponentType<addServiceProps> = ({}) => {
   const router = useRouter();
   const id = router.query.patientId as unknown as number;
 
@@ -18,8 +18,6 @@ const createService: NextLayoutComponentType<createServiceProps> = ({}) => {
   );
 };
 
-createService.getLayout = (page) => (
-  <Layout layoutType="NoBgColor">{page}</Layout>
-);
+addService.getLayout = (page) => <Layout layoutType="NoBgColor">{page}</Layout>;
 
-export default createService;
+export default addService;

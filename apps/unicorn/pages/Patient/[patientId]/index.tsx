@@ -19,6 +19,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
   const router = useRouter();
   const id = router.query.patientId as unknown as number;
   const patientFile: PFiles[] = PFiles.filter((v) => v.id == id);
+
   if (patientFile && patientFile.length > 0) {
     const { id, name, status, profileUrl } = patientFile[0];
 
@@ -41,10 +42,16 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                 {ServicesData.map((serviceData) => {
                   if (serviceData.patientId == id)
                     return (
-                      <PatientService
-                        key={serviceData.id}
-                        serviceData={serviceData}
-                      />
+                      <div
+                        onClick={() =>
+                          router.push(`/service/${serviceData.id}`)
+                        }
+                      >
+                        <PatientService
+                          key={serviceData.id}
+                          serviceData={serviceData}
+                        />
+                      </div>
                     );
                 })}
                 <PatientService />
@@ -71,10 +78,16 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                 {ServicesData.map((serviceData) => {
                   if (serviceData.patientId == id)
                     return (
-                      <PatientService
-                        key={serviceData.id}
-                        serviceData={serviceData}
-                      />
+                      <div
+                        onClick={() =>
+                          router.push(`/service/${serviceData.id}`)
+                        }
+                      >
+                        <PatientService
+                          key={serviceData.id}
+                          serviceData={serviceData}
+                        />
+                      </div>
                     );
                 })}
                 <PatientService />

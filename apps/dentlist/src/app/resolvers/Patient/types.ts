@@ -5,6 +5,7 @@ import { Gender, Patient } from '../../entities/Patient';
 export class FieldError {
   @Field()
   field: string;
+
   @Field()
   message: string;
 }

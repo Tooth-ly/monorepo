@@ -23,7 +23,7 @@ export class Patient_Resolver {
   }
 
   @Query(() => Patient)
-  patient(@Arg('id') id: string) {
+  patient(@Arg('id') id: number) {
     return Patient.findOne(id);
   }
 
