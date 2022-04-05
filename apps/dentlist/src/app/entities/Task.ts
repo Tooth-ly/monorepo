@@ -22,7 +22,7 @@ export class Task extends BaseEntity {
   id: number;
 
   @Field(() => Number)
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   service_log_id: number;
 
   @Field(() => Stage)

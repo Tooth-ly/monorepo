@@ -22,7 +22,7 @@ export class Patient extends BaseEntity {
   id: number;
 
   @Field(() => Number)
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   file_number: number;
 
   @Field(() => String)
@@ -34,11 +34,11 @@ export class Patient extends BaseEntity {
   gender: Gender;
 
   @Field(() => Number)
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   age: number;
 
   @Field(() => Number)
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   cat_id: number;
 
   @Field(() => String)

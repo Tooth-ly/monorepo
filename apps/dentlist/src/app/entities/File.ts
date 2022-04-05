@@ -16,7 +16,7 @@ export class File extends BaseEntity {
   file_number: number;
 
   @Field(() => Number, { nullable: true })
-  @Column({ type: 'number', nullable: true })
+  @Column({ type: 'bigint', nullable: true })
   patient_id: number;
 
   @Field(() => String, { nullable: true })

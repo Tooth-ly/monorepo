@@ -16,16 +16,16 @@ export class ServiceLog extends BaseEntity {
   id: number;
 
   @Field(() => Number)
-  @Column({type: 'number'})
-  service_id: number 
+  @Column({ type: 'int' })
+  service_id: number;
 
   @Field(() => Number)
-  @Column({type: 'number'})
-  patient_id: number 
+  @Column({ type: 'int' })
+  patient_id: number;
 
   @Field(() => Number)
-  @Column({type: 'number'})
-  assignee_id: number 
+  @Column({ type: 'int' })
+  assignee_id: number;
 
   @Field(() => String)
   @CreateDateColumn()
@@ -39,4 +39,3 @@ export class ServiceLog extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-
