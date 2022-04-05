@@ -57,24 +57,21 @@ export type Hr_Assignee = {
   __typename?: 'Hr_Assignee';
   createdAt: Scalars['String'];
   email: Scalars['String'];
-  hr_type: Hr_Type;
+  hr_type?: Maybe<Hr_Type>;
   id: Scalars['Int'];
   mail: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-  profile_pic_url: Scalars['String'];
+  profile_pic_url?: Maybe<Scalars['String']>;
   updatedAt: Scalars['String'];
 };
 
 export type Hr_Assignee_Input = {
-  createdAt: Scalars['String'];
-  hr_type: Hr_Type;
-  id: Scalars['Int'];
+  hr_type?: InputMaybe<Scalars['String']>;
   mail: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-  profile_pic_url: Scalars['String'];
-  updatedAt: Scalars['String'];
+  profile_pic_url?: InputMaybe<Scalars['String']>;
 };
 
 export type Hr_Assignee_Response = {
@@ -93,21 +90,29 @@ export type Hr_Assignee_Update_Input = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addService: ServiceLog;
   changePassword: Hr_Assignee_Response;
   createFile: File;
-  createHrAssignee: Hr_Assignee;
+  createHrAssignee: Hr_Assignee_Response;
   createPatient: Patient;
   createTask: Task;
   deleteFile: Scalars['Boolean'];
   deleteHrAssignee: Scalars['Boolean'];
   deletePatient: Scalars['Boolean'];
+  deleteServiceLog: Scalars['Boolean'];
   deleteTask: Scalars['Boolean'];
   login: Hr_Assignee_Response;
   logout: Scalars['Boolean'];
   updateFile: Scalars['Boolean'];
   updateHrAssignee: Scalars['Boolean'];
   updatePatient: Scalars['Boolean'];
+  updateServiceLog: Scalars['Boolean'];
   updateTask: Scalars['Boolean'];
+};
+
+
+export type MutationAddServiceArgs = {
+  input: ServiceLog_Input;
 };
 
 
@@ -152,6 +157,11 @@ export type MutationDeletePatientArgs = {
 };
 
 
+export type MutationDeleteServiceLogArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationDeleteTaskArgs = {
   id: Scalars['Int'];
 };
@@ -178,6 +188,12 @@ export type MutationUpdateHrAssigneeArgs = {
 export type MutationUpdatePatientArgs = {
   id: Scalars['Int'];
   input: Patient_Input;
+};
+
+
+export type MutationUpdateServiceLogArgs = {
+  id: Scalars['Int'];
+  input: ServiceLog_Input;
 };
 
 
@@ -213,8 +229,11 @@ export type Query = {
   files: Array<File>;
   hrAssignee: Hr_Assignee;
   hrAssignees: Array<Hr_Assignee>;
+  me?: Maybe<Hr_Assignee>;
   patient: Patient;
   patients: Array<Patient>;
+  servicelog: ServiceLog;
+  servicelogs: Array<ServiceLog>;
   task: Task;
   tasks: Array<Task>;
   tasksByService: Array<Task>;
@@ -232,7 +251,12 @@ export type QueryHrAssigneeArgs = {
 
 
 export type QueryPatientArgs = {
-  id: Scalars['String'];
+  id: Scalars['Float'];
+};
+
+
+export type QueryServicelogArgs = {
+  service_log_id: Scalars['Float'];
 };
 
 
@@ -243,6 +267,23 @@ export type QueryTaskArgs = {
 
 export type QueryTasksByServiceArgs = {
   sid: Scalars['Int'];
+};
+
+export type ServiceLog = {
+  __typename?: 'ServiceLog';
+  assignee_id: Scalars['Float'];
+  createdAt: Scalars['String'];
+  date: Scalars['String'];
+  id: Scalars['Float'];
+  patient_id: Scalars['Float'];
+  service_id: Scalars['Float'];
+  updatedAt: Scalars['String'];
+};
+
+export type ServiceLog_Input = {
+  assignee_id: Scalars['Float'];
+  patient_id: Scalars['Float'];
+  service_id: Scalars['Float'];
 };
 
 export enum Stage {
@@ -273,13 +314,20 @@ export type Task_Input = {
   stage: Stage;
 };
 
+export type AddServiceMutationVariables = Exact<{
+  input: ServiceLog_Input;
+}>;
+
+
+export type AddServiceMutation = { __typename?: 'Mutation', addService: { __typename?: 'ServiceLog', id: number, service_id: number, assignee_id: number, patient_id: number, date: string, createdAt: string, updatedAt: string } };
+
 export type ChangePasswordMutationVariables = Exact<{
   newPassword: Scalars['String'];
   token: Scalars['String'];
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url: string, hr_type: Hr_Type, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
 
 export type CreateFileMutationVariables = Exact<{
   input: File_Input;
@@ -293,7 +341,7 @@ export type CreateHrAssigneeMutationVariables = Exact<{
 }>;
 
 
-export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url: string, hr_type: Hr_Type, createdAt: string, mail: string, updatedAt: string, email: string } };
+export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, mail: string, email: string, createdAt: string, updatedAt: string } | null } };
 
 export type CreatePatientMutationVariables = Exact<{
   input: Patient_Input;
@@ -330,6 +378,13 @@ export type DeletePatientMutationVariables = Exact<{
 
 export type DeletePatientMutation = { __typename?: 'Mutation', deletePatient: boolean };
 
+export type DeleteServiceLogMutationVariables = Exact<{
+  deleteServiceLogId: Scalars['Int'];
+}>;
+
+
+export type DeleteServiceLogMutation = { __typename?: 'Mutation', deleteServiceLog: boolean };
+
 export type DeleteTaskMutationVariables = Exact<{
   deleteTaskId: Scalars['Int'];
 }>;
@@ -343,7 +398,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, password: string, name: string, profile_pic_url: string, hr_type: Hr_Type, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, password: string, name: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
 
 export type MutationMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -374,6 +429,14 @@ export type UpdatePatientMutationVariables = Exact<{
 
 export type UpdatePatientMutation = { __typename?: 'Mutation', updatePatient: boolean };
 
+export type UpdateServiceLogMutationVariables = Exact<{
+  input: ServiceLog_Input;
+  updateServiceLogId: Scalars['Int'];
+}>;
+
+
+export type UpdateServiceLogMutation = { __typename?: 'Mutation', updateServiceLog: boolean };
+
 export type UpdateTaskMutationVariables = Exact<{
   input: Task_Input;
   updateTaskId: Scalars['Int'];
@@ -399,15 +462,20 @@ export type HrAssigneeQueryVariables = Exact<{
 }>;
 
 
-export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, email: string, profile_pic_url: string, hr_type: Hr_Type, mail: string, createdAt: string, updatedAt: string } };
+export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, email: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string } };
 
 export type HrAssigneesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'Hr_Assignee', email: string, updatedAt: string, createdAt: string, mail: string, hr_type: Hr_Type, profile_pic_url: string, password: string, name: string, id: number }> };
+export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'Hr_Assignee', email: string, updatedAt: string, createdAt: string, mail: string, hr_type?: Hr_Type | null, profile_pic_url?: string | null, password: string, name: string, id: number }> };
+
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, createdAt: string, updatedAt: string, email: string, mail: string } | null };
 
 export type PatientQueryVariables = Exact<{
-  patientId: Scalars['String'];
+  patientId: Scalars['Float'];
 }>;
 
 
@@ -417,6 +485,18 @@ export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, createdAt: string, updatedAt: string }> };
+
+export type ServicelogQueryVariables = Exact<{
+  serviceLogId: Scalars['Float'];
+}>;
+
+
+export type ServicelogQuery = { __typename?: 'Query', servicelog: { __typename?: 'ServiceLog', id: number, service_id: number, patient_id: number, assignee_id: number, date: string, createdAt: string, updatedAt: string } };
+
+export type ServicelogsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServicelogsQuery = { __typename?: 'Query', servicelogs: Array<{ __typename?: 'ServiceLog', id: number, service_id: number, patient_id: number, assignee_id: number, date: string, createdAt: string, updatedAt: string }> };
 
 export type TaskQueryVariables = Exact<{
   taskId: Scalars['String'];
@@ -438,6 +518,45 @@ export type TasksQueryVariables = Exact<{ [key: string]: never; }>;
 export type TasksQuery = { __typename?: 'Query', tasks: Array<{ __typename?: 'Task', id: number, service_log_id: number, stage: Stage, name: string, description?: string | null, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string }> };
 
 
+export const AddServiceDocument = gql`
+    mutation AddService($input: ServiceLog_Input!) {
+  addService(input: $input) {
+    id
+    service_id
+    assignee_id
+    patient_id
+    date
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type AddServiceMutationFn = Apollo.MutationFunction<AddServiceMutation, AddServiceMutationVariables>;
+
+/**
+ * __useAddServiceMutation__
+ *
+ * To run a mutation, you first call `useAddServiceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddServiceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addServiceMutation, { data, loading, error }] = useAddServiceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddServiceMutation(baseOptions?: Apollo.MutationHookOptions<AddServiceMutation, AddServiceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddServiceMutation, AddServiceMutationVariables>(AddServiceDocument, options);
+      }
+export type AddServiceMutationHookResult = ReturnType<typeof useAddServiceMutation>;
+export type AddServiceMutationResult = Apollo.MutationResult<AddServiceMutation>;
+export type AddServiceMutationOptions = Apollo.BaseMutationOptions<AddServiceMutation, AddServiceMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($newPassword: String!, $token: String!) {
   changePassword(newPassword: $newPassword, token: $token) {
@@ -527,15 +646,19 @@ export type CreateFileMutationOptions = Apollo.BaseMutationOptions<CreateFileMut
 export const CreateHrAssigneeDocument = gql`
     mutation CreateHrAssignee($input: Hr_Assignee_Input!) {
   createHrAssignee(input: $input) {
-    id
-    name
-    password
-    profile_pic_url
-    hr_type
-    createdAt
-    mail
-    updatedAt
-    email
+    errors {
+      field
+      message
+    }
+    hr_assignee {
+      id
+      name
+      password
+      mail
+      email
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -739,6 +862,37 @@ export function useDeletePatientMutation(baseOptions?: Apollo.MutationHookOption
 export type DeletePatientMutationHookResult = ReturnType<typeof useDeletePatientMutation>;
 export type DeletePatientMutationResult = Apollo.MutationResult<DeletePatientMutation>;
 export type DeletePatientMutationOptions = Apollo.BaseMutationOptions<DeletePatientMutation, DeletePatientMutationVariables>;
+export const DeleteServiceLogDocument = gql`
+    mutation DeleteServiceLog($deleteServiceLogId: Int!) {
+  deleteServiceLog(id: $deleteServiceLogId)
+}
+    `;
+export type DeleteServiceLogMutationFn = Apollo.MutationFunction<DeleteServiceLogMutation, DeleteServiceLogMutationVariables>;
+
+/**
+ * __useDeleteServiceLogMutation__
+ *
+ * To run a mutation, you first call `useDeleteServiceLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteServiceLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteServiceLogMutation, { data, loading, error }] = useDeleteServiceLogMutation({
+ *   variables: {
+ *      deleteServiceLogId: // value for 'deleteServiceLogId'
+ *   },
+ * });
+ */
+export function useDeleteServiceLogMutation(baseOptions?: Apollo.MutationHookOptions<DeleteServiceLogMutation, DeleteServiceLogMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteServiceLogMutation, DeleteServiceLogMutationVariables>(DeleteServiceLogDocument, options);
+      }
+export type DeleteServiceLogMutationHookResult = ReturnType<typeof useDeleteServiceLogMutation>;
+export type DeleteServiceLogMutationResult = Apollo.MutationResult<DeleteServiceLogMutation>;
+export type DeleteServiceLogMutationOptions = Apollo.BaseMutationOptions<DeleteServiceLogMutation, DeleteServiceLogMutationVariables>;
 export const DeleteTaskDocument = gql`
     mutation DeleteTask($deleteTaskId: Int!) {
   deleteTask(id: $deleteTaskId)
@@ -944,6 +1098,38 @@ export function useUpdatePatientMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdatePatientMutationHookResult = ReturnType<typeof useUpdatePatientMutation>;
 export type UpdatePatientMutationResult = Apollo.MutationResult<UpdatePatientMutation>;
 export type UpdatePatientMutationOptions = Apollo.BaseMutationOptions<UpdatePatientMutation, UpdatePatientMutationVariables>;
+export const UpdateServiceLogDocument = gql`
+    mutation UpdateServiceLog($input: ServiceLog_Input!, $updateServiceLogId: Int!) {
+  updateServiceLog(input: $input, id: $updateServiceLogId)
+}
+    `;
+export type UpdateServiceLogMutationFn = Apollo.MutationFunction<UpdateServiceLogMutation, UpdateServiceLogMutationVariables>;
+
+/**
+ * __useUpdateServiceLogMutation__
+ *
+ * To run a mutation, you first call `useUpdateServiceLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateServiceLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateServiceLogMutation, { data, loading, error }] = useUpdateServiceLogMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      updateServiceLogId: // value for 'updateServiceLogId'
+ *   },
+ * });
+ */
+export function useUpdateServiceLogMutation(baseOptions?: Apollo.MutationHookOptions<UpdateServiceLogMutation, UpdateServiceLogMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateServiceLogMutation, UpdateServiceLogMutationVariables>(UpdateServiceLogDocument, options);
+      }
+export type UpdateServiceLogMutationHookResult = ReturnType<typeof useUpdateServiceLogMutation>;
+export type UpdateServiceLogMutationResult = Apollo.MutationResult<UpdateServiceLogMutation>;
+export type UpdateServiceLogMutationOptions = Apollo.BaseMutationOptions<UpdateServiceLogMutation, UpdateServiceLogMutationVariables>;
 export const UpdateTaskDocument = gql`
     mutation UpdateTask($input: Task_Input!, $updateTaskId: Int!) {
   updateTask(input: $input, id: $updateTaskId)
@@ -1140,8 +1326,50 @@ export function useHrAssigneesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type HrAssigneesQueryHookResult = ReturnType<typeof useHrAssigneesQuery>;
 export type HrAssigneesLazyQueryHookResult = ReturnType<typeof useHrAssigneesLazyQuery>;
 export type HrAssigneesQueryResult = Apollo.QueryResult<HrAssigneesQuery, HrAssigneesQueryVariables>;
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+    name
+    password
+    profile_pic_url
+    hr_type
+    createdAt
+    updatedAt
+    email
+    mail
+  }
+}
+    `;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+      }
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const PatientDocument = gql`
-    query Patient($patientId: String!) {
+    query Patient($patientId: Float!) {
   patient(id: $patientId) {
     id
     file_number
@@ -1223,6 +1451,87 @@ export function usePatientsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type PatientsQueryHookResult = ReturnType<typeof usePatientsQuery>;
 export type PatientsLazyQueryHookResult = ReturnType<typeof usePatientsLazyQuery>;
 export type PatientsQueryResult = Apollo.QueryResult<PatientsQuery, PatientsQueryVariables>;
+export const ServicelogDocument = gql`
+    query Servicelog($serviceLogId: Float!) {
+  servicelog(service_log_id: $serviceLogId) {
+    id
+    service_id
+    patient_id
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useServicelogQuery__
+ *
+ * To run a query within a React component, call `useServicelogQuery` and pass it any options that fit your needs.
+ * When your component renders, `useServicelogQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useServicelogQuery({
+ *   variables: {
+ *      serviceLogId: // value for 'serviceLogId'
+ *   },
+ * });
+ */
+export function useServicelogQuery(baseOptions: Apollo.QueryHookOptions<ServicelogQuery, ServicelogQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ServicelogQuery, ServicelogQueryVariables>(ServicelogDocument, options);
+      }
+export function useServicelogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ServicelogQuery, ServicelogQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ServicelogQuery, ServicelogQueryVariables>(ServicelogDocument, options);
+        }
+export type ServicelogQueryHookResult = ReturnType<typeof useServicelogQuery>;
+export type ServicelogLazyQueryHookResult = ReturnType<typeof useServicelogLazyQuery>;
+export type ServicelogQueryResult = Apollo.QueryResult<ServicelogQuery, ServicelogQueryVariables>;
+export const ServicelogsDocument = gql`
+    query Servicelogs {
+  servicelogs {
+    id
+    service_id
+    patient_id
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useServicelogsQuery__
+ *
+ * To run a query within a React component, call `useServicelogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useServicelogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useServicelogsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useServicelogsQuery(baseOptions?: Apollo.QueryHookOptions<ServicelogsQuery, ServicelogsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ServicelogsQuery, ServicelogsQueryVariables>(ServicelogsDocument, options);
+      }
+export function useServicelogsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ServicelogsQuery, ServicelogsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ServicelogsQuery, ServicelogsQueryVariables>(ServicelogsDocument, options);
+        }
+export type ServicelogsQueryHookResult = ReturnType<typeof useServicelogsQuery>;
+export type ServicelogsLazyQueryHookResult = ReturnType<typeof useServicelogsLazyQuery>;
+export type ServicelogsQueryResult = Apollo.QueryResult<ServicelogsQuery, ServicelogsQueryVariables>;
 export const TaskDocument = gql`
     query Task($taskId: String!) {
   task(id: $taskId) {

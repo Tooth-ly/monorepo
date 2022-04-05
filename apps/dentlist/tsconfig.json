@@ -6,7 +6,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "target": "es6",
-    "module": "commonjs",
+    "module": "CommonJS",
     "lib": [
       "dom",
       "es6",

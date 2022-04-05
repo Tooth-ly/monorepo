@@ -143,7 +143,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         p={'10px'}
         justifyContent={'center'}
         alignItems={'center'}
-        onClick={() => router.push(`/Patient/${patientId}/createService`)}
+        onClick={() => router.push(`/Patient/${patientId}/addService`)}
       >
         <AddIcon w={50} h={50} m={10} />
       </Flex>

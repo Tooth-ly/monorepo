@@ -5,6 +5,7 @@
     "mobileapp": "apps/mobileapp",
     "mobileapp-e2e": "apps/mobileapp-e2e",
     "unicorn": "apps/unicorn",
-    "unicorn-e2e": "apps/unicorn-e2e"
+    "unicorn-e2e": "apps/unicorn-e2e",
+    "validation": "libs/validation"
   }
 }

@@ -30,13 +30,13 @@ export class Hr_Assignee extends BaseEntity {
   @Column()
   password: string;
 
-  @Field()
-  @Column()
-  profile_pic_url: string;
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  profile_pic_url?: string;
 
-  @Field(() => HR_Type)
-  @Column({ type: 'text' })
-  hr_type: HR_Type;
+  @Field(() => HR_Type, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  hr_type?: HR_Type;
 
   @Field(() => String)
   @Column()

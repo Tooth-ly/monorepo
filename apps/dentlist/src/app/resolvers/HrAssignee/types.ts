@@ -1,4 +1,4 @@
-import { Field, InputType, Int, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
 import { Hr_Assignee, HR_Type } from '../../entities/Hr_Assignee';
 
 @ObjectType()
@@ -20,29 +20,20 @@ export class Hr_Assignee_Response {
 
 @InputType()
 export class Hr_Assignee_Input {
-  @Field(() => Int) // for graphql type
-  id: number;
-
   @Field()
   name: string;
 
   @Field()
   password: string;
 
-  @Field()
-  profile_pic_url: string;
+  @Field({ nullable: true })
+  profile_pic_url?: string;
 
-  @Field(() => HR_Type)
-  hr_type: HR_Type;
+  @Field({ nullable: true })
+  hr_type?: HR_Type;
 
   @Field(() => String)
   mail: string;
-
-  @Field(() => String)
-  createdAt: Date;
-
-  @Field(() => String)
-  updatedAt: Date;
 }
 
 @InputType()

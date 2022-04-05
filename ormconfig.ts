@@ -6,8 +6,12 @@ module.exports = [
     url: process.env['DATABASE_URL'],
     logging: true,
     synchronize: true,
-    migrations: ['dist/src/migration/*.ts'],
-    entities: ['dist/src/entity/*.ts'],
+    entities: [
+      __dirname + '/dist/apps/dentlist/src/app/entities/*.entity{.ts,.js}',
+    ],
+    migrations: [
+      __dirname + '/dist/apps/dentlist/src/app/**/*.migrations{.ts,.js}',
+    ],
     cli: {
       entitiesDir: 'dist/src/entity',
       migrationsDir: 'dist/src/migration',

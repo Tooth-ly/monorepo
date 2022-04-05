@@ -1,0 +1,3 @@
+mutation DeleteServiceLog($deleteServiceLogId: Int!) {
+  deleteServiceLog(id: $deleteServiceLogId)
+}

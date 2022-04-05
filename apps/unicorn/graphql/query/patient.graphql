@@ -1,4 +1,4 @@
-query Patient($patientId: String!) {
+query Patient($patientId: Float!) {
   patient(id: $patientId) {
     id
     file_number

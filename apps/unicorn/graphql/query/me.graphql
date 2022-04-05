@@ -1,0 +1,13 @@
+query Me {
+  me {
+    id
+    name
+    password
+    profile_pic_url
+    hr_type
+    createdAt
+    updatedAt
+    email
+    mail
+  }
+}

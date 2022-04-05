@@ -1,0 +1,11 @@
+query Servicelogs {
+  servicelogs {
+    id
+    service_id
+    patient_id
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}

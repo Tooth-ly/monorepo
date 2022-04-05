@@ -1,0 +1,6 @@
+mutation UpdateServiceLog(
+  $input: ServiceLog_Input!
+  $updateServiceLogId: Int!
+) {
+  updateServiceLog(input: $input, id: $updateServiceLogId)
+}

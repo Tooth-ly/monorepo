@@ -22,7 +22,7 @@ import Image from 'next/image';
 interface PatientMenuProps {
   id: Number;
   name: string;
-  status: string;
+  status?: string;
   profileUrl: string;
 }
 

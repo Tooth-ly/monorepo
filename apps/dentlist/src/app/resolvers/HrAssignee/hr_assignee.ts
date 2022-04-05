@@ -21,8 +21,19 @@ import { validateHrAssignee } from './validation';
 
 @Resolver(Hr_Assignee)
 export class Hr_Assignee_Resolver {
+  // for authentication purposes
+  @Query(() => Hr_Assignee, { nullable: true })
+  me(@Ctx() { req }: MyContext) {
+    // you are not logged in
+    if (!req.session.hr_assignee_Id) {
+      return null;
+    }
+
+    return Hr_Assignee.findOne(req.session.hr_assignee_Id);
+  }
+
   // crud: create
-  @Mutation(() => Hr_Assignee)
+  @Mutation(() => Hr_Assignee_Response)
   async createHrAssignee(
     @Arg('input', () => Hr_Assignee_Input) input: Hr_Assignee_Input,
     @Ctx() { req }: MyContext

@@ -1,0 +1,11 @@
+query Servicelog($serviceLogId: Float!) {
+  servicelog(service_log_id: $serviceLogId) {
+    id
+    service_id
+    patient_id
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}

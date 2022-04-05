@@ -1,15 +1,13 @@
-import { NextLayoutComponentType } from "next";
-import React from "react";
-import Layout from "../layouts/Layout";
+import { NextLayoutComponentType } from 'next';
+import React from 'react';
+import Layout from '../layouts/Layout';
 
-interface userProfileProps { }
+interface userProfileProps {}
 
-const userProfile: NextLayoutComponentType<userProfileProps> = ({ }) => {
-    return (
-        <div>user profile page</div>
-    );
+const userProfile: NextLayoutComponentType<userProfileProps> = ({}) => {
+  return <>user profile page</>;
 };
 
 userProfile.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
-export default userProfile
+export default userProfile;
