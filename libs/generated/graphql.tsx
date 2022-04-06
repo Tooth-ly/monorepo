@@ -341,7 +341,7 @@ export type CreateHrAssigneeMutationVariables = Exact<{
 }>;
 
 
-export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, mail: string, email: string, createdAt: string, updatedAt: string } | null } };
+export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
 
 export type CreatePatientMutationVariables = Exact<{
   input: Patient_Input;
@@ -654,10 +654,12 @@ export const CreateHrAssigneeDocument = gql`
       id
       name
       password
+      profile_pic_url
+      hr_type
       mail
-      email
       createdAt
       updatedAt
+      email
     }
   }
 }

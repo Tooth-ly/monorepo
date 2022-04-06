@@ -40,6 +40,8 @@ export class Hr_Assignee_Resolver {
   ): Promise<Hr_Assignee_Response> {
     const errors = validateHrAssignee(input);
     if (errors) {
+      console.log(errors);
+      console.log(input);
       return { errors };
     }
 

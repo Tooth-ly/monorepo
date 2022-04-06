@@ -6,18 +6,12 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import MainDashboard from '../components/MainDashboard';
 import Layout from '../layouts/Layout';
+import { useIsAuth } from '../utils/useIsAuth';
 
 interface indexProps {}
 
 const index: NextLayoutComponentType<indexProps> = () => {
-  const { data } = useMeQuery();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!data) {
-      router.push('/login');
-    }
-  });
+  useIsAuth();
 
   return (
     <Container>

@@ -12,6 +12,7 @@ import {
 } from 'libs/generated/graphql';
 import Layout from '../layouts/Layout';
 import { toErrorMap } from '../utils/toErrorMap';
+import { withApollo } from '../utils/withApollo';
 
 interface registerProps {}
 
@@ -31,6 +32,7 @@ const register: NextLayoutComponentType<registerProps> = ({}) => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (value, { setErrors }) => {
+          console.log('values', value);
           const response = await register({
             variables: {
               input: {
@@ -47,33 +49,30 @@ const register: NextLayoutComponentType<registerProps> = ({}) => {
                   me: data?.createHrAssignee.hr_assignee,
                 },
               });
-              if (response.data?.createHrAssignee.errors) {
-                setErrors(toErrorMap(response.data.createHrAssignee.errors));
-                console.log(response.data.createHrAssignee.errors);
-              } else if (response.data?.createHrAssignee) {
-                // worked
-                router.push('/');
-              }
             },
             onError: (error) => {
-              console.log('apollo error', error);
+              console.log(error);
             },
           });
+
+          console.log('res register', response);
+          if (response.data?.createHrAssignee.errors) {
+            setErrors(toErrorMap(response.data.createHrAssignee.errors));
+          } else if (response.data?.createHrAssignee.hr_assignee) {
+            // worked
+            router.push('/');
+          }
         }}
       >
         <FormContainer>
           <InnerForm>
-            <Box mb={10}>
-              <InputFieldStyle
-                name="Email"
-                placeholder="email"
-                label="Email"
-                fontsize={23}
-                type={'email'}
-              />
-              {/* {touched.email && errors.email && <Box>{errors.email}</Box>} */}
-              <FormErrorMessage>Email is Required</FormErrorMessage>
-            </Box>
+            <InputFieldStyle
+              name="email"
+              placeholder="email"
+              label="Email"
+              fontsize={23}
+              type={'email'}
+            />
             <InputFieldStyle
               name="password"
               placeholder="password"
@@ -137,4 +136,5 @@ const InputFieldStyle = styled(InputField)`
 `;
 register.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
-export default register;
+export default withApollo({ ssr: false })(register);
+// export default register;

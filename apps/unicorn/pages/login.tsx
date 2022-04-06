@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { InputField } from '../components/InputField';
 import Layout from '../layouts/Layout';
 import { toErrorMap } from '../utils/toErrorMap';
+import { withApollo } from '../utils/withApollo';
 
 interface loginProps {}
 
@@ -40,6 +41,9 @@ const login: NextLayoutComponentType<loginProps & FormikProps<FormValues>> = ({
                 },
               });
               cache.evict({ fieldName: 'data:{}' });
+            },
+            onError: (error) => {
+              console.log('login error', error);
             },
           });
 
@@ -149,4 +153,4 @@ const InputFieldStyle = styled(InputField)`
 
 login.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
-export default login;
+export default withApollo({ ssr: false })(login);
