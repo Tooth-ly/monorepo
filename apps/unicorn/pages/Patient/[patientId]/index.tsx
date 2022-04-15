@@ -26,7 +26,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
     if (isDisplayingInBrowser)
       if (!isLargerThan600) {
         return (
-          <Flex>
+          <Flex flexDir={'column'}>
             <NavBar />
             <Container>
               <PatientMenu
@@ -61,7 +61,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
         );
       } else
         return (
-          <Flex w="100%" mt={0}>
+          <Flex w="100%" mt={0} flexDir={'column'}>
             <NavBar />
             <Container600>
               <PatientMenu

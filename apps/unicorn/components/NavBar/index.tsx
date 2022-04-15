@@ -1,74 +1,115 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
-import { useRouter } from 'next/dist/client/router';
-import Image from 'next/image';
-import React from 'react';
-import { NavContainer900 } from './styled';
+import { AddIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Stack,
+  useColorModeValue,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { NavLink } from './NavLink';
 
-interface NavBarProps {}
+type Link = {
+  name: string;
+  url: string;
+};
 
-const NavBar: React.FC<NavBarProps> = ({}) => {
+const Links: Link[] = [
+  { name: 'Dashboard', url: '/' },
+  { name: 'HR', url: '/hr' },
+  { name: 'Patient Files', url: '/pfiles' },
+];
+
+export default function withAction() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  const [isLargerThan900, isDisplayingInBrowser] = useMediaQuery([
-    '(min-width: 900px)',
-    '(display-mode: browser)',
-  ]);
-
-  const signout = () => {
-    console.log('yeet out');
-  };
 
   return (
     <>
-      {!isLargerThan900 && isDisplayingInBrowser ? (
-        <NavContainer900>
-          <Box p={0} m={1} cursor={'pointer'} onClick={() => router.push('/')}>
-            <Image src={'/icons8-module-90.png'} width={45} height={45} />
-          </Box>
-          <Box
-            m={1}
-            p={0}
-            cursor={'pointer'}
-            onClick={() => router.push('./user-profile')}
-          >
-            <Image src={'/icons8-user-90.png'} width={45} height={45} />
-          </Box>
-        </NavContainer900>
-      ) : (
-        <Flex
-          direction={'column'}
-          justifyContent={'space-between'}
-          h={'100vh'}
-          p={'15px 7px'}
-          alignContent={'baseline'}
-        >
-          <Flex direction={'column'} m={'auto 0px'} w={'100%'}>
-            <Box
-              mb={'20px'}
-              cursor={'pointer'}
-              onClick={() => router.push('/')}
-            >
-              <Image src={'/icons8-module-90.png'} width={45} height={45} />
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <IconButton
+            size={'md'}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label={'Open Menu'}
+            display={{ md: 'none' }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <HStack spacing={8} alignItems={'center'}>
+            <Box cursor={'pointer'} onClick={() => router.push('/')}>
+              Toothly
             </Box>
-            <Box
-              cursor={'pointer'}
-              onClick={() => router.push('./user-profile')}
+            <HStack
+              as={'nav'}
+              spacing={4}
+              display={{ base: 'none', md: 'flex' }}
             >
-              <Image src={'/icons8-user-90.png'} width={45} height={45} />
-            </Box>
+              {Links.map(({ name, url }) => (
+                <NavLink key={url} url={url}>
+                  {name}
+                </NavLink>
+              ))}
+            </HStack>
+          </HStack>
+          <Flex alignItems={'center'}>
+            {/* <Button
+              variant={'solid'}
+              colorScheme={'teal'}
+              size={'sm'}
+              mr={4}
+              leftIcon={<AddIcon />}
+            >
+              Action
+            </Button> */}
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}
+              >
+                <Avatar
+                  size={'sm'}
+                  src={
+                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                  }
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>
+                  <NavLink url={'/user-profile'}>Profile</NavLink>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={() => console.log('sign out hoe')}>
+                  Sign Out
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
-          <Box cursor={'pointer'}>
-            <Image
-              src={'/icons8-sign-out-90.png'}
-              onClick={() => signout()}
-              width={45}
-              height={45}
-            />
-          </Box>
         </Flex>
-      )}
+
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4}>
+              {Links.map(({ url, name }) => (
+                <NavLink key={url} url={url}>
+                  {name}
+                </NavLink>
+              ))}
+            </Stack>
+          </Box>
+        ) : null}
+      </Box>
     </>
   );
-};
-
-export default NavBar;
+}

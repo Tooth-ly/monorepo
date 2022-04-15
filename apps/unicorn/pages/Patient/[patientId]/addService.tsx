@@ -44,7 +44,7 @@ const addService: NextLayoutComponentType<addServiceProps> = ({}) => {
     return (
       <>
         {patientFile.file && patientData.patient ? (
-          <Flex>
+          <Flex flexDir={'column'}>
             <NavBar />
             <Container>
               <PatientMenu

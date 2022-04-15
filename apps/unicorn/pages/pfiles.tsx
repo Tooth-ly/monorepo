@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import { PFiles } from '../data';
 import { PFilesCard } from '../components/PFilesCard';
 import Layout from '../layouts/Layout';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar/index';
 
 interface pfilesProps {}
 
 const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
   const router = useRouter();
   return (
-    <Flex w="100%">
+    <Flex w="100%" flexDir={'column'}>
       <NavBar />
       <Container>
         <Title>Patient Files</Title>
