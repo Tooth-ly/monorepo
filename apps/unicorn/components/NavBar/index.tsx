@@ -1,4 +1,4 @@
-import { AddIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Box,
@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useLogoutMutation } from 'libs/generated/graphql';
 import { useRouter } from 'next/router';
 import { NavLink } from './NavLink';
 
@@ -32,6 +33,7 @@ const Links: Link[] = [
 export default function withAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const [logout] = useLogoutMutation();
 
   return (
     <>
@@ -90,9 +92,7 @@ export default function withAction() {
                   <NavLink url={'/user-profile'}>Profile</NavLink>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => console.log('sign out hoe')}>
-                  Sign Out
-                </MenuItem>
+                <MenuItem onClick={() => logout()}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
