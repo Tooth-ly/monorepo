@@ -1,0 +1,48 @@
+react-native init dentalApp --template react-native-template-typescript
+
+npm run start
+npm run android
+react-native link
+
+theme colors:
+#bfeff8
+#d4f4fa
+#e9f9fc
+
+npm install @react-navigation/native
+npm install @react-navigation/stack
+npm install react-native-gesture-handler
+npm install @react-native-masked-view/masked-view
+npm install react-native-safe-area-context
+npm i react-native-screens
+react-native link
+
+system nav
+https://www.npmjs.com/package/react-native-navigation-bar-color
+
+npm cache clean --force
+npm install
+
+animated header  FAIL
+https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation
+
+swiping for task list
+npm i react-native-swipe-gestures
+
+npm install @react-native-picker/picker --save
+uninstall it
+
+https://www.npmjs.com/package/react-native-segmented-control-tab
+npm install react-native-segmented-control-tab --save
+https://aboutreact.com/react-native-segmented-control-tab/
+not swiping
+DELETED
+
+https://bestofreactjs.com/repo/ainurb-react-native-segment-control-react-react-native-awesome-components
+npm install react-native-segment-control --save
+https://www.npmjs.com/package/react-native-segment-control
+
+doing some changes in node_modules/react-native-segmented-control to customize our segmented control
+lol, added edited segment control to components
+
+you can prop navigation to the index page
