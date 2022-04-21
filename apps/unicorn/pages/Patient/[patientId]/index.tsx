@@ -1,13 +1,16 @@
+import { Flex, Grid, useMediaQuery } from '@chakra-ui/react';
+import {
+  useFileQuery,
+  usePatientQuery,
+  useServicelogQuery,
+} from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { PFiles, ServicesData } from '../../../data';
-import { PatientMenu } from '../../../components/PatientMenu';
-import Layout from '../../../layouts/Layout';
-import { PatientService } from '../../../components/PatientService';
-import { Flex, Grid } from '@chakra-ui/react';
-import { useMediaQuery } from '@chakra-ui/react';
 import NavBar from '../../../components/NavBar';
+import { PatientMenu } from '../../../components/PatientMenu';
+import { PatientService } from '../../../components/PatientService';
+import Layout from '../../../layouts/Layout';
 
 interface PatientProps {}
 const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
@@ -18,10 +21,28 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
 
   const router = useRouter();
   const id = router.query.patientId as unknown as number;
-  const patientFile: PFiles[] = PFiles.filter((v) => v.id == id);
 
-  if (patientFile && patientFile.length > 0) {
-    const { id, name, status, profileUrl } = patientFile[0];
+  // patient
+  const { data: patientData } = usePatientQuery({
+    variables: {
+      patientId: id,
+    },
+  });
+
+  // patient file
+  const { data: patientFileData } = useFileQuery({
+    variables: {
+      fileNumber: patientData.patient.file_number,
+    },
+  });
+
+  // service logs
+  // const {} = useServicelogQuery({
+  //   variables: { serviceLogId: patientFileData.file.serviceLogId },
+  // });
+
+  if (patientFileData && patientFileData) {
+    const { photo_url } = patientFileData.file;
 
     if (isDisplayingInBrowser)
       if (!isLargerThan600) {
@@ -31,9 +52,8 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
             <Container>
               <PatientMenu
                 id={id}
-                name={name}
-                status={status}
-                profileUrl={profileUrl}
+                name={patientData.patient.name}
+                profileUrl={photo_url}
               />
               <Grid
                 templateColumns={'repeat(auto-fit, minmax(300px, 1fr))'}
@@ -42,14 +62,11 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                 {ServicesData.map((serviceData) => {
                   if (serviceData.patientId == id)
                     return (
-                      <div
-                        onClick={() =>
-                          router.push(`/service/${serviceData.id}`)
-                        }
-                      >
+                      <div>
                         <PatientService
                           key={serviceData.id}
                           serviceData={serviceData}
+                          assigneeId={data.me.id}
                         />
                       </div>
                     );
@@ -75,21 +92,19 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                 gap={4}
                 m={'20px'}
               >
-                {ServicesData.map((serviceData) => {
-                  if (serviceData.patientId == id)
-                    return (
-                      <div
-                        onClick={() =>
-                          router.push(`/service/${serviceData.id}`)
-                        }
-                      >
-                        <PatientService
-                          key={serviceData.id}
-                          serviceData={serviceData}
-                        />
-                      </div>
-                    );
-                })}
+                {data &&
+                  ServicesData.map((serviceData) => {
+                    if (serviceData.patientId == id)
+                      return (
+                        <div>
+                          <PatientService
+                            key={serviceData.id}
+                            serviceData={serviceData}
+                            assigneeId={data.me.id}
+                          />
+                        </div>
+                      );
+                  })}
                 <PatientService />
               </Grid>
             </Container600>
@@ -113,6 +128,6 @@ const Container600 = styled.div({
   width: '100%',
 });
 
-Patient.getLayout = (page) => <Layout layoutType="NoBgColor">{page}</Layout>;
+Patient.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
 export default Patient;

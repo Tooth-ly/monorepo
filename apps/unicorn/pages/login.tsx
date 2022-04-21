@@ -49,6 +49,7 @@ const login: NextLayoutComponentType<loginProps & FormikProps<FormValues>> = ({
 
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
+            console.log(response.data.login.errors);
           } else if (response.data?.login.hr_assignee) {
             if (typeof router.query.next === 'string') {
               router.push(router.query.next);

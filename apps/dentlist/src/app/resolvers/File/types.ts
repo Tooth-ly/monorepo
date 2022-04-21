@@ -26,23 +26,23 @@ export class File_Input {
   @Field(() => Number)
   patient_id: number;
 
+  @Field(() => Number)
+  service_log_id: number;
+
   @Field(() => String, { nullable: true })
   photo_url: string;
 
   @Field(() => Number, { nullable: true })
   assignee_id: number;
-
-  @Field(() => String)
-  createdAt: Date;
-
-  @Field(() => String)
-  updatedAt: Date;
 }
 
 @InputType()
 export class File_Update_Input {
   @Field({ nullable: true })
   patient_id?: number;
+
+  @Field({ nullable: true })
+  service_log_id?: number;
 
   @Field({ nullable: true })
   photo_url?: string;

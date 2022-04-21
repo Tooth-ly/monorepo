@@ -1,5 +1,4 @@
 import React from 'react';
-import { PFiles } from '../../data';
 import { Container, Name } from './styled';
 
 interface PFilesCardProps {

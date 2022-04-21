@@ -3,15 +3,19 @@ import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
-import { PFiles } from '../data';
 import { PFilesCard } from '../components/PFilesCard';
 import Layout from '../layouts/Layout';
 import NavBar from '../components/NavBar/index';
+import { useFilesQuery } from 'libs/generated/graphql';
 
 interface pfilesProps {}
 
 const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
   const router = useRouter();
+
+  // fetching patient files
+  const { data: patientFilesData, loading, error } = useFilesQuery();
+
   return (
     <Flex w="100%" flexDir={'column'}>
       <NavBar />
@@ -24,14 +28,16 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
           columnGap={10}
           rowGap={7}
         >
-          {PFiles.map((pfile) => (
-            <div
-              key={pfile.id}
-              onClick={() => router.push(`/Patient/${pfile.id}`)}
-            >
-              <PFilesCard data={pfile} key={pfile.id} />
-            </div>
-          ))}
+          {!error.message &&
+            !loading &&
+            patientFilesData.files.map((pfile) => (
+              <div
+                key={pfile.file_number}
+                onClick={() => router.push(`/Patient/${pfile.file_number}`)}
+              >
+                <PFilesCard data={pfile} key={pfile.file_number} />
+              </div>
+            ))}
         </Grid>
       </Container>
     </Flex>

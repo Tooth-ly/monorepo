@@ -1,8 +1,10 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
+import { Service } from 'apps/unicorn/types';
+import { useAddServiceMutation } from 'libs/generated/graphql';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { Service } from '../../data';
+import React, { useRef } from 'react';
+import { ServiceModal } from '../AddServiceModal';
 import { Task } from '../Task';
 import {
   InnerServiceDone,
@@ -12,13 +14,30 @@ import {
 
 interface PatientServiceProps {
   serviceData?: Service;
+  assigneeId?: number;
 }
 
 export const PatientService: React.FC<PatientServiceProps> = ({
   serviceData,
+  assigneeId,
 }) => {
   const router = useRouter();
   const patientId = router.query.patientId as unknown as number;
+
+  // modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef();
+  const finalRef = useRef();
+
+  const addService = useAddServiceMutation({
+    variables: {
+      input: {
+        patient_id: serviceData.patientId,
+        service_id: serviceData.id,
+        assignee_id: assigneeId,
+      },
+    },
+  });
 
   if (serviceData && patientId)
     return (
@@ -143,9 +162,16 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         p={'10px'}
         justifyContent={'center'}
         alignItems={'center'}
-        onClick={() => router.push(`/Patient/${patientId}/addService`)}
+        onClick={onOpen}
       >
         <AddIcon w={50} h={50} m={10} />
+        <ServiceModal
+          initialRef={initialRef}
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+          finalRef={finalRef}
+        />
       </Flex>
     );
 };

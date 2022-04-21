@@ -1,10 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { MainDashboardCardData } from '../../data';
 import { ImageStyle, Title } from './styled';
 
 interface MainDashboardCardProps {
-  cardData: MainDashboardCardData;
+  cardData: any;
 }
 
 const MainDashboardCard: React.FC<MainDashboardCardProps> = ({ cardData }) => {

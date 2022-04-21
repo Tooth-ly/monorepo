@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { Flex, Grid, useMediaQuery } from '@chakra-ui/react';
-import { MainDashboardCardData } from '../../data';
-import NavBar from '../NavBar/index';
 import MainDashboardCard from '../MainDashboardCard';
 
 interface MainDashboardProps {}
@@ -17,7 +15,6 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
       <>
         {isLargerThan900 ? (
           <Flex w="100%" flexDir={'column'}>
-            <NavBar />
             <Grid
               templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
               rowGap={50}
@@ -47,7 +44,6 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
                 />
               ))}
             </Grid>
-            <NavBar />
           </Flex>
         )}
       </>

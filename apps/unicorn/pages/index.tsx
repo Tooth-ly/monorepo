@@ -3,6 +3,7 @@ import { NextLayoutComponentType } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 import MainDashboard from '../components/MainDashboard';
+import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout';
 import { useIsAuth } from '../utils/useIsAuth';
 
@@ -13,6 +14,7 @@ const index: NextLayoutComponentType<indexProps> = () => {
 
   return (
     <Container>
+      <NavBar />
       <MainDashboard />
     </Container>
   );

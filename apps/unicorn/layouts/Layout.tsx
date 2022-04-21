@@ -1,10 +1,11 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import NavBar from '../components/NavBar';
 import { CLIENT } from '../env';
 
 interface LayoutProps {
-  layoutType: 'Default' | 'Keyboard' | 'NoBgColor';
+  layoutType: 'Default' | 'Navbar';
 }
 
 const client = new ApolloClient({
@@ -17,34 +18,22 @@ const Layout: React.FC<LayoutProps> = ({
   children,
   layoutType = 'Default',
 }) => {
-  if (layoutType === 'Keyboard') {
+  if (layoutType === 'Navbar') {
     return (
       <ApolloProvider client={client}>
-        <LayoutContainerKeyboard>
+        <LayoutContainerNavBar>
           <GlobalStyle />
+          <NavBar />
           <main>{children}</main>
-        </LayoutContainerKeyboard>
-      </ApolloProvider>
-    );
-  }
-
-  if (layoutType === 'NoBgColor') {
-    return (
-      <ApolloProvider client={client}>
-        <LayoutContainer>
-          <GlobalStyle />
-        </LayoutContainer>
-        <main>{children}</main>
+        </LayoutContainerNavBar>
       </ApolloProvider>
     );
   }
 
   return (
     <ApolloProvider client={client}>
-      {/* <LayoutContainer> */}
       <GlobalStyle />
       <main>{children}</main>
-      {/* </LayoutContainer> */}
     </ApolloProvider>
   );
 };
@@ -60,12 +49,8 @@ const GlobalStyle = createGlobalStyle`
       margin: 0;
       }
       `;
-const LayoutContainer = styled.div`
-  width: 100vw;
-  margin: 0px;
-`;
 
-const LayoutContainerKeyboard = styled.div`
+const LayoutContainerNavBar = styled.div`
   width: 100vw;
   margin: 0px;
 `;
