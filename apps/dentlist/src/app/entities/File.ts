@@ -21,6 +21,10 @@ export class File extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
+  status: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   photo_url: string;
 
   @Field(() => Number, { nullable: true })

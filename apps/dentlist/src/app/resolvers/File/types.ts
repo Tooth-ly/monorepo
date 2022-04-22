@@ -23,6 +23,9 @@ export class File_Input {
   @Field(() => Number)
   file_number: number;
 
+  @Field(() => String, { nullable: true })
+  status: string;
+
   @Field(() => Number)
   patient_id: number;
 
@@ -43,6 +46,9 @@ export class File_Update_Input {
 
   @Field({ nullable: true })
   service_log_id?: number;
+
+  @Field(() => String, { nullable: true })
+  status: string;
 
   @Field({ nullable: true })
   photo_url?: string;
