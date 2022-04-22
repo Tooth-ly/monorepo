@@ -49,8 +49,8 @@ const login: NextLayoutComponentType<loginProps & FormikProps<FormValues>> = ({
 
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
-            console.log(response.data.login.errors);
           } else if (response.data?.login.hr_assignee) {
+            console.log(response.data.login.hr_assignee);
             if (typeof router.query.next === 'string') {
               router.push(router.query.next);
             } else {
@@ -64,13 +64,12 @@ const login: NextLayoutComponentType<loginProps & FormikProps<FormValues>> = ({
           <InnerForm>
             <Box mb={10}>
               <InputFieldStyle
-                name="Email"
+                name="email"
                 placeholder="email"
                 label="Email"
                 fontsize={23}
                 type={'email'}
               />
-              {/* {touched.email && errors.email && <Box>{errors.email}</Box>} */}
               <FormErrorMessage>Email is Required</FormErrorMessage>
             </Box>
             <InputFieldStyle
@@ -80,9 +79,6 @@ const login: NextLayoutComponentType<loginProps & FormikProps<FormValues>> = ({
               fontsize={23}
               type={'password'}
             />
-            {/* {touched.password && errors.password && (
-              <Box>{errors.password}</Box>
-            )} */}
 
             <ButtonsContainer>
               <ButtonStyle type="submit">login</ButtonStyle>

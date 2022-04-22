@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { Flex, Grid, useMediaQuery } from '@chakra-ui/react';
+import { Module } from '../../types';
 import MainDashboardCard from '../MainDashboardCard';
 
-interface MainDashboardProps {}
+interface MainDashboardProps {
+  modules: Module[];
+}
 
-const MainDashboard: React.FC<MainDashboardProps> = () => {
+const MainDashboard: React.FC<MainDashboardProps> = ({ modules }) => {
   const [isLargerThan900, isDisplayingInBrowser] = useMediaQuery([
     '(min-width: 900px)',
     '(display-mode: browser)',
   ]);
 
-  if (MainDashboardCardData && isDisplayingInBrowser) {
+  if (isDisplayingInBrowser) {
     return (
       <>
         {isLargerThan900 ? (
@@ -21,11 +24,8 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
               mt={50}
               w={'100%'}
             >
-              {MainDashboardCardData.map((cardData) => (
-                <MainDashboardCard
-                  cardData={cardData}
-                  key={cardData.imageURL}
-                />
+              {modules.map((module) => (
+                <MainDashboardCard module={module} key={module.appName} />
               ))}
             </Grid>
           </Flex>
@@ -37,11 +37,8 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
               mt={25}
               mb={10}
             >
-              {MainDashboardCardData.map((cardData) => (
-                <MainDashboardCard
-                  cardData={cardData}
-                  key={cardData.imageURL}
-                />
+              {modules.map((module) => (
+                <MainDashboardCard module={module} key={module.appName} />
               ))}
             </Grid>
           </Flex>

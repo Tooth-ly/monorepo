@@ -1,1 +1,5 @@
-export type Service = any;
+export type Module = {
+  appName: string;
+  title: string;
+  iconUrl: string;
+};

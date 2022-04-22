@@ -28,6 +28,7 @@ export type File = {
   file_number: Scalars['Float'];
   patient_id?: Maybe<Scalars['Float']>;
   photo_url?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
   updatedAt: Scalars['String'];
 };
 
@@ -37,6 +38,7 @@ export type File_Input = {
   patient_id: Scalars['Float'];
   photo_url?: InputMaybe<Scalars['String']>;
   service_log_id: Scalars['Float'];
+  status?: InputMaybe<Scalars['String']>;
 };
 
 export enum Gender {
@@ -403,7 +405,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, password: string, name: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -455,12 +457,12 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
+export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, photo_url?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
 
 export type HrAssigneeQueryVariables = Exact<{
   hrAssigneeId: Scalars['Float'];
@@ -947,14 +949,14 @@ export const LoginDocument = gql`
     }
     hr_assignee {
       id
-      password
       name
+      password
       profile_pic_url
       hr_type
       mail
       createdAt
-      email
       updatedAt
+      email
     }
   }
 }
@@ -1182,6 +1184,7 @@ export const FileDocument = gql`
     file_number
     patient_id
     photo_url
+    status
     assignee_id
     createdAt
     updatedAt
@@ -1221,6 +1224,7 @@ export const FilesDocument = gql`
   files {
     file_number
     patient_id
+    status
     photo_url
     assignee_id
     updatedAt

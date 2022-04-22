@@ -6,14 +6,14 @@ mutation Login($password: String!, $email: String!) {
     }
     hr_assignee {
       id
-      password
       name
+      password
       profile_pic_url
       hr_type
       mail
       createdAt
-      email
       updatedAt
+      email
     }
   }
 }
