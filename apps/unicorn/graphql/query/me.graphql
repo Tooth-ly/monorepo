@@ -5,9 +5,9 @@ query Me {
     password
     profile_pic_url
     hr_type
+    mail
     createdAt
     updatedAt
     email
-    mail
   }
 }

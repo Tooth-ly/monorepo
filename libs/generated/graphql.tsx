@@ -33,11 +33,10 @@ export type File = {
 
 export type File_Input = {
   assignee_id?: InputMaybe<Scalars['Float']>;
-  createdAt: Scalars['String'];
   file_number: Scalars['Float'];
   patient_id: Scalars['Float'];
   photo_url?: InputMaybe<Scalars['String']>;
-  updatedAt: Scalars['String'];
+  service_log_id: Scalars['Float'];
 };
 
 export enum Gender {
@@ -53,8 +52,8 @@ export enum Hr_Type {
   Student = 'Student'
 }
 
-export type Hr_Assignee = {
-  __typename?: 'Hr_Assignee';
+export type HrAssignee = {
+  __typename?: 'HrAssignee';
   createdAt: Scalars['String'];
   email: Scalars['String'];
   hr_type?: Maybe<Hr_Type>;
@@ -77,7 +76,7 @@ export type Hr_Assignee_Input = {
 export type Hr_Assignee_Response = {
   __typename?: 'Hr_Assignee_Response';
   errors?: Maybe<Array<FieldError>>;
-  hr_assignee?: Maybe<Hr_Assignee>;
+  hr_assignee?: Maybe<HrAssignee>;
 };
 
 export type Hr_Assignee_Update_Input = {
@@ -219,7 +218,6 @@ export type Patient_Input = {
   cat_id: Scalars['Float'];
   file_number: Scalars['Float'];
   gender: Gender;
-  id: Scalars['Float'];
   name: Scalars['String'];
 };
 
@@ -227,13 +225,14 @@ export type Query = {
   __typename?: 'Query';
   file: File;
   files: Array<File>;
-  hrAssignee: Hr_Assignee;
-  hrAssignees: Array<Hr_Assignee>;
-  me?: Maybe<Hr_Assignee>;
+  hrAssignee: HrAssignee;
+  hrAssignees: Array<HrAssignee>;
+  me?: Maybe<HrAssignee>;
   patient: Patient;
   patients: Array<Patient>;
   servicelog: ServiceLog;
   servicelogs: Array<ServiceLog>;
+  servicelogsByFilenumber: Array<ServiceLog>;
   task: Task;
   tasks: Array<Task>;
   tasksByService: Array<Task>;
@@ -246,7 +245,7 @@ export type QueryFileArgs = {
 
 
 export type QueryHrAssigneeArgs = {
-  id: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 
@@ -260,8 +259,13 @@ export type QueryServicelogArgs = {
 };
 
 
+export type QueryServicelogsByFilenumberArgs = {
+  filenumber: Scalars['Float'];
+};
+
+
 export type QueryTaskArgs = {
-  id: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 
@@ -274,6 +278,7 @@ export type ServiceLog = {
   assignee_id: Scalars['Float'];
   createdAt: Scalars['String'];
   date: Scalars['String'];
+  filenumber: Scalars['Float'];
   id: Scalars['Float'];
   patient_id: Scalars['Float'];
   service_id: Scalars['Float'];
@@ -327,7 +332,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
 
 export type CreateFileMutationVariables = Exact<{
   input: File_Input;
@@ -341,7 +346,7 @@ export type CreateHrAssigneeMutationVariables = Exact<{
 }>;
 
 
-export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
 
 export type CreatePatientMutationVariables = Exact<{
   input: Patient_Input;
@@ -398,7 +403,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'Hr_Assignee', id: number, password: string, name: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, password: string, name: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -450,7 +455,7 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, assignee_id?: number | null, photo_url?: string | null, createdAt: string, updatedAt: string } };
+export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -458,21 +463,21 @@ export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
 
 export type HrAssigneeQueryVariables = Exact<{
-  hrAssigneeId: Scalars['String'];
+  hrAssigneeId: Scalars['Float'];
 }>;
 
 
-export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, email: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string } };
+export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } };
 
 export type HrAssigneesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'Hr_Assignee', email: string, updatedAt: string, createdAt: string, mail: string, hr_type?: Hr_Type | null, profile_pic_url?: string | null, password: string, name: string, id: number }> };
+export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'HrAssignee', email: string, updatedAt: string, createdAt: string, mail: string, hr_type?: Hr_Type | null, profile_pic_url?: string | null, password: string, name: string, id: number }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'Hr_Assignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, createdAt: string, updatedAt: string, email: string, mail: string } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null };
 
 export type PatientQueryVariables = Exact<{
   patientId: Scalars['Float'];
@@ -498,12 +503,19 @@ export type ServicelogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ServicelogsQuery = { __typename?: 'Query', servicelogs: Array<{ __typename?: 'ServiceLog', id: number, service_id: number, patient_id: number, assignee_id: number, date: string, createdAt: string, updatedAt: string }> };
 
-export type TaskQueryVariables = Exact<{
-  taskId: Scalars['String'];
+export type ServicelogsByFilenumberQueryVariables = Exact<{
+  filenumber: Scalars['Float'];
 }>;
 
 
-export type TaskQuery = { __typename?: 'Query', task: { __typename?: 'Task', id: number, service_log_id: number, stage: Stage, description?: string | null, name: string, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string } };
+export type ServicelogsByFilenumberQuery = { __typename?: 'Query', servicelogsByFilenumber: Array<{ __typename?: 'ServiceLog', id: number, service_id: number, patient_id: number, filenumber: number, assignee_id: number, date: string, createdAt: string, updatedAt: string }> };
+
+export type TaskQueryVariables = Exact<{
+  taskId: Scalars['Float'];
+}>;
+
+
+export type TaskQuery = { __typename?: 'Query', task: { __typename?: 'Task', id: number, service_log_id: number, stage: Stage, name: string, description?: string | null, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string } };
 
 export type TasksByServiceQueryVariables = Exact<{
   sid: Scalars['Int'];
@@ -1169,8 +1181,8 @@ export const FileDocument = gql`
   file(file_number: $fileNumber) {
     file_number
     patient_id
-    assignee_id
     photo_url
+    assignee_id
     createdAt
     updatedAt
   }
@@ -1244,17 +1256,17 @@ export type FilesQueryHookResult = ReturnType<typeof useFilesQuery>;
 export type FilesLazyQueryHookResult = ReturnType<typeof useFilesLazyQuery>;
 export type FilesQueryResult = Apollo.QueryResult<FilesQuery, FilesQueryVariables>;
 export const HrAssigneeDocument = gql`
-    query HrAssignee($hrAssigneeId: String!) {
+    query HrAssignee($hrAssigneeId: Float!) {
   hrAssignee(id: $hrAssigneeId) {
     id
     name
     password
-    email
     profile_pic_url
     hr_type
     mail
     createdAt
     updatedAt
+    email
   }
 }
     `;
@@ -1336,10 +1348,10 @@ export const MeDocument = gql`
     password
     profile_pic_url
     hr_type
+    mail
     createdAt
     updatedAt
     email
-    mail
   }
 }
     `;
@@ -1534,14 +1546,56 @@ export function useServicelogsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type ServicelogsQueryHookResult = ReturnType<typeof useServicelogsQuery>;
 export type ServicelogsLazyQueryHookResult = ReturnType<typeof useServicelogsLazyQuery>;
 export type ServicelogsQueryResult = Apollo.QueryResult<ServicelogsQuery, ServicelogsQueryVariables>;
+export const ServicelogsByFilenumberDocument = gql`
+    query ServicelogsByFilenumber($filenumber: Float!) {
+  servicelogsByFilenumber(filenumber: $filenumber) {
+    id
+    service_id
+    patient_id
+    filenumber
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useServicelogsByFilenumberQuery__
+ *
+ * To run a query within a React component, call `useServicelogsByFilenumberQuery` and pass it any options that fit your needs.
+ * When your component renders, `useServicelogsByFilenumberQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useServicelogsByFilenumberQuery({
+ *   variables: {
+ *      filenumber: // value for 'filenumber'
+ *   },
+ * });
+ */
+export function useServicelogsByFilenumberQuery(baseOptions: Apollo.QueryHookOptions<ServicelogsByFilenumberQuery, ServicelogsByFilenumberQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ServicelogsByFilenumberQuery, ServicelogsByFilenumberQueryVariables>(ServicelogsByFilenumberDocument, options);
+      }
+export function useServicelogsByFilenumberLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ServicelogsByFilenumberQuery, ServicelogsByFilenumberQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ServicelogsByFilenumberQuery, ServicelogsByFilenumberQueryVariables>(ServicelogsByFilenumberDocument, options);
+        }
+export type ServicelogsByFilenumberQueryHookResult = ReturnType<typeof useServicelogsByFilenumberQuery>;
+export type ServicelogsByFilenumberLazyQueryHookResult = ReturnType<typeof useServicelogsByFilenumberLazyQuery>;
+export type ServicelogsByFilenumberQueryResult = Apollo.QueryResult<ServicelogsByFilenumberQuery, ServicelogsByFilenumberQueryVariables>;
 export const TaskDocument = gql`
-    query Task($taskId: String!) {
+    query Task($taskId: Float!) {
   task(id: $taskId) {
     id
     service_log_id
     stage
-    description
     name
+    description
     assignee_notes
     date
     createdAt

@@ -19,10 +19,6 @@ export class File extends BaseEntity {
   @Column({ type: 'bigint', nullable: true })
   patient_id: number;
 
-  @Field(() => Number, { nullable: true })
-  @Column({ type: 'bigint', nullable: true })
-  service_log_id: number;
-
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   photo_url: string;

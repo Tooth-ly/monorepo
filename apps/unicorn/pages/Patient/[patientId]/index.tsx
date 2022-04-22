@@ -1,8 +1,9 @@
 import { Flex, Grid, useMediaQuery } from '@chakra-ui/react';
 import {
   useFileQuery,
+  useMeQuery,
   usePatientQuery,
-  useServicelogQuery,
+  useServicelogsByFilenumberQuery,
 } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
@@ -22,6 +23,9 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
   const router = useRouter();
   const id = router.query.patientId as unknown as number;
 
+  // assignee data
+  const { data: assigneeData } = useMeQuery();
+
   // patient
   const { data: patientData } = usePatientQuery({
     variables: {
@@ -37,8 +41,10 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
   });
 
   // service logs
-  const {} = useServicelogQuery({
-    variables: { serviceLogId: patientFileData.file },
+  const { data: serviceLogsData } = useServicelogsByFilenumberQuery({
+    variables: {
+      filenumber: patientData.patient.file_number,
+    },
   });
 
   if (patientFileData && patientFileData) {
@@ -59,14 +65,14 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                 templateColumns={'repeat(auto-fit, minmax(300px, 1fr))'}
                 m={'0px 20px'}
               >
-                {ServicesData.map((serviceData) => {
-                  if (serviceData.patientId == id)
+                {serviceLogsData.servicelogsByFilenumber.map((serviceLog) => {
+                  if (serviceLog.patient_id == id)
                     return (
                       <div>
                         <PatientService
-                          key={serviceData.id}
-                          serviceData={serviceData}
-                          assigneeId={data.me.id}
+                          key={serviceLog.id}
+                          serviceData={serviceLog}
+                          assigneeId={assigneeData.me.id}
                         />
                       </div>
                     );
@@ -83,24 +89,24 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
             <Container600>
               <PatientMenu
                 id={id}
-                name={name}
-                status={status}
-                profileUrl={profileUrl}
+                name={patientData.patient.name}
+                // status={patientFileData.file.status}
+                profileUrl={patientFileData.file.photo_url}
               />
               <Grid
                 templateColumns={'repeat(auto-fill, minmax(400px, 1fr))'}
                 gap={4}
                 m={'20px'}
               >
-                {data &&
-                  ServicesData.map((serviceData) => {
-                    if (serviceData.patientId == id)
+                {assigneeData &&
+                  serviceLogsData.servicelogsByFilenumber.map((serviceLog) => {
+                    if (serviceLog.patient_id == id)
                       return (
                         <div>
                           <PatientService
-                            key={serviceData.id}
-                            serviceData={serviceData}
-                            assigneeId={data.me.id}
+                            key={serviceLog.id}
+                            serviceData={serviceLog}
+                            assigneeId={assigneeData.me.id}
                           />
                         </div>
                       );

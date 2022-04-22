@@ -25,6 +25,10 @@ export class ServiceLog extends BaseEntity {
 
   @Field(() => Number)
   @Column({ type: 'int' })
+  filenumber: number;
+
+  @Field(() => Number)
+  @Column({ type: 'int' })
   assignee_id: number;
 
   @Field(() => String)

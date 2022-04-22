@@ -32,6 +32,11 @@ export class ServiceLogResolver {
     return AppDataSource.manager.findBy(ServiceLog, { id: service_log_id });
   }
 
+  @Query(() => [ServiceLog])
+  servicelogsByFilenumber(@Arg('filenumber') filenumber: number) {
+    return AppDataSource.manager.findBy(ServiceLog, { filenumber });
+  }
+
   // crud: update service log
   @Mutation(() => Boolean)
   async updateServiceLog(

@@ -1,12 +1,12 @@
 import { Flex, Grid } from '@chakra-ui/react';
+import { useFilesQuery } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
+import NavBar from '../components/NavBar/index';
 import { PFilesCard } from '../components/PFilesCard';
 import Layout from '../layouts/Layout';
-import NavBar from '../components/NavBar/index';
-import { useFilesQuery } from 'libs/generated/graphql';
 
 interface pfilesProps {}
 

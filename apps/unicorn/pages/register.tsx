@@ -1,15 +1,14 @@
-import { Box, FormErrorMessage } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
-import { NextLayoutComponentType } from 'next';
-import { useRouter } from 'next/dist/client/router';
-import React from 'react';
-import styled from 'styled-components';
-import { InputField } from '../components/InputField';
 import {
   MeDocument,
   MeQuery,
   useCreateHrAssigneeMutation,
 } from 'libs/generated/graphql';
+import { NextLayoutComponentType } from 'next';
+import { useRouter } from 'next/dist/client/router';
+import React from 'react';
+import styled from 'styled-components';
+import { InputField } from '../components/InputField';
 import Layout from '../layouts/Layout';
 import { toErrorMap } from '../utils/toErrorMap';
 import { withApollo } from '../utils/withApollo';

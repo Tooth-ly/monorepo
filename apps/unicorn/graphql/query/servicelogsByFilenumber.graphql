@@ -1,0 +1,12 @@
+query ServicelogsByFilenumber($filenumber: Float!) {
+  servicelogsByFilenumber(filenumber: $filenumber) {
+    id
+    service_id
+    patient_id
+    filenumber
+    assignee_id
+    date
+    createdAt
+    updatedAt
+  }
+}

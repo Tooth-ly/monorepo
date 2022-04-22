@@ -2,8 +2,8 @@ query File($fileNumber: Float!) {
   file(file_number: $fileNumber) {
     file_number
     patient_id
-    assignee_id
     photo_url
+    assignee_id
     createdAt
     updatedAt
   }
