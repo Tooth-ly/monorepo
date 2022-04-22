@@ -21,9 +21,6 @@ export class Patient_Response {
 
 @InputType()
 export class Patient_Input {
-  @Field()
-  id: number;
-
   @Field(() => Number)
   file_number: number;
 

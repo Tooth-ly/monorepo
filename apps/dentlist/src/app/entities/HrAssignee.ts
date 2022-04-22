@@ -17,7 +17,7 @@ export enum HR_Type {
 
 @ObjectType() // for graphql class
 @Entity()
-export class Hr_Assignee extends BaseEntity {
+export class HrAssignee extends BaseEntity {
   @Field(() => Int) // for graphql type
   @PrimaryGeneratedColumn() // for db type
   id: number;

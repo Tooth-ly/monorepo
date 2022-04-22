@@ -11,25 +11,28 @@ import {
   Resolver,
   Root,
 } from 'type-graphql';
-import { Hr_Assignee } from '../../entities/Hr_Assignee';
+import { HrAssignee } from '../../entities/HrAssignee';
 import {
   Hr_Assignee_Input,
   Hr_Assignee_Response,
   Hr_Assignee_Update_Input,
 } from './types';
 import { validateHrAssignee } from './validation';
+import { AppDataSource } from '../../data-source';
 
-@Resolver(Hr_Assignee)
+@Resolver(HrAssignee)
 export class Hr_Assignee_Resolver {
   // for authentication purposes
-  @Query(() => Hr_Assignee, { nullable: true })
+  @Query(() => HrAssignee, { nullable: true })
   me(@Ctx() { req }: MyContext) {
     // you are not logged in
     if (!req.session.hr_assignee_Id) {
       return null;
     }
 
-    return Hr_Assignee.findOne(req.session.hr_assignee_Id);
+    return AppDataSource.manager.findBy(HrAssignee, {
+      id: req.session.hr_assignee_Id,
+    });
   }
 
   // crud: create
@@ -48,7 +51,9 @@ export class Hr_Assignee_Resolver {
     const hashedPassword = await argon2.hash(input.password); // .verify unenc
     input.password = hashedPassword;
 
-    const hr_assignee = await Hr_Assignee.create(input).save(); // insert and select
+    const hr_assignee = await AppDataSource.getRepository(HrAssignee)
+      .create(input)
+      .save(); // insert and select
 
     // store user id session
     // this will set a cookie on the user
@@ -61,17 +66,17 @@ export class Hr_Assignee_Resolver {
   }
 
   // crud: read
-  @Query(() => [Hr_Assignee])
+  @Query(() => [HrAssignee])
   hrAssignees() {
-    return Hr_Assignee.find();
+    return AppDataSource.getRepository(HrAssignee).find();
   }
 
-  @Query(() => Hr_Assignee)
-  hrAssignee(@Arg('id') id: string, @Ctx() { req }: MyContext) {
+  @Query(() => HrAssignee)
+  hrAssignee(@Arg('id') id: number, @Ctx() { req }: MyContext) {
     if (!req.session.hr_assignee_Id) {
       return null;
     }
-    return Hr_Assignee.findOne(id);
+    return AppDataSource.manager.findBy(HrAssignee, { id });
   }
 
   // crud: update
@@ -81,19 +86,19 @@ export class Hr_Assignee_Resolver {
     @Arg('input', () => Hr_Assignee_Update_Input)
     input: Hr_Assignee_Update_Input
   ) {
-    await Hr_Assignee.update({ id }, input); // search by id and update but input
+    await AppDataSource.getRepository(HrAssignee).update({ id }, input); // search by id and update but input
     return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
   async deleteHrAssignee(@Arg('id', () => Int) id: number) {
-    await Hr_Assignee.delete({ id });
+    await AppDataSource.getRepository(HrAssignee).delete({ id });
     return true;
   }
 
   @FieldResolver(() => String)
-  email(@Root() hr_assignee: Hr_Assignee, @Ctx() { req }: MyContext) {
+  email(@Root() hr_assignee: HrAssignee, @Ctx() { req }: MyContext) {
     // this is the current user and its ok to show them their own email
     if (req.session.hr_assignee_Id === hr_assignee.id) {
       return hr_assignee.mail;
@@ -133,7 +138,10 @@ export class Hr_Assignee_Resolver {
     }
 
     const hr_assignee_id_num = parseInt(hr_assignee_id);
-    const hr_assignee = await Hr_Assignee.findOne(hr_assignee_id_num);
+    const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
+      id: hr_assignee_id_num,
+    });
+    const hr_assignee = hr_assignees[0];
 
     if (!hr_assignee) {
       return {
@@ -146,8 +154,10 @@ export class Hr_Assignee_Resolver {
       };
     }
 
-    await Hr_Assignee.update(
-      { id: hr_assignee_id_num },
+    await AppDataSource.getRepository(HrAssignee).update(
+      {
+        id: hr_assignee_id_num,
+      },
       {
         password: await argon2.hash(newPassword),
       }
@@ -167,7 +177,11 @@ export class Hr_Assignee_Resolver {
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
-    const hr_assignee = await Hr_Assignee.findOne({ mail: Email });
+    const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
+      mail: Email,
+    });
+    const hr_assignee = hr_assignees[0];
+
     if (!hr_assignee) {
       return {
         errors: [

@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
-import { Hr_Assignee, HR_Type } from '../../entities/Hr_Assignee';
+import { HrAssignee, HR_Type } from '../../entities/HrAssignee';
 
 @ObjectType()
 export class FieldError {
@@ -14,8 +14,8 @@ export class Hr_Assignee_Response {
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];
 
-  @Field(() => Hr_Assignee, { nullable: true })
-  hr_assignee?: Hr_Assignee;
+  @Field(() => HrAssignee, { nullable: true })
+  hr_assignee?: HrAssignee;
 }
 
 @InputType()

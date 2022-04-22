@@ -1,6 +1,7 @@
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { File_Input, File_Response, File_Update_Input } from './types';
 import { File } from '../../entities/File';
+import { AppDataSource } from '../../data-source';
 
 @Resolver()
 export class File_Resolver {
@@ -9,7 +10,7 @@ export class File_Resolver {
   async createFile(
     @Arg('input', () => File_Input) input: File_Input
   ): Promise<File_Response> {
-    const file = await File.create(input).save();
+    const file = await AppDataSource.getRepository(File).create(input).save();
 
     return {
       file,
@@ -19,12 +20,12 @@ export class File_Resolver {
   // crud: read
   @Query(() => [File])
   files() {
-    return File.find();
+    return AppDataSource.getRepository(File).find();
   }
 
   @Query(() => File)
   file(@Arg('file_number') file_number: number) {
-    return File.findOne(file_number);
+    return AppDataSource.manager.findBy(File, { file_number });
   }
 
   // crud: update
@@ -34,14 +35,14 @@ export class File_Resolver {
     @Arg('input', () => File_Input)
     input: File_Update_Input
   ) {
-    await File.update({ file_number }, input); // search by id and update but input
+    await AppDataSource.getRepository(File).update({ file_number }, input); // search by id and update but input
     return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
   async deleteFile(@Arg('file_number', () => Int) file_number: number) {
-    await File.delete({ file_number });
+    await AppDataSource.getRepository(File).delete({ file_number });
     return true;
   }
 }

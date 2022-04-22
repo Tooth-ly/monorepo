@@ -1,8 +1,8 @@
-import { Task } from '../../entities/Task';
+import { AppDataSource } from '../../data-source';
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
+import { Task } from '../../entities/Task';
 import { Task_Input, Task_Response, Task_Update_Input } from './types';
 import { validateTask } from './validation';
-import { getConnection } from 'typeorm';
 
 @Resolver()
 export class Task_Resolver {
@@ -16,7 +16,7 @@ export class Task_Resolver {
       return { errors };
     }
 
-    const task = await Task.create(input).save();
+    const task = await AppDataSource.getRepository(Task).create(input).save();
 
     return {
       task,
@@ -26,12 +26,12 @@ export class Task_Resolver {
   // crud: read
   @Query(() => [Task])
   tasks() {
-    return Task.find();
+    return AppDataSource.getRepository(Task).find();
   }
 
   @Query(() => Task)
-  task(@Arg('id') id: string) {
-    return Task.findOne(id);
+  task(@Arg('id') id: number) {
+    return AppDataSource.manager.findBy(Task, { id });
   }
 
   // crud: update
@@ -41,27 +41,26 @@ export class Task_Resolver {
     @Arg('input', () => Task_Input)
     input: Task_Update_Input
   ) {
-    await Task.update({ id }, input); // search by id and update but input
+    await AppDataSource.getRepository(Task).update({ id }, input);
     return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
   async deleteTask(@Arg('id', () => Int) id: number) {
-    await Task.delete({ id });
+    await AppDataSource.getRepository(Task).delete({ id });
     return true;
   }
 
   // tasks by service id
   @Query(() => [Task])
   async tasksByService(@Arg('sid', () => Int) sid: number) {
-    const tasks = await getConnection()
-    .createQueryBuilder()
-    .select("task")
-    .from(Task, "task")
-    .where("task.sid = :sid", { sid })
-    .getMany()
-    console.log('tasks by service:', tasks)
-    return tasks
+    const tasks = await AppDataSource.createQueryBuilder()
+      .select('task')
+      .from(Task, 'task')
+      .where('task.sid = :sid', { sid })
+      .getMany();
+    console.log('tasks by service:', tasks);
+    return tasks;
   }
 }

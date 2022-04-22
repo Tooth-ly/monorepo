@@ -37,9 +37,9 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
   });
 
   // service logs
-  // const {} = useServicelogQuery({
-  //   variables: { serviceLogId: patientFileData.file.serviceLogId },
-  // });
+  const {} = useServicelogQuery({
+    variables: { serviceLogId: patientFileData.file },
+  });
 
   if (patientFileData && patientFileData) {
     const { photo_url } = patientFileData.file;

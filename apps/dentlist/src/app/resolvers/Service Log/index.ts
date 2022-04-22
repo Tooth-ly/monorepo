@@ -5,6 +5,7 @@ import {
   ServiceLog_Update_Input,
 } from './types';
 import { ServiceLog } from '../../entities/ServiceLog';
+import { AppDataSource } from '../../data-source';
 
 @Resolver()
 export class ServiceLogResolver {
@@ -12,21 +13,23 @@ export class ServiceLogResolver {
   async addService(
     @Arg('input', () => ServiceLog_Input) input: ServiceLog_Input
   ): Promise<ServeLog_Response> {
-    const servicelog = await ServiceLog.create(input).save();
+    const servicelog = await AppDataSource.getRepository(ServiceLog)
+      .create(input)
+      .save();
 
     return {
-      servicelog: servicelog,
+      servicelog,
     };
   }
 
   @Query(() => [ServiceLog])
   servicelogs() {
-    return ServiceLog.find();
+    return AppDataSource.getRepository(ServiceLog).find();
   }
 
   @Query(() => ServiceLog)
   servicelog(@Arg('service_log_id') service_log_id: number) {
-    return ServiceLog.findOne(service_log_id);
+    return AppDataSource.manager.findBy(ServiceLog, { id: service_log_id });
   }
 
   // crud: update service log
@@ -36,14 +39,14 @@ export class ServiceLogResolver {
     @Arg('input', () => ServiceLog_Input)
     input: ServiceLog_Update_Input
   ) {
-    await ServiceLog.update({ id }, input); // search by id and update but input
+    await AppDataSource.getRepository(ServiceLog).update({ id }, input);
     return true;
   }
 
   // crud: delete
   @Mutation(() => Boolean)
   async deleteServiceLog(@Arg('id', () => Int) id: number) {
-    await ServiceLog.delete({ id });
+    await AppDataSource.getRepository(ServiceLog).delete({ id });
     return true;
   }
 }

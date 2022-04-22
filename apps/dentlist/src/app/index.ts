@@ -8,14 +8,10 @@ import session from 'express-session';
 import Redis from 'ioredis';
 import 'reflect-metadata';
 import { buildSchema, registerEnumType } from 'type-graphql';
-import { createConnection, getConnectionOptions } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
-import { File } from './entities/File';
-import { Hr_Assignee, HR_Type } from './entities/Hr_Assignee';
-import { Gender, Patient } from './entities/Patient';
-import { Service } from './entities/Service';
-import { ServiceLog } from './entities/ServiceLog';
-import { Stage, Task } from './entities/Task';
+import { HR_Type } from './entities/HrAssignee';
+import { Gender } from './entities/Patient';
+import { Stage } from './entities/Task';
 import { File_Resolver } from './resolvers/File/file';
 import { Hr_Assignee_Resolver } from './resolvers/HrAssignee/hr_assignee';
 import { Patient_Resolver } from './resolvers/Patient/patient';
@@ -24,14 +20,6 @@ import { Task_Resolver } from './resolvers/TaskResolver/task';
 
 export const redis = new Redis(process.env['REDIS_URL']);
 export const main = async () => {
-  const connectionOptions = await getConnectionOptions();
-  await createConnection({
-    ...connectionOptions,
-    entities: [File, Hr_Assignee, Patient, Service, ServiceLog, Task],
-  });
-
-  // conn.runMigrations()
-
   const app = express();
 
   const RedisStore = connectRedis(session);
