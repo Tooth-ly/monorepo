@@ -1,0 +1,83 @@
+.container {}
+
+.headerContainer {
+    background-color: #dffaff;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #afafaf;
+}
+
+.titleContainer {
+    font-size: 30px;
+    padding-top: 10px;
+    color: #434b4d;
+    font-weight: 500;
+}
+
+
+.title {
+}
+
+
+.searchContainer {
+    width: 100%;
+    background-color: #dffaff;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.searchInput {
+    flex: 0.3;
+    border-radius: 5px;
+    width: 200px !important;
+    height: 35px;
+    margin-left: 10px;
+    margin-right: 50%;
+    margin-bottom: 5px;
+}
+
+.paginationContainer {
+    margin-right: 10px;
+    margin-bottom: 5px;
+    flex: right;
+    display: inline-block;
+    width: 200px !important;
+}
+
+  
+.pagination{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    margin: 0 4px;
+  }
+
+.pagination a{
+    border: 1px solid black;
+    background-color: #Fafafa;
+}
+  
+.paginationSelected{
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+  
+  .paginationSelected{
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+
+  .pagination a:hover:not(.active) {
+      background-color: #ddd;
+    }
