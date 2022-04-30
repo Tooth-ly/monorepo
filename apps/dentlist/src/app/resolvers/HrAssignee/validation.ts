@@ -1,7 +1,7 @@
 import { Hr_Assignee_Input } from './types';
 
 export const validateHrAssignee = (options: Hr_Assignee_Input) => {
-  if (!options.mail?.includes('@')) {
+  if (!options.email?.includes('@')) {
     return [
       {
         field: 'email',

@@ -101,7 +101,7 @@ export class Hr_Assignee_Resolver {
   email(@Root() hr_assignee: HrAssignee, @Ctx() { req }: MyContext) {
     // this is the current user and its ok to show them their own email
     if (req.session.hr_assignee_Id === hr_assignee.id) {
-      return hr_assignee.mail;
+      return hr_assignee.email;
     }
     // current user wants to see someone elses email
     return '';
@@ -178,7 +178,7 @@ export class Hr_Assignee_Resolver {
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
     const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
-      mail: email,
+      email,
     });
     const hr_assignee = hr_assignees[0];
 
