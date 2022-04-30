@@ -1,5 +1,5 @@
 mutation Login($password: String!, $email: String!) {
-  login(password: $password, Email: $email) {
+  login(password: $password, email: $email) {
     errors {
       field
       message
@@ -12,8 +12,8 @@ mutation Login($password: String!, $email: String!) {
       hr_type
       mail
       createdAt
-      updatedAt
       email
+      updatedAt
     }
   }
 }

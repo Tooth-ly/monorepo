@@ -23,10 +23,6 @@ export class File extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   status: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ type: 'text', nullable: true })
-  photo_url: string;
-
   @Field(() => Number, { nullable: true })
   @Column({ type: 'decimal', nullable: true })
   assignee_id: number;

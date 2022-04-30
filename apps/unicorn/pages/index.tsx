@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
+import { useMeQuery } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import MainDashboard from '../components/MainDashboard';
 import NavBar from '../components/NavBar';
@@ -11,8 +12,6 @@ import { useIsAuth } from '../utils/useIsAuth';
 interface indexProps {}
 
 const index: NextLayoutComponentType<indexProps> = () => {
-  useIsAuth();
-
   return (
     <Container>
       <NavBar />

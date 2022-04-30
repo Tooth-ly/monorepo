@@ -28,7 +28,7 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
           columnGap={10}
           rowGap={7}
         >
-          {!error.message &&
+          {!error &&
             !loading &&
             patientFilesData.files.map((pfile) => (
               <div

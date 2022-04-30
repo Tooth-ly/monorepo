@@ -9,6 +9,7 @@ interface userProfileProps {}
 const userProfile: NextLayoutComponentType<userProfileProps> = ({}) => {
   const { data, loading } = useMeQuery();
 
+  console.log('user data', data);
   return (
     <>
       user profile

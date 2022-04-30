@@ -169,7 +169,7 @@ export type MutationDeleteTaskArgs = {
 
 
 export type MutationLoginArgs = {
-  Email: Scalars['String'];
+  email: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -405,7 +405,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -942,7 +942,7 @@ export type DeleteTaskMutationResult = Apollo.MutationResult<DeleteTaskMutation>
 export type DeleteTaskMutationOptions = Apollo.BaseMutationOptions<DeleteTaskMutation, DeleteTaskMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($password: String!, $email: String!) {
-  login(password: $password, Email: $email) {
+  login(password: $password, email: $email) {
     errors {
       field
       message
@@ -955,8 +955,8 @@ export const LoginDocument = gql`
       hr_type
       mail
       createdAt
-      updatedAt
       email
+      updatedAt
     }
   }
 }

@@ -100,3 +100,8 @@ node_modules/
 apps/mobileapp-e2e/artifacts
 
 .vscode
+## Nested node_modules
+
+node_modules/
+
+apps/dental-app-e2e/artifacts

@@ -26,30 +26,63 @@ export class Hr_Assignee_Input {
   @Field()
   password: string;
 
+  @Field(() => String)
+  email: string;
+
+  @Field({ nullable: true })
+  phone_number?: string;
+
+  @Field({ nullable: true })
+  home_number?: string;
+
+  @Field({ nullable: true })
+  home_address?: string;
+
+  @Field({ nullable: true })
+  SSN?: string;
+
+  @Field({ nullable: true })
+  martial_status?: string;
+
+  @Field({ nullable: true })
+  nationality?: string;
+
   @Field({ nullable: true })
   profile_pic_url?: string;
 
-  @Field({ nullable: true })
+  @Field(() => HR_Type, { nullable: true })
   hr_type?: HR_Type;
-
-  @Field(() => String)
-  mail: string;
 }
 
 @InputType()
 export class Hr_Assignee_Update_Input {
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
-  @Field()
-  password: string;
+  @Field({ nullable: true })
+  email?: string;
 
-  @Field()
-  profile_pic_url: string;
+  @Field({ nullable: true })
+  phone_number?: string;
 
-  @Field(() => HR_Type)
-  hr_type: HR_Type;
+  @Field({ nullable: true })
+  home_number?: string;
 
-  @Field(() => String)
-  mail: string;
+  @Field({ nullable: true })
+  home_address?: string;
+
+  @Field({ nullable: true })
+  SSN?: string;
+
+  @Field({ nullable: true })
+  martial_status?: string;
+
+  @Field({ nullable: true })
+  nationality?: string;
+
+  @Field({ nullable: true })
+  profile_pic_url?: string;
+
+  @Field(() => HR_Type, { nullable: true })
+  hr_type?: HR_Type;
 }

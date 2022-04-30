@@ -30,6 +30,34 @@ export class HrAssignee extends BaseEntity {
   @Column()
   password: string;
 
+  @Field(() => String)
+  @Column()
+  email: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  phone_number?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  home_number?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  home_address?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  SSN?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  martial_status?: string;
+
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
+  nationality?: string;
+
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
   profile_pic_url?: string;
@@ -37,10 +65,6 @@ export class HrAssignee extends BaseEntity {
   @Field(() => HR_Type, { nullable: true })
   @Column({ type: 'text', nullable: true })
   hr_type?: HR_Type;
-
-  @Field(() => String)
-  @Column()
-  mail: string;
 
   @Field(() => String)
   @CreateDateColumn()

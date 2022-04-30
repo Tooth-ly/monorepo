@@ -173,12 +173,12 @@ export class Hr_Assignee_Resolver {
 
   @Mutation(() => Hr_Assignee_Response)
   async login(
-    @Arg('Email') Email: string,
+    @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
     const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
-      mail: Email,
+      mail: email,
     });
     const hr_assignee = hr_assignees[0];
 
