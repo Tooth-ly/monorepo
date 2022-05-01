@@ -37,9 +37,9 @@ export class Patient extends BaseEntity {
   @Column({ type: 'text' })
   gender: Gender;
 
-  @Field(() => Number, { nullable: true })
-  @Column({ type: 'int', nullable: true })
-  age?: number;
+  @Field(() => Date, { nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
+  dateOfBirth?: Date;
 
   @Field(() => Number, { nullable: true })
   @Column({ type: 'int', nullable: true })

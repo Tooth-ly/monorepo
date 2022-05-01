@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
 
 export type FieldError = {
@@ -220,24 +222,24 @@ export type MutationUpdateTaskArgs = {
 
 export type Patient = {
   __typename?: 'Patient';
-  age: Scalars['Float'];
-  cat_id: Scalars['Float'];
+  cat_id?: Maybe<Scalars['Float']>;
   createdAt: Scalars['String'];
-  file_number: Scalars['Float'];
+  dateOfBirth?: Maybe<Scalars['DateTime']>;
+  file_number?: Maybe<Scalars['Float']>;
   gender: Gender;
   id: Scalars['Float'];
   name: Scalars['String'];
-  profile_pic_url: Scalars['String'];
+  profile_pic_url?: Maybe<Scalars['String']>;
   updatedAt: Scalars['String'];
 };
 
 export type Patient_Input = {
-  age: Scalars['Float'];
-  cat_id: Scalars['Float'];
-  file_number: Scalars['Float'];
+  cat_id?: InputMaybe<Scalars['Float']>;
+  dateOfBirth?: InputMaybe<Scalars['DateTime']>;
+  file_number?: InputMaybe<Scalars['Float']>;
   gender: Gender;
   name: Scalars['String'];
-  profile_pic_url: Scalars['String'];
+  profile_pic_url?: InputMaybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -372,7 +374,7 @@ export type CreatePatientMutationVariables = Exact<{
 }>;
 
 
-export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string } };
+export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
 
 export type CreateTaskMutationVariables = Exact<{
   input: Task_Input;
@@ -503,12 +505,12 @@ export type PatientQueryVariables = Exact<{
 }>;
 
 
-export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string } };
+export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
 
 export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string }> };
+export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string }> };
 
 export type ServicelogQueryVariables = Exact<{
   serviceLogId: Scalars['Float'];
@@ -727,7 +729,6 @@ export const CreatePatientDocument = gql`
     file_number
     name
     gender
-    age
     cat_id
     profile_pic_url
     createdAt
@@ -1408,7 +1409,6 @@ export const PatientDocument = gql`
     file_number
     name
     gender
-    age
     cat_id
     profile_pic_url
     createdAt
@@ -1451,7 +1451,6 @@ export const PatientsDocument = gql`
     file_number
     name
     gender
-    age
     cat_id
     profile_pic_url
     createdAt

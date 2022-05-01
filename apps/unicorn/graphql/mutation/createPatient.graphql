@@ -4,7 +4,6 @@ mutation CreatePatient($input: Patient_Input!) {
     file_number
     name
     gender
-    age
     cat_id
     profile_pic_url
     createdAt

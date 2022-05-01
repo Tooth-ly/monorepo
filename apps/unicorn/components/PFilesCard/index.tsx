@@ -13,7 +13,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
+import { FC, useRef } from 'react';
 import { Container, Name } from './styled';
 
 interface PFilesCardProps {
@@ -21,14 +21,14 @@ interface PFilesCardProps {
   createMode?: boolean;
 }
 
-export const PFilesCard: React.FC<PFilesCardProps> = ({
+export const PFilesCard: FC<PFilesCardProps> = ({
   data,
   createMode = false,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const initialRef = React.useRef();
-  const finalRef = React.useRef();
+  const initialRef = useRef();
+  const finalRef = useRef();
 
   return (
     <Container>

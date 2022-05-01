@@ -4,7 +4,6 @@ query Patient($patientId: Float!) {
     file_number
     name
     gender
-    age
     cat_id
     profile_pic_url
     createdAt

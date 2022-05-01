@@ -1,5 +1,6 @@
 import { AddIcon } from '@chakra-ui/icons';
 import {
+  Badge,
   Box,
   Button,
   Flex,
@@ -13,11 +14,21 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Patient } from 'libs/generated/graphql';
-import { useRef, FC } from 'react';
+import { Form, Formik } from 'formik';
+import {
+  CreatePatientDocument,
+  CreatePatientMutation,
+  Patient,
+  Patient_Input,
+  useCreatePatientMutation,
+} from 'libs/generated/graphql';
+import { FC, useRef, useState } from 'react';
+import { InputField } from '../InputField';
+import { PatientFormModal } from '../PatientFormModal/PatientFormModal';
 
 interface indexProps {
   patientData?: Patient;
@@ -25,6 +36,7 @@ interface indexProps {
 }
 
 export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
+  // form modal stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = useRef();
@@ -38,43 +50,32 @@ export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
           borderRadius={10}
           border={'solid 1px'}
           justifyContent={'center'}
+          alignItems={'center'}
+          onClick={onOpen}
         >
-          <AddIcon onClick={onOpen} margin={2} w={5} h={5} />
-          <Modal
-            initialFocusRef={initialRef}
-            finalFocusRef={finalRef}
+          <AddIcon margin={2} w={5} h={5} />
+          <PatientFormModal
+            finalRef={finalRef}
+            initialRef={initialRef}
             isOpen={isOpen}
             onClose={onClose}
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Register Patient</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                <FormControl>
-                  <FormLabel>First name</FormLabel>
-                  <Input ref={initialRef} placeholder="First name" />
-                </FormControl>
-
-                <FormControl mt={4}>
-                  <FormLabel>Last name</FormLabel>
-                  <Input placeholder="Last name" />
-                </FormControl>
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3}>
-                  Save
-                </Button>
-                <Button onClick={onClose}>Cancel</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          />
         </Flex>
       ) : (
-        <Box>
-          <Text>{patientData.name}</Text>
-        </Box>
+        <Flex
+          backgroundColor={'#edf2f7'}
+          borderRadius={10}
+          border={'solid 1px'}
+          alignItems={'center'}
+          padding={2}
+        >
+          <Badge ml={4} colorScheme={'blue'}>
+            Patient
+          </Badge>
+          <Flex justifyContent={'center'} alignItems={'center'} w={'100%'}>
+            <Text cursor={'pointer'}>{patientData.name}</Text>
+          </Flex>
+        </Flex>
       )}
     </>
   );

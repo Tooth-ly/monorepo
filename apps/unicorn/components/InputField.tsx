@@ -6,6 +6,7 @@ import {
   Input,
   FormErrorMessage,
   Textarea,
+  ChakraComponent,
 } from '@chakra-ui/react';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -30,6 +31,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     InputOrTextarea = Textarea;
   }
   const [field, { error }] = useField(props);
+
   return (
     <FormControl isInvalid={!!error}>
       {label ? (
@@ -41,10 +43,10 @@ export const InputField: React.FC<InputFieldProps> = ({
         {...field}
         {...props}
         id={field.name}
-        padding={4}
-        fontSize={20}
+        padding={props.type != 'date' ? 4 : 2}
+        fontSize={props.type != 'date' ? 20 : 18}
       />
-      {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+      {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 };

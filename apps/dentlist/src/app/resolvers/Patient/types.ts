@@ -27,14 +27,14 @@ export class Patient_Input {
   @Field(() => String)
   name: string;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => String, { nullable: true })
   profile_pic_url?: string;
 
   @Field(() => Gender)
   gender: Gender;
 
-  @Field(() => Number, { nullable: true })
-  age?: number;
+  @Field(() => Date, { nullable: true })
+  dateOfBirth?: Date;
 
   @Field(() => Number, { nullable: true })
   cat_id?: number;
@@ -54,8 +54,8 @@ export class Patient_Update_Input {
   @Field(() => String, { nullable: true })
   profile_pic_url?: string;
 
-  @Field(() => Number, { nullable: true })
-  age?: number;
+  @Field(() => Date, { nullable: true })
+  dateOfBirth?: Date;
 
   @Field(() => Number, { nullable: true })
   cat_id?: number;
