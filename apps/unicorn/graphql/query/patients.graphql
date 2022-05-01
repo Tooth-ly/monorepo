@@ -6,6 +6,7 @@ query Patients {
     gender
     age
     cat_id
+    profile_pic_url
     createdAt
     updatedAt
   }

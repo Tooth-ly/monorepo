@@ -2,7 +2,6 @@ query File($fileNumber: Float!) {
   file(file_number: $fileNumber) {
     file_number
     patient_id
-    photo_url
     status
     assignee_id
     createdAt

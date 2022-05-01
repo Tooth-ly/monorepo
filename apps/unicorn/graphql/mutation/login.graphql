@@ -10,7 +10,7 @@ mutation Login($password: String!, $email: String!) {
       password
       profile_pic_url
       hr_type
-      mail
+      email
       createdAt
       email
       updatedAt

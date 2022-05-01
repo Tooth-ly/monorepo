@@ -27,6 +27,9 @@ export class Patient_Input {
   @Field(() => String)
   name: string;
 
+  @Field(() => String)
+  profile_pic_url: string;
+
   @Field(() => Gender)
   gender: Gender;
 
@@ -47,6 +50,9 @@ export class Patient_Update_Input {
 
   @Field(() => Gender, { nullable: true })
   gender?: Gender;
+
+  @Field(() => String, { nullable: true })
+  profile_pic_url?: string;
 
   @Field(() => Number, { nullable: true })
   age?: number;

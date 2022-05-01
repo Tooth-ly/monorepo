@@ -3,7 +3,7 @@ query HrAssignees {
     email
     updatedAt
     createdAt
-    mail
+    email
     hr_type
     profile_pic_url
     password

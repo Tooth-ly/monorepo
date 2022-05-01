@@ -27,7 +27,6 @@ export type File = {
   createdAt: Scalars['String'];
   file_number: Scalars['Float'];
   patient_id?: Maybe<Scalars['Float']>;
-  photo_url?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
   updatedAt: Scalars['String'];
 };
@@ -56,22 +55,33 @@ export enum Hr_Type {
 
 export type HrAssignee = {
   __typename?: 'HrAssignee';
+  SSN?: Maybe<Scalars['String']>;
   createdAt: Scalars['String'];
   email: Scalars['String'];
+  home_address?: Maybe<Scalars['String']>;
+  home_number?: Maybe<Scalars['String']>;
   hr_type?: Maybe<Hr_Type>;
   id: Scalars['Int'];
-  mail: Scalars['String'];
+  martial_status?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  nationality?: Maybe<Scalars['String']>;
   password: Scalars['String'];
+  phone_number?: Maybe<Scalars['String']>;
   profile_pic_url?: Maybe<Scalars['String']>;
   updatedAt: Scalars['String'];
 };
 
 export type Hr_Assignee_Input = {
-  hr_type?: InputMaybe<Scalars['String']>;
-  mail: Scalars['String'];
+  SSN?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
+  home_address?: InputMaybe<Scalars['String']>;
+  home_number?: InputMaybe<Scalars['String']>;
+  hr_type?: InputMaybe<Hr_Type>;
+  martial_status?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
+  nationality?: InputMaybe<Scalars['String']>;
   password: Scalars['String'];
+  phone_number?: InputMaybe<Scalars['String']>;
   profile_pic_url?: InputMaybe<Scalars['String']>;
 };
 
@@ -82,11 +92,16 @@ export type Hr_Assignee_Response = {
 };
 
 export type Hr_Assignee_Update_Input = {
-  hr_type: Hr_Type;
-  mail: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  profile_pic_url: Scalars['String'];
+  SSN?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  home_address?: InputMaybe<Scalars['String']>;
+  home_number?: InputMaybe<Scalars['String']>;
+  hr_type?: InputMaybe<Hr_Type>;
+  martial_status?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  nationality?: InputMaybe<Scalars['String']>;
+  phone_number?: InputMaybe<Scalars['String']>;
+  profile_pic_url?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -212,6 +227,7 @@ export type Patient = {
   gender: Gender;
   id: Scalars['Float'];
   name: Scalars['String'];
+  profile_pic_url: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
@@ -221,6 +237,7 @@ export type Patient_Input = {
   file_number: Scalars['Float'];
   gender: Gender;
   name: Scalars['String'];
+  profile_pic_url: Scalars['String'];
 };
 
 export type Query = {
@@ -334,28 +351,28 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } | null } };
 
 export type CreateFileMutationVariables = Exact<{
   input: File_Input;
 }>;
 
 
-export type CreateFileMutation = { __typename?: 'Mutation', createFile: { __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
+export type CreateFileMutation = { __typename?: 'Mutation', createFile: { __typename?: 'File', file_number: number, patient_id?: number | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
 
 export type CreateHrAssigneeMutationVariables = Exact<{
   input: Hr_Assignee_Input;
 }>;
 
 
-export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null } };
+export type CreateHrAssigneeMutation = { __typename?: 'Mutation', createHrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } | null } };
 
 export type CreatePatientMutationVariables = Exact<{
   input: Patient_Input;
 }>;
 
 
-export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, createdAt: string, updatedAt: string } };
+export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string } };
 
 export type CreateTaskMutationVariables = Exact<{
   input: Task_Input;
@@ -405,7 +422,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, email: string, updatedAt: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -457,41 +474,41 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, photo_url?: string | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
+export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, photo_url?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
 
 export type HrAssigneeQueryVariables = Exact<{
   hrAssigneeId: Scalars['Float'];
 }>;
 
 
-export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } };
+export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } };
 
 export type HrAssigneesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'HrAssignee', email: string, updatedAt: string, createdAt: string, mail: string, hr_type?: Hr_Type | null, profile_pic_url?: string | null, password: string, name: string, id: number }> };
+export type HrAssigneesQuery = { __typename?: 'Query', hrAssignees: Array<{ __typename?: 'HrAssignee', email: string, updatedAt: string, createdAt: string, hr_type?: Hr_Type | null, profile_pic_url?: string | null, password: string, name: string, id: number }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, mail: string, createdAt: string, updatedAt: string, email: string } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } | null };
 
 export type PatientQueryVariables = Exact<{
   patientId: Scalars['Float'];
 }>;
 
 
-export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, createdAt: string, cat_id: number, updatedAt: string } };
+export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string } };
 
 export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, createdAt: string, updatedAt: string }> };
+export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number: number, name: string, gender: Gender, age: number, cat_id: number, profile_pic_url: string, createdAt: string, updatedAt: string }> };
 
 export type ServicelogQueryVariables = Exact<{
   serviceLogId: Scalars['Float'];
@@ -584,7 +601,7 @@ export const ChangePasswordDocument = gql`
       password
       profile_pic_url
       hr_type
-      mail
+      email
       createdAt
       updatedAt
       email
@@ -624,7 +641,6 @@ export const CreateFileDocument = gql`
   createFile(input: $input) {
     file_number
     patient_id
-    photo_url
     assignee_id
     createdAt
     updatedAt
@@ -670,7 +686,7 @@ export const CreateHrAssigneeDocument = gql`
       password
       profile_pic_url
       hr_type
-      mail
+      email
       createdAt
       updatedAt
       email
@@ -713,6 +729,7 @@ export const CreatePatientDocument = gql`
     gender
     age
     cat_id
+    profile_pic_url
     createdAt
     updatedAt
   }
@@ -953,7 +970,7 @@ export const LoginDocument = gql`
       password
       profile_pic_url
       hr_type
-      mail
+      email
       createdAt
       email
       updatedAt
@@ -1183,7 +1200,6 @@ export const FileDocument = gql`
   file(file_number: $fileNumber) {
     file_number
     patient_id
-    photo_url
     status
     assignee_id
     createdAt
@@ -1225,7 +1241,6 @@ export const FilesDocument = gql`
     file_number
     patient_id
     status
-    photo_url
     assignee_id
     updatedAt
     createdAt
@@ -1267,7 +1282,7 @@ export const HrAssigneeDocument = gql`
     password
     profile_pic_url
     hr_type
-    mail
+    email
     createdAt
     updatedAt
     email
@@ -1308,7 +1323,7 @@ export const HrAssigneesDocument = gql`
     email
     updatedAt
     createdAt
-    mail
+    email
     hr_type
     profile_pic_url
     password
@@ -1352,7 +1367,7 @@ export const MeDocument = gql`
     password
     profile_pic_url
     hr_type
-    mail
+    email
     createdAt
     updatedAt
     email
@@ -1394,8 +1409,9 @@ export const PatientDocument = gql`
     name
     gender
     age
-    createdAt
     cat_id
+    profile_pic_url
+    createdAt
     updatedAt
   }
 }
@@ -1437,6 +1453,7 @@ export const PatientsDocument = gql`
     gender
     age
     cat_id
+    profile_pic_url
     createdAt
     updatedAt
   }

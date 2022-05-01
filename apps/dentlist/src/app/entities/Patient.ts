@@ -29,6 +29,10 @@ export class Patient extends BaseEntity {
   @Column({ type: 'text' })
   name: string;
 
+  @Field(() => String)
+  @Column({ type: 'text' })
+  profile_pic_url: string;
+
   @Field(() => Gender)
   @Column({ type: 'text' })
   gender: Gender;

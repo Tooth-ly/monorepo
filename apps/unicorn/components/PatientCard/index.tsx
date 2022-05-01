@@ -1,29 +1,16 @@
 import { AddIcon } from '@chakra-ui/icons';
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
+import { Patient } from 'libs/generated/graphql';
 import React from 'react';
-import { Container, Name } from './styled';
 
-interface PFilesCardProps {
-  data: any;
-  createMode?: boolean;
+interface indexProps {
+  patientData?: Patient;
+  empty?: boolean;
 }
 
-export const PFilesCard: React.FC<PFilesCardProps> = ({
-  data,
-  createMode = false,
+export const PatientCard: React.FC<indexProps> = ({
+  patientData,
+  empty = false,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,9 +18,14 @@ export const PFilesCard: React.FC<PFilesCardProps> = ({
   const finalRef = React.useRef();
 
   return (
-    <Container>
-      {createMode ? (
-        <>
+    <>
+      {empty ? (
+        <Flex
+          backgroundColor={'#edf2f7'}
+          borderRadius={10}
+          border={'solid 1px'}
+          justifyContent={'center'}
+        >
           <AddIcon onClick={onOpen} margin={2} w={5} h={5} />
           <Modal
             initialFocusRef={initialRef}
@@ -65,10 +57,12 @@ export const PFilesCard: React.FC<PFilesCardProps> = ({
               </ModalFooter>
             </ModalContent>
           </Modal>
-        </>
+        </Flex>
       ) : (
-        <Name>{data.name}</Name>
+        <Box>
+          <Text>{patientData.name}</Text>
+        </Box>
       )}
-    </Container>
+    </>
   );
 };

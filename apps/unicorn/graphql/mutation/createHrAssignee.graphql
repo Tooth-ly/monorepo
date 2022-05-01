@@ -10,7 +10,7 @@ mutation CreateHrAssignee($input: Hr_Assignee_Input!) {
       password
       profile_pic_url
       hr_type
-      mail
+      email
       createdAt
       updatedAt
       email

@@ -1,10 +1,11 @@
-import { Flex, Grid } from '@chakra-ui/react';
-import { useFilesQuery } from 'libs/generated/graphql';
+import { Box, Flex, Grid, Spinner, useMediaQuery } from '@chakra-ui/react';
+import { useFilesQuery, usePatientsQuery } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/NavBar/index';
+import { PatientCard } from '../components/PatientCard';
 import { PFilesCard } from '../components/PFilesCard';
 import Layout from '../layouts/Layout';
 
@@ -14,32 +15,81 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
   const router = useRouter();
 
   // fetching patient files
-  const { data: patientFilesData, loading, error } = useFilesQuery();
+  const {
+    data: patientFilesData,
+    loading: isPatientFilesLoading,
+    error: patientFilesError,
+  } = useFilesQuery();
+
+  // fetching patients data
+  const {
+    data: patientsData,
+    loading: isPatientsLoading,
+    error: patientsError,
+  } = usePatientsQuery();
+
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)');
 
   return (
     <Flex w="100%" flexDir={'column'}>
       <NavBar />
-      <Container>
-        <Title>Patient Files</Title>
-        <Grid
-          paddingLeft={25}
-          paddingRight={25}
-          templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
-          columnGap={10}
-          rowGap={7}
-        >
-          {!error &&
-            !loading &&
-            patientFilesData.files.map((pfile) => (
-              <div
-                key={pfile.file_number}
-                onClick={() => router.push(`/Patient/${pfile.file_number}`)}
-              >
-                <PFilesCard data={pfile} key={pfile.file_number} />
-              </div>
-            ))}
+      {typeof window != 'undefined' && (
+        <Grid templateColumns={isLargerThan600 ? 'repeat(2, 1fr)' : '1fr'}>
+          <Box>
+            <Title>Patients</Title>
+            <Grid
+              paddingLeft={25}
+              paddingRight={25}
+              templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
+              columnGap={10}
+              rowGap={7}
+            >
+              {isPatientsLoading ? (
+                <Spinner />
+              ) : (
+                !patientsError &&
+                patientsData && (
+                  <>
+                    {patientsData.patients.map((patientData) => (
+                      <PatientCard
+                        patientData={patientData}
+                        key={patientData.id}
+                      />
+                    ))}
+
+                    <PatientCard empty={true} />
+                  </>
+                )
+              )}
+            </Grid>
+          </Box>
+          <Container>
+            <Title>Patient Files</Title>
+            <Grid
+              paddingLeft={25}
+              paddingRight={25}
+              templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
+              columnGap={10}
+              rowGap={7}
+            >
+              {isPatientFilesLoading ? (
+                <Spinner />
+              ) : (
+                !patientFilesError &&
+                patientFilesData.files.map((pfile) => (
+                  <div
+                    key={pfile.file_number}
+                    onClick={() => router.push(`/Patient/${pfile.file_number}`)}
+                  >
+                    <PFilesCard data={pfile} key={pfile.file_number} />
+                  </div>
+                ))
+              )}
+              <PFilesCard data={{}} createMode={true} />
+            </Grid>
+          </Container>
         </Grid>
-      </Container>
+      )}
     </Flex>
   );
 };
