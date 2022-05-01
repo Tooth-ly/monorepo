@@ -21,28 +21,28 @@ export class Patient extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
-  file_number: number;
+  @Field(() => Number, { nullable: true })
+  @Column({ type: 'int', nullable: true })
+  file_number?: number;
 
   @Field(() => String)
   @Column({ type: 'text' })
   name: string;
 
-  @Field(() => String)
-  @Column({ type: 'text' })
-  profile_pic_url: string;
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  profile_pic_url?: string;
 
   @Field(() => Gender)
   @Column({ type: 'text' })
   gender: Gender;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
-  age: number;
+  @Field(() => Number, { nullable: true })
+  @Column({ type: 'int', nullable: true })
+  age?: number;
 
-  @Field(() => Number)
-  @Column({ type: 'int' })
+  @Field(() => Number, { nullable: true })
+  @Column({ type: 'int', nullable: true })
   cat_id: number;
 
   @Field(() => String)

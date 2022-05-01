@@ -21,23 +21,23 @@ export class Patient_Response {
 
 @InputType()
 export class Patient_Input {
-  @Field(() => Number)
-  file_number: number;
+  @Field(() => Number, { nullable: true })
+  file_number?: number;
 
   @Field(() => String)
   name: string;
 
-  @Field(() => String)
-  profile_pic_url: string;
+  @Field(() => Number, { nullable: true })
+  profile_pic_url?: string;
 
   @Field(() => Gender)
   gender: Gender;
 
-  @Field(() => Number)
-  age: number;
+  @Field(() => Number, { nullable: true })
+  age?: number;
 
-  @Field(() => Number)
-  cat_id: number;
+  @Field(() => Number, { nullable: true })
+  cat_id?: number;
 }
 
 @InputType()

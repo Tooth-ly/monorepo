@@ -1,21 +1,34 @@
 import { AddIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { Patient } from 'libs/generated/graphql';
-import React from 'react';
+import { useRef, FC } from 'react';
 
 interface indexProps {
   patientData?: Patient;
   empty?: boolean;
 }
 
-export const PatientCard: React.FC<indexProps> = ({
-  patientData,
-  empty = false,
-}) => {
+export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const initialRef = React.useRef();
-  const finalRef = React.useRef();
+  const initialRef = useRef();
+  const finalRef = useRef();
 
   return (
     <>
@@ -35,7 +48,7 @@ export const PatientCard: React.FC<indexProps> = ({
           >
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Open File</ModalHeader>
+              <ModalHeader>Register Patient</ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
                 <FormControl>
