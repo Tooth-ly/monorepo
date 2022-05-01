@@ -4,6 +4,7 @@ query Patients {
     file_number
     name
     gender
+    dateOfBirth
     cat_id
     profile_pic_url
     createdAt

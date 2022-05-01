@@ -374,7 +374,7 @@ export type CreatePatientMutationVariables = Exact<{
 }>;
 
 
-export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
+export type CreatePatientMutation = { __typename?: 'Mutation', createPatient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, dateOfBirth?: any | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
 
 export type CreateTaskMutationVariables = Exact<{
   input: Task_Input;
@@ -505,12 +505,12 @@ export type PatientQueryVariables = Exact<{
 }>;
 
 
-export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
+export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
 
 export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string }> };
+export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string }> };
 
 export type ServicelogQueryVariables = Exact<{
   serviceLogId: Scalars['Float'];
@@ -730,6 +730,7 @@ export const CreatePatientDocument = gql`
     name
     gender
     cat_id
+    dateOfBirth
     profile_pic_url
     createdAt
     updatedAt
@@ -1409,6 +1410,7 @@ export const PatientDocument = gql`
     file_number
     name
     gender
+    dateOfBirth
     cat_id
     profile_pic_url
     createdAt
@@ -1451,6 +1453,7 @@ export const PatientsDocument = gql`
     file_number
     name
     gender
+    dateOfBirth
     cat_id
     profile_pic_url
     createdAt

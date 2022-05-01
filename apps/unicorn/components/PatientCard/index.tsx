@@ -1,34 +1,9 @@
 import { AddIcon } from '@chakra-ui/icons';
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Select,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react';
-import { Form, Formik } from 'formik';
-import {
-  CreatePatientDocument,
-  CreatePatientMutation,
-  Patient,
-  Patient_Input,
-  useCreatePatientMutation,
-} from 'libs/generated/graphql';
-import { FC, useRef, useState } from 'react';
-import { InputField } from '../InputField';
+import { Badge, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Patient } from 'libs/generated/graphql';
+import { FC, useRef } from 'react';
 import { PatientFormModal } from '../PatientFormModal/PatientFormModal';
+import { PatientModal } from '../PatientModal/PatientModal';
 
 interface indexProps {
   patientData?: Patient;
@@ -36,11 +11,20 @@ interface indexProps {
 }
 
 export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
+  console.log('pdate', patientData);
+
   // form modal stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = useRef();
   const finalRef = useRef();
+
+  // patient modal stuff
+  const {
+    isOpen: pIsOpen,
+    onOpen: pOnOpen,
+    onClose: pOnClose,
+  } = useDisclosure();
 
   return (
     <>
@@ -68,6 +52,7 @@ export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
           border={'solid 1px'}
           alignItems={'center'}
           padding={2}
+          onClick={pOnOpen}
         >
           <Badge ml={4} colorScheme={'blue'}>
             Patient
@@ -75,6 +60,11 @@ export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
           <Flex justifyContent={'center'} alignItems={'center'} w={'100%'}>
             <Text cursor={'pointer'}>{patientData.name}</Text>
           </Flex>
+          <PatientModal
+            isOpen={pIsOpen}
+            onClose={pOnClose}
+            data={patientData}
+          />
         </Flex>
       )}
     </>

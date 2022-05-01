@@ -5,6 +5,7 @@ mutation CreatePatient($input: Patient_Input!) {
     name
     gender
     cat_id
+    dateOfBirth
     profile_pic_url
     createdAt
     updatedAt
