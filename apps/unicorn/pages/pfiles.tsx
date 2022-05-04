@@ -91,11 +91,11 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
                     key={pfile.file_number}
                     onClick={() => router.push(`/Patient/${pfile.file_number}`)}
                   >
-                    <PFilesCard filesdata={pfile} key={pfile.file_number} />
+                    <PFilesCard fileData={pfile} key={pfile.file_number} />
                   </div>
                 ))
               )}
-              <PFilesCard filesdata={{}} createMode={true} />
+              <PFilesCard createMode={true} />
             </Grid>
           </Container>
         </Grid>

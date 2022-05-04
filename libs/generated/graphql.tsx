@@ -251,6 +251,12 @@ export type Patient_Input = {
   profile_pic_url?: InputMaybe<Scalars['String']>;
 };
 
+export type Patient_Response = {
+  __typename?: 'Patient_Response';
+  errors?: Maybe<Array<FieldError>>;
+  patient?: Maybe<Patient>;
+};
+
 export type Query = {
   __typename?: 'Query';
   file: File_Response;
@@ -258,7 +264,7 @@ export type Query = {
   hrAssignee: HrAssignee;
   hrAssignees: Array<HrAssignee>;
   me?: Maybe<HrAssignee>;
-  patient: Patient;
+  patient: Patient_Response;
   patients: Array<Patient>;
   servicelog: ServiceLog;
   servicelogs: Array<ServiceLog>;
@@ -514,12 +520,12 @@ export type PatientQueryVariables = Exact<{
 }>;
 
 
-export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string } };
+export type PatientQuery = { __typename?: 'Query', patient: { __typename?: 'Patient_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, patient?: { __typename?: 'Patient', id: number, file_number?: number | null, name: string, profile_pic_url?: string | null, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, createdAt: string, updatedAt: string } | null } };
 
 export type PatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number?: number | null, name: string, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, profile_pic_url?: string | null, createdAt: string, updatedAt: string }> };
+export type PatientsQuery = { __typename?: 'Query', patients: Array<{ __typename?: 'Patient', id: number, file_number?: number | null, name: string, profile_pic_url?: string | null, gender: Gender, dateOfBirth?: any | null, cat_id?: number | null, createdAt: string, updatedAt: string }> };
 
 export type ServicelogQueryVariables = Exact<{
   serviceLogId: Scalars['Float'];
@@ -1434,15 +1440,21 @@ export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const PatientDocument = gql`
     query Patient($patientId: Float!) {
   patient(id: $patientId) {
-    id
-    file_number
-    name
-    gender
-    dateOfBirth
-    cat_id
-    profile_pic_url
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    patient {
+      id
+      file_number
+      name
+      profile_pic_url
+      gender
+      dateOfBirth
+      cat_id
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -1480,10 +1492,10 @@ export const PatientsDocument = gql`
     id
     file_number
     name
+    profile_pic_url
     gender
     dateOfBirth
     cat_id
-    profile_pic_url
     createdAt
     updatedAt
   }

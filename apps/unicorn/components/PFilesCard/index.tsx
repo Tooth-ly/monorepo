@@ -1,17 +1,19 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { useDisclosure } from '@chakra-ui/react';
+import { File } from 'libs/generated/graphql';
 import { FC, useRef } from 'react';
 import { PFilesCardFormModal } from '../Modals/PFilesCardFormModal/PFilesCardFormModal';
-import { Container, Name } from './styled';
+import { PFilesCardView } from '../PFilesCardView/PFilesCardView';
+import { Container } from './styled';
 
 interface PFilesCardProps {
-  filesdata: any;
+  fileData?: File;
   createMode?: boolean;
 }
 
 export const PFilesCard: FC<PFilesCardProps> = ({
-  filesdata,
   createMode = false,
+  fileData,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -19,9 +21,9 @@ export const PFilesCard: FC<PFilesCardProps> = ({
   const finalRef = useRef();
 
   return (
-    <Container onClick={onOpen}>
+    <>
       {createMode ? (
-        <>
+        <Container onClick={onOpen}>
           <AddIcon margin={2} w={5} h={5} />
           <PFilesCardFormModal
             initialRef={initialRef}
@@ -29,10 +31,10 @@ export const PFilesCard: FC<PFilesCardProps> = ({
             onClose={onClose}
             finalRef={finalRef}
           />
-        </>
+        </Container>
       ) : (
-        <Name>{filesdata.name}</Name>
+        <>{fileData && <PFilesCardView fileData={fileData} />}</>
       )}
-    </Container>
+    </>
   );
 };

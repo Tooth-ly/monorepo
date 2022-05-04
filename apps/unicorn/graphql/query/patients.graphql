@@ -3,10 +3,10 @@ query Patients {
     id
     file_number
     name
+    profile_pic_url
     gender
     dateOfBirth
     cat_id
-    profile_pic_url
     createdAt
     updatedAt
   }

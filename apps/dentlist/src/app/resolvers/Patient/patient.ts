@@ -24,9 +24,11 @@ export class Patient_Resolver {
     return Patient.find();
   }
 
-  @Query(() => Patient)
+  @Query(() => Patient_Response)
   patient(@Arg('id') id: number) {
-    return AppDataSource.manager.findBy(Patient, { id });
+    return {
+      patient: AppDataSource.manager.findOneBy(Patient, { id }),
+    };
   }
 
   // crud: update
