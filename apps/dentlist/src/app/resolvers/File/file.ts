@@ -32,7 +32,9 @@ export class File_Resolver {
 
   @Query(() => File_Response)
   file(@Arg('file_number') file_number: number) {
-    return AppDataSource.manager.findBy(File, { file_number });
+    return {
+      file: AppDataSource.manager.findOneBy(File, { file_number }),
+    };
   }
 
   // crud: update
