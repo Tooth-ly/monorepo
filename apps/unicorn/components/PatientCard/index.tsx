@@ -2,8 +2,8 @@ import { AddIcon } from '@chakra-ui/icons';
 import { Badge, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Patient } from 'libs/generated/graphql';
 import { FC, useRef } from 'react';
-import { PatientFormModal } from '../PatientFormModal/PatientFormModal';
-import { PatientModal } from '../PatientModal/PatientModal';
+import { PatientFormModal } from '../Modals/PatientFormModal/PatientFormModal';
+import { PatientModal } from '../Modals/PatientModal/PatientModal';
 
 interface indexProps {
   patientData?: Patient;
@@ -11,8 +11,6 @@ interface indexProps {
 }
 
 export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
-  console.log('pdate', patientData);
-
   // form modal stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -36,6 +34,7 @@ export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
           justifyContent={'center'}
           alignItems={'center'}
           onClick={onOpen}
+          cursor="pointer"
         >
           <AddIcon margin={2} w={5} h={5} />
           <PatientFormModal
@@ -53,6 +52,7 @@ export const PatientCard: FC<indexProps> = ({ patientData, empty = false }) => {
           alignItems={'center'}
           padding={2}
           onClick={pOnOpen}
+          cursor="pointer"
         >
           <Badge ml={4} colorScheme={'blue'}>
             Patient

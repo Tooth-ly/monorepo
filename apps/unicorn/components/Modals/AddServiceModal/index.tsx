@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { FC } from 'react';
-import { InputField } from '../InputField';
+import { InputField } from '../../InputField';
 
 interface ServiceModalProps {
   initialRef: any;
@@ -56,7 +56,6 @@ export const ServiceModal: FC<ServiceModalProps> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={async (values) => {
-            console.log('tf?');
             console.log('service modal values', values);
           }}
         >

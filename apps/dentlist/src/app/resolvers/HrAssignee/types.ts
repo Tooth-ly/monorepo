@@ -1,13 +1,6 @@
+import { FieldError } from '../../types';
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { HrAssignee, HR_Type } from '../../entities/HrAssignee';
-
-@ObjectType()
-export class FieldError {
-  @Field()
-  field: string;
-  @Field()
-  message: string;
-}
 
 @ObjectType()
 export class Hr_Assignee_Response {

@@ -1,10 +1,16 @@
 query Files {
   files {
-    file_number
-    patient_id
-    status
-    assignee_id
-    updatedAt
-    createdAt
+    errors {
+      field
+      message
+    }
+    files {
+      file_number
+      patient_id
+      createdAt
+      updatedAt
+      assignee_id
+      status
+    }
   }
 }

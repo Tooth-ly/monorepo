@@ -1,14 +1,6 @@
+import { FieldError } from '../../types';
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { Gender, Patient } from '../../entities/Patient';
-
-@ObjectType()
-export class FieldError {
-  @Field()
-  field: string;
-
-  @Field()
-  message: string;
-}
 
 @ObjectType()
 export class Patient_Response {

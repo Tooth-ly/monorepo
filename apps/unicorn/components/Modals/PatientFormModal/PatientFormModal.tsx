@@ -20,7 +20,7 @@ import {
   useCreatePatientMutation,
 } from 'libs/generated/graphql';
 import React, { MutableRefObject, useState } from 'react';
-import { InputField } from '../InputField';
+import { InputField } from '../../InputField';
 
 interface PatientModalProps {
   initialRef: MutableRefObject<any>;

@@ -1,5 +1,9 @@
 import { Box, Flex, Grid, Spinner, useMediaQuery } from '@chakra-ui/react';
-import { useFilesQuery, usePatientsQuery } from 'libs/generated/graphql';
+import {
+  useFilesQuery,
+  useMeQuery,
+  usePatientsQuery,
+} from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -21,6 +25,9 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
     error: patientFilesError,
   } = useFilesQuery();
 
+  console.log('file error', patientFilesError);
+  console.log('file data', patientFilesData);
+
   // fetching patients data
   const {
     data: patientsData,
@@ -29,6 +36,8 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
   } = usePatientsQuery();
 
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)');
+
+  const { data, error: MeError, loading: meLoading } = useMeQuery();
 
   return (
     <Flex w="100%" flexDir={'column'}>
@@ -75,17 +84,18 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
               {isPatientFilesLoading ? (
                 <Spinner />
               ) : (
+                patientFilesData.files.files &&
                 !patientFilesError &&
-                patientFilesData.files.map((pfile) => (
+                patientFilesData.files.files.map((pfile) => (
                   <div
                     key={pfile.file_number}
                     onClick={() => router.push(`/Patient/${pfile.file_number}`)}
                   >
-                    <PFilesCard data={pfile} key={pfile.file_number} />
+                    <PFilesCard filesdata={pfile} key={pfile.file_number} />
                   </div>
                 ))
               )}
-              <PFilesCard data={{}} createMode={true} />
+              <PFilesCard filesdata={{}} createMode={true} />
             </Grid>
           </Container>
         </Grid>

@@ -24,13 +24,14 @@ import { AppDataSource } from '../../data-source';
 export class Hr_Assignee_Resolver {
   // for authentication purposes
   @Query(() => HrAssignee, { nullable: true })
-  me(@Ctx() { req }: MyContext) {
+  async me(@Ctx() { req }: MyContext) {
     // you are not logged in
     if (!req.session.hr_assignee_Id) {
+      console.log('not logged in');
       return null;
     }
 
-    return AppDataSource.manager.findBy(HrAssignee, {
+    return await AppDataSource.manager.findOneBy(HrAssignee, {
       id: req.session.hr_assignee_Id,
     });
   }
@@ -76,7 +77,7 @@ export class Hr_Assignee_Resolver {
     if (!req.session.hr_assignee_Id) {
       return null;
     }
-    return AppDataSource.manager.findBy(HrAssignee, { id });
+    return AppDataSource.manager.findOneBy(HrAssignee, { id });
   }
 
   // crud: update

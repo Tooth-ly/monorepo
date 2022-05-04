@@ -6,6 +6,7 @@ export const Container = styled.div({
   display: 'flex',
   justifyContent: 'center',
   backgroundColor: '#edf2f7',
+  cursor: 'pointer',
 });
 
 export const Name = styled.p({

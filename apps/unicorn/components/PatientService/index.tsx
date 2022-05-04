@@ -1,10 +1,9 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
-import { Service } from 'apps/unicorn/types';
-import { useAddServiceMutation } from 'libs/generated/graphql';
+import { useAddServiceMutation, ServiceLog } from 'libs/generated/graphql';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import { ServiceModal } from '../AddServiceModal';
+import { ServiceModal } from '../Modals/AddServiceModal';
 import { Task } from '../Task';
 import {
   InnerServiceDone,
@@ -13,7 +12,7 @@ import {
 } from './styled';
 
 interface PatientServiceProps {
-  serviceData?: Service;
+  serviceData?: ServiceLog;
   assigneeId?: number;
 }
 

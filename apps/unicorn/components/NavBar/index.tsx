@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useIsAuth } from 'apps/unicorn/utils/useIsAuth';
 import { useLogoutMutation } from 'libs/generated/graphql';
 import { useRouter } from 'next/router';
 import { NavLink } from './NavLink';
@@ -92,7 +93,13 @@ export default function withAction() {
                   <NavLink url={'/user-profile'}>Profile</NavLink>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => logout()}>Sign Out</MenuItem>
+                {useIsAuth() ? (
+                  <MenuItem onClick={() => logout()}>Sign Out</MenuItem>
+                ) : (
+                  <MenuItem onClick={() => router.push('/login')}>
+                    Sign In
+                  </MenuItem>
+                )}
               </MenuList>
             </Menu>
           </Flex>

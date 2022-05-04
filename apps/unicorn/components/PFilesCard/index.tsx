@@ -1,28 +1,16 @@
 import { AddIcon } from '@chakra-ui/icons';
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import { FC, useRef } from 'react';
+import { PFilesCardFormModal } from '../Modals/PFilesCardFormModal/PFilesCardFormModal';
 import { Container, Name } from './styled';
 
 interface PFilesCardProps {
-  data: any;
+  filesdata: any;
   createMode?: boolean;
 }
 
 export const PFilesCard: FC<PFilesCardProps> = ({
-  data,
+  filesdata,
   createMode = false,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,43 +19,19 @@ export const PFilesCard: FC<PFilesCardProps> = ({
   const finalRef = useRef();
 
   return (
-    <Container>
+    <Container onClick={onOpen}>
       {createMode ? (
         <>
-          <AddIcon onClick={onOpen} margin={2} w={5} h={5} />
-          <Modal
-            initialFocusRef={initialRef}
-            finalFocusRef={finalRef}
+          <AddIcon margin={2} w={5} h={5} />
+          <PFilesCardFormModal
+            initialRef={initialRef}
             isOpen={isOpen}
             onClose={onClose}
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Open File</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                <FormControl>
-                  <FormLabel>First name</FormLabel>
-                  <Input ref={initialRef} placeholder="First name" />
-                </FormControl>
-
-                <FormControl mt={4}>
-                  <FormLabel>Last name</FormLabel>
-                  <Input placeholder="Last name" />
-                </FormControl>
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3}>
-                  Save
-                </Button>
-                <Button onClick={onClose}>Cancel</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+            finalRef={finalRef}
+          />
         </>
       ) : (
-        <Name>{data.name}</Name>
+        <Name>{filesdata.name}</Name>
       )}
     </Container>
   );

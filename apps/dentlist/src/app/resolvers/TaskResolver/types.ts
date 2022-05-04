@@ -1,13 +1,6 @@
+import { FieldError } from '../../types';
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { Stage, Task } from '../..//entities/Task';
-
-@ObjectType()
-export class FieldError {
-  @Field()
-  field: string;
-  @Field()
-  message: string;
-}
 
 @ObjectType()
 export class Task_Response {

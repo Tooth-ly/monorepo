@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import {
   MeDocument,
@@ -34,11 +35,7 @@ const register: NextLayoutComponentType<registerProps> = ({}) => {
           console.log('values', value);
           const response = await register({
             variables: {
-              input: {
-                mail: value.email,
-                name: value.name,
-                password: value.password,
-              },
+              input: value,
             },
             update: (cache, { data }) => {
               cache.writeQuery<MeQuery>({
@@ -65,21 +62,23 @@ const register: NextLayoutComponentType<registerProps> = ({}) => {
       >
         <FormContainer>
           <InnerForm>
-            <InputFieldStyle
+            <InputField
               name="email"
               placeholder="email"
               label="Email"
               fontsize={23}
               type={'email'}
             />
-            <InputFieldStyle
-              name="password"
-              placeholder="password"
-              label="Password"
-              fontsize={23}
-              type={'password'}
-            />
-            <InputFieldStyle
+            <Box mt={2} mb={2}>
+              <InputField
+                name="password"
+                placeholder="password"
+                label="Password"
+                fontsize={23}
+                type={'password'}
+              />
+            </Box>
+            <InputField
               name="name"
               placeholder="name"
               label="Name"
@@ -130,9 +129,6 @@ const InnerForm = styled.div`
   margin: auto auto;
 `;
 
-const InputFieldStyle = styled(InputField)`
-  font-size: 25px;
-`;
 register.getLayout = (page) => <Layout layoutType="Default">{page}</Layout>;
 
 export default withApollo({ ssr: false })(register);

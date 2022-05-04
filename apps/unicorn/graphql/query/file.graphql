@@ -1,10 +1,16 @@
 query File($fileNumber: Float!) {
   file(file_number: $fileNumber) {
-    file_number
-    patient_id
-    status
-    assignee_id
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    file {
+      file_number
+      patient_id
+      status
+      assignee_id
+      createdAt
+      updatedAt
+    }
   }
 }

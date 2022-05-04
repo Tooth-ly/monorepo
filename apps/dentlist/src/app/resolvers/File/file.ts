@@ -1,12 +1,17 @@
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
-import { File_Input, File_Response, File_Update_Input } from './types';
-import { File } from '../../entities/File';
 import { AppDataSource } from '../../data-source';
+import { File } from '../../entities/File';
+import {
+  Files_Response,
+  File_Input,
+  File_Response,
+  File_Update_Input,
+} from './types';
 
 @Resolver()
 export class File_Resolver {
   // crud: create
-  @Mutation(() => File)
+  @Mutation(() => File_Response)
   async createFile(
     @Arg('input', () => File_Input) input: File_Input
   ): Promise<File_Response> {
@@ -18,12 +23,12 @@ export class File_Resolver {
   }
 
   // crud: read
-  @Query(() => [File])
+  @Query(() => Files_Response)
   files() {
     return AppDataSource.getRepository(File).find();
   }
 
-  @Query(() => File)
+  @Query(() => File_Response)
   file(@Arg('file_number') file_number: number) {
     return AppDataSource.manager.findBy(File, { file_number });
   }

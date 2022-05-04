@@ -1,14 +1,6 @@
+import { FieldError } from '../../types';
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { ServiceLog } from '../../entities/ServiceLog';
-
-@ObjectType()
-export class FieldError {
-  @Field()
-  field: string;
-
-  @Field()
-  message: string;
-}
 
 @ObjectType()
 export class ServeLog_Response {

@@ -1,9 +1,16 @@
 mutation CreateFile($input: File_Input!) {
   createFile(input: $input) {
-    file_number
-    patient_id
-    assignee_id
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    file {
+      file_number
+      patient_id
+      status
+      assignee_id
+      createdAt
+      updatedAt
+    }
   }
 }

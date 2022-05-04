@@ -35,11 +35,20 @@ export type File = {
 
 export type File_Input = {
   assignee_id?: InputMaybe<Scalars['Float']>;
-  file_number: Scalars['Float'];
-  patient_id: Scalars['Float'];
-  photo_url?: InputMaybe<Scalars['String']>;
-  service_log_id: Scalars['Float'];
+  patient_id?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['String']>;
+};
+
+export type File_Response = {
+  __typename?: 'File_Response';
+  errors?: Maybe<Array<FieldError>>;
+  file?: Maybe<File>;
+};
+
+export type Files_Response = {
+  __typename?: 'Files_Response';
+  errors?: Maybe<Array<FieldError>>;
+  files?: Maybe<Array<File>>;
 };
 
 export enum Gender {
@@ -110,7 +119,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addService: ServiceLog;
   changePassword: Hr_Assignee_Response;
-  createFile: File;
+  createFile: File_Response;
   createHrAssignee: Hr_Assignee_Response;
   createPatient: Patient;
   createTask: Task;
@@ -244,8 +253,8 @@ export type Patient_Input = {
 
 export type Query = {
   __typename?: 'Query';
-  file: File;
-  files: Array<File>;
+  file: File_Response;
+  files: Files_Response;
   hrAssignee: HrAssignee;
   hrAssignees: Array<HrAssignee>;
   me?: Maybe<HrAssignee>;
@@ -360,7 +369,7 @@ export type CreateFileMutationVariables = Exact<{
 }>;
 
 
-export type CreateFileMutation = { __typename?: 'Mutation', createFile: { __typename?: 'File', file_number: number, patient_id?: number | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
+export type CreateFileMutation = { __typename?: 'Mutation', createFile: { __typename?: 'File_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, file?: { __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } | null } };
 
 export type CreateHrAssigneeMutationVariables = Exact<{
   input: Hr_Assignee_Input;
@@ -476,12 +485,12 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } };
+export type FileQuery = { __typename?: 'Query', file: { __typename?: 'File_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, file?: { __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, createdAt: string, updatedAt: string } | null } };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, status?: string | null, assignee_id?: number | null, updatedAt: string, createdAt: string }> };
+export type FilesQuery = { __typename?: 'Query', files: { __typename?: 'Files_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, files?: Array<{ __typename?: 'File', file_number: number, patient_id?: number | null, createdAt: string, updatedAt: string, assignee_id?: number | null, status?: string | null }> | null } };
 
 export type HrAssigneeQueryVariables = Exact<{
   hrAssigneeId: Scalars['Float'];
@@ -641,11 +650,18 @@ export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePas
 export const CreateFileDocument = gql`
     mutation CreateFile($input: File_Input!) {
   createFile(input: $input) {
-    file_number
-    patient_id
-    assignee_id
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    file {
+      file_number
+      patient_id
+      status
+      assignee_id
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -1200,12 +1216,18 @@ export type UpdateTaskMutationOptions = Apollo.BaseMutationOptions<UpdateTaskMut
 export const FileDocument = gql`
     query File($fileNumber: Float!) {
   file(file_number: $fileNumber) {
-    file_number
-    patient_id
-    status
-    assignee_id
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    file {
+      file_number
+      patient_id
+      status
+      assignee_id
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -1240,12 +1262,18 @@ export type FileQueryResult = Apollo.QueryResult<FileQuery, FileQueryVariables>;
 export const FilesDocument = gql`
     query Files {
   files {
-    file_number
-    patient_id
-    status
-    assignee_id
-    updatedAt
-    createdAt
+    errors {
+      field
+      message
+    }
+    files {
+      file_number
+      patient_id
+      createdAt
+      updatedAt
+      assignee_id
+      status
+    }
   }
 }
     `;
