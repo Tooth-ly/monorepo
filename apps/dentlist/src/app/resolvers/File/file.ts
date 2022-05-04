@@ -25,7 +25,9 @@ export class File_Resolver {
   // crud: read
   @Query(() => Files_Response)
   files() {
-    return AppDataSource.getRepository(File).find();
+    return {
+      files: AppDataSource.getRepository(File).find(),
+    };
   }
 
   @Query(() => File_Response)
