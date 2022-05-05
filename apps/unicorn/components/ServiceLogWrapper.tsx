@@ -31,8 +31,8 @@ export const ServiceLogWrapper: React.FC<ServiceLogWrapperProps> = ({
               <div>
                 <PatientService
                   key={serviceLog.id}
-                  serviceData={serviceLog}
-                  assigneeId={assigneeData.id}
+                  serviceLogData={serviceLog}
+                  pFileData={pFileData}
                 />
               </div>
             );

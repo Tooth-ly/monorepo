@@ -11,10 +11,12 @@ import { buildSchema, registerEnumType } from 'type-graphql';
 import { COOKIE_NAME, __prod__ } from './constants';
 import { HR_Type } from './entities/HrAssignee';
 import { Gender } from './entities/Patient';
+import { ServiceType } from './entities/Service';
 import { Stage } from './entities/Task';
 import { File_Resolver } from './resolvers/File/file';
 import { Hr_Assignee_Resolver } from './resolvers/HrAssignee/hr_assignee';
 import { Patient_Resolver } from './resolvers/Patient/patient';
+import { ServiceResolver } from './resolvers/Service';
 import { ServiceLogResolver } from './resolvers/Service Log';
 import { Task_Resolver } from './resolvers/TaskResolver/task';
 
@@ -56,6 +58,7 @@ export const main = async () => {
   registerEnumType(Stage, { name: 'Stage' });
   registerEnumType(Gender, { name: 'Gender' });
   registerEnumType(HR_Type, { name: 'HR_Type' });
+  registerEnumType(ServiceType, { name: 'ServiceType' });
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -65,6 +68,7 @@ export const main = async () => {
         Task_Resolver,
         Hr_Assignee_Resolver,
         ServiceLogResolver,
+        ServiceResolver,
       ],
       validate: false,
     }),

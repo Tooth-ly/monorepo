@@ -1,8 +1,10 @@
-import { Flex, Grid, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Grid, useDisclosure, useMediaQuery } from '@chakra-ui/react';
+import { AddPatientService } from 'apps/unicorn/components/AddPatientService';
 import { ServiceLogWrapper } from 'apps/unicorn/components/ServiceLogWrapper';
 import { useFileQuery, useMeQuery } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import NavBar from '../../../components/NavBar';
 import { PatientMenu } from '../../../components/PatientMenu';
@@ -19,6 +21,11 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
 
   const router = useRouter();
   const id = parseInt(router.query.fileNumber as string);
+
+  // modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef();
+  const finalRef = useRef();
 
   // patient file data
   const {
@@ -61,7 +68,13 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                   assigneeData={assigneeData.me}
                   pFileData={pFileData.file.file}
                 />
-                <PatientService pFileData={pFileData.file.file} />
+                <AddPatientService
+                  finalRef={finalRef}
+                  initialRef={initialRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  onOpen={onOpen}
+                />
               </Grid>
             </Container>
           </Flex>
