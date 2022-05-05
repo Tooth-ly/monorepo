@@ -15,10 +15,6 @@ export const PFilesCardView: React.FC<PFilesCardViewProps> = ({ fileData }) => {
     },
   });
 
-  useEffect(() => {
-    console.log('nani', patientData.patient.patient.name);
-  }, [patientData]);
-
   if (patientData && !error)
     return (
       <Flex

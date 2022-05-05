@@ -1,6 +1,12 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
-import { useAddServiceMutation, ServiceLog } from 'libs/generated/graphql';
+import {
+  useAddServiceMutation,
+  ServiceLog,
+  HrAssignee,
+  useTasksByServiceQuery,
+  File,
+} from 'libs/generated/graphql';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import { ServiceModal } from '../Modals/AddServiceModal';
@@ -13,32 +19,46 @@ import {
 
 interface PatientServiceProps {
   serviceData?: ServiceLog;
-  assigneeId?: number;
+  pFileData: File;
 }
 
 export const PatientService: React.FC<PatientServiceProps> = ({
   serviceData,
-  assigneeId,
+  pFileData
 }) => {
   const router = useRouter();
-  const patientId = router.query.patientId as unknown as number;
 
   // modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef();
   const finalRef = useRef();
 
-  const addService = useAddServiceMutation({
+  // const addService = useAddServiceMutation({
+  //   variables: {
+  //     input: {
+  //       patient_id: serviceData.patient_id,
+  //       service_id: serviceData.id,
+  //       assignee_id: assigneeData.id,
+  //     },
+  //   },
+  // });
+
+  // pfile
+  const {patient_id, file_number} = pFileData
+
+  // tasks
+  const {
+    data: tasks,
+    error: taskError,
+    loading: taskLoading,
+  } = useTasksByServiceQuery({
     variables: {
-      input: {
-        patient_id: serviceData.patientId,
-        service_id: serviceData.id,
-        assignee_id: assigneeId,
-      },
+      sid: serviceData.id,
     },
   });
 
-  if (serviceData && patientId)
+
+  if (serviceData && tasks && !taskError && !taskLoading)
     return (
       <Box
         backgroundColor={'#dedede'}
@@ -56,28 +76,25 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         >
           <InnerServiceNew>
             New
-            {serviceData.tasks.length > 0 &&
-            serviceData.patientId == patientId &&
-            serviceData.serviceType == 'New' ? (
+            {tasks.tasksByService.length > 0 &&
+            serviceData.filenumber == file_number &&
+            serviceData.type == 'New' ? (
               <>
-                {serviceData.tasks.map((task) => (
-                  <Box m={'7px'} key={task.title}>
-                    <Task title={task.title} content={task.content} />
+                {tasks.tasksByService.map((task) => (
+                  <Box m={'7px'} key={task.name}>
+                    <Task title={task.name} content={task.description} />
                   </Box>
                 ))}
-                <Box
-                  m={'7px'}
-                  onClick={() =>
-                    router.push(`/Patient/${patientId}/createTask`)
-                  }
-                >
+                {/* replace by modal */}
+                <Box m={'7px'} onClick={() => router.push(`/Task/createTask`)}>
                   <Task plusSign={true} />
                 </Box>
               </>
             ) : (
               <Box
+                {/* replace by modal */}
                 m={'7px'}
-                onClick={() => router.push(`/Patient/${patientId}/createTask`)}
+                onClick={() => router.push(`/Task/createTask`)}
               >
                 <Task plusSign={true} />
               </Box>
@@ -85,14 +102,14 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           </InnerServiceNew>
           <InnerServiceInProgress>
             In Progress
-            {serviceData.tasks.length > 0 &&
-            serviceData.patientId == patientId &&
+            {tasks.tasksByService.length > 0 &&
+            serviceData.patient_id == patient_id &&
             serviceData.serviceType == 'In Progress' ? (
               <>
-                {serviceData.tasks.map((task) => (
+                {tasks.tasksByService.map((task) => (
                   <>
-                    <Box m={'7px'} key={task.title}>
-                      <Task title={task.title} content={task.content} />
+                    <Box m={'7px'} key={task.id}>
+                      <Task title={task.name} content={task.description} />
                     </Box>
                   </>
                 ))}
@@ -108,7 +125,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
             ) : (
               <Box
                 m={'7px'}
-                onClick={() => router.push(`/Patient/${patientId}/createTask`)}
+                onClick={() => router.push(`/File/${patientId}/createTask`)}
               >
                 <Task plusSign={true} />
               </Box>
@@ -116,14 +133,14 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           </InnerServiceInProgress>
           <InnerServiceDone>
             Done
-            {serviceData.tasks.length > 0 &&
-            serviceData.patientId == patientId &&
+            {tasks.tasksByService.length > 0 &&
+            serviceData.patient_id == patientId &&
             serviceData.serviceType == 'Done' ? (
               <>
-                {serviceData.tasks.map((task) => (
+                {tasks.tasksByService.map((task) => (
                   <>
-                    <Box m={'7px'} key={task.title}>
-                      <Task title={task.title} content={task.content} />
+                    <Box m={'7px'} key={task.id}>
+                      <Task title={task.name} content={task.description} />
                     </Box>
                   </>
                 ))}
