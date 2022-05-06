@@ -8,12 +8,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export enum ServiceType {
-  New = 'New',
-  In_Progress = 'In Progress',
-  Done = 'Done',
-}
-
 @ObjectType()
 @Entity()
 export class Service extends BaseEntity {
@@ -24,10 +18,6 @@ export class Service extends BaseEntity {
   @Field(() => String)
   @Column({ type: 'text' })
   name: string;
-
-  @Field(() => ServiceType)
-  @Column({ type: 'text' })
-  type: ServiceType;
 
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', nullable: true })

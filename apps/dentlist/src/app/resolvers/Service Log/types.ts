@@ -1,6 +1,6 @@
 import { FieldError } from '../../types';
 import { Field, InputType, ObjectType } from 'type-graphql';
-import { ServiceLog } from '../../entities/ServiceLog';
+import { ServiceLog, ServiceType } from '../../entities/ServiceLog';
 
 @ObjectType()
 export class ServeLog_Response {
@@ -21,6 +21,9 @@ export class ServiceLog_Input {
 
   @Field(() => Number)
   assignee_id: number;
+
+  @Field(() => ServiceType, { nullable: true })
+  type?: ServiceType;
 }
 
 @InputType()
@@ -33,4 +36,7 @@ export class ServiceLog_Update_Input {
 
   @Field(() => Number, { nullable: true })
   assignee_id?: number;
+
+  @Field(() => ServiceType, { nullable: true })
+  type?: ServiceType;
 }

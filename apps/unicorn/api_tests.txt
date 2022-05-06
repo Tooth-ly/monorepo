@@ -1,0 +1,14 @@
+1 - update mutations and queries in the graphql folder
+    graphql/
+        queries/
+        mutations/
+    consider using a graphql client at localhost:4000/graphql for testing and autocompletion
+
+2 - yarn gen to spit out generated/graphql 
+
+3 - check if the database is synced. Sometimes it fails to alter because you already have data in.
+    It might throw an error like this "fields can't be null"
+    One way to fix it is to run an SQL statement to clear the data.
+
+4 - check if I changed the structure of the data. When react throws undefined, check if I changed
+    structure.

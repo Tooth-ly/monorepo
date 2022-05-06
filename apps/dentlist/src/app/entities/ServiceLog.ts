@@ -8,12 +8,21 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum ServiceType {
+  New = 'New',
+  In_Progress = 'In Progress',
+  Done = 'Done',
+}
 @ObjectType()
 @Entity()
 export class ServiceLog extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Field(() => ServiceType, { nullable: true })
+  @Column({ type: 'text', nullable: true })
+  type?: ServiceType;
 
   @Field(() => Number)
   @Column({ type: 'int' })
