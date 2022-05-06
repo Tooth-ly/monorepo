@@ -1,11 +1,18 @@
 mutation AddService($input: ServiceLog_Input!) {
   addService(input: $input) {
-    id
-    service_id
-    assignee_id
-    patient_id
-    date
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    servicelog {
+      id
+      service_id
+      patient_id
+      filenumber
+      assignee_id
+      date
+      createdAt
+      updatedAt
+    }
   }
 }

@@ -20,10 +20,6 @@ export class ServiceLog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => ServiceType, { nullable: true })
-  @Column({ type: 'text', nullable: true })
-  type?: ServiceType;
-
   @Field(() => Number)
   @Column({ type: 'int' })
   service_id: number;

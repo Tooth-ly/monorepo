@@ -9,6 +9,9 @@ interface AddPatientServiceProps {
   initialRef: MutableRefObject<undefined>;
   finalRef: MutableRefObject<undefined>;
   onClose: () => void;
+  assignee_id: number;
+  patient_id: number;
+  filenumber: number;
 }
 
 export const AddPatientService: React.FC<AddPatientServiceProps> = ({
@@ -17,6 +20,9 @@ export const AddPatientService: React.FC<AddPatientServiceProps> = ({
   initialRef,
   isOpen,
   onClose,
+  assignee_id,
+  patient_id,
+  filenumber,
 }) => {
   return (
     <Flex
@@ -32,9 +38,11 @@ export const AddPatientService: React.FC<AddPatientServiceProps> = ({
       <ServiceModal
         initialRef={initialRef}
         isOpen={isOpen}
-        onOpen={onOpen}
         onClose={onClose}
         finalRef={finalRef}
+        assignee_id={assignee_id}
+        patient_id={patient_id}
+        filenumber={filenumber}
       />
     </Flex>
   );

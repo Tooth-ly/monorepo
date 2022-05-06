@@ -1,21 +1,21 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  Button,
   FormControl,
   FormLabel,
   Input,
-  Select,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
-  Button,
+  ModalHeader,
+  ModalOverlay,
+  Select,
 } from '@chakra-ui/react';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import {
-  CreatePatientMutation,
   CreatePatientDocument,
+  CreatePatientMutation,
   Patient_Input,
   useCreatePatientMutation,
 } from 'libs/generated/graphql';

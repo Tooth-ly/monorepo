@@ -2,7 +2,6 @@ query Service($serviceId: Float!) {
   service(service_id: $serviceId) {
     id
     name
-    type
     description
     createdAt
     updatedAt

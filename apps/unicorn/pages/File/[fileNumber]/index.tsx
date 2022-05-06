@@ -51,7 +51,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
     !pFileError &&
     !pFileLoading
   ) {
-    const { file_number } = pFileData.file.file;
+    const { file_number, patient_id } = pFileData.file.file;
 
     if (isDisplayingInBrowser)
       if (!isLargerThan600) {
@@ -74,6 +74,9 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                   isOpen={isOpen}
                   onClose={onClose}
                   onOpen={onOpen}
+                  assignee_id={assigneeData.me.id}
+                  patient_id={patient_id}
+                  filenumber={file_number}
                 />
               </Grid>
             </Container>

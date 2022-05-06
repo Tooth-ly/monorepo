@@ -2,7 +2,6 @@ import { Box, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import {
   File,
   ServiceLog,
-  ServiceType,
   useServiceQuery,
   useTasksByServiceQuery,
 } from 'libs/generated/graphql';
@@ -32,18 +31,8 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   const initialRef = useRef();
   const finalRef = useRef();
 
-  // const addService = useAddServiceMutation({
-  //   variables: {
-  //     input: {
-  //       patient_id: serviceData.patient_id,
-  //       service_id: serviceData.id,
-  //       assignee_id: assigneeData.id,
-  //     },
-  //   },
-  // });
-
   // pfile
-  const { patient_id, file_number } = pFileData;
+  const { patient_id, file_number, assignee_id } = pFileData;
 
   if (serviceLogData) {
     // tasks
@@ -75,8 +64,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           <InnerServiceNew>
             New
             {tasks.tasksByService.length > 0 &&
-            serviceLogData.filenumber == file_number &&
-            serviceData.service.type == ServiceType.New ? (
+            serviceLogData.filenumber == file_number ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <Box m={'7px'} key={task.name}>
@@ -97,8 +85,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           <InnerServiceInProgress>
             In Progress
             {tasks.tasksByService.length > 0 &&
-            serviceLogData.patient_id == patient_id &&
-            serviceData.service.type == ServiceType.InProgress ? (
+            serviceLogData.patient_id == patient_id ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <>
@@ -128,8 +115,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           <InnerServiceDone>
             Done
             {tasks.tasksByService.length > 0 &&
-            serviceLogData.patient_id == patient_id &&
-            serviceData.service.type == ServiceType.Done ? (
+            serviceLogData.patient_id == patient_id ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <>
@@ -171,6 +157,9 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         isOpen={isOpen}
         onClose={onClose}
         onOpen={onOpen}
+        assignee_id={assignee_id}
+        patient_id={patient_id}
+        filenumber={file_number}
       />
     );
 };

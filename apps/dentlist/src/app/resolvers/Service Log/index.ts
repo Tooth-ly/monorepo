@@ -9,7 +9,7 @@ import { AppDataSource } from '../../data-source';
 
 @Resolver()
 export class ServiceLogResolver {
-  @Mutation(() => ServiceLog)
+  @Mutation(() => ServeLog_Response)
   async addService(
     @Arg('input', () => ServiceLog_Input) input: ServiceLog_Input
   ): Promise<ServeLog_Response> {
