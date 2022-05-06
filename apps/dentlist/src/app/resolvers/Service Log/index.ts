@@ -29,12 +29,12 @@ export class ServiceLogResolver {
 
   @Query(() => ServiceLog)
   servicelog(@Arg('service_log_id') service_log_id: number) {
-    return AppDataSource.manager.findBy(ServiceLog, { id: service_log_id });
+    return AppDataSource.manager.findOneBy(ServiceLog, { id: service_log_id });
   }
 
   @Query(() => [ServiceLog])
   servicelogsByFilenumber(@Arg('filenumber') filenumber: number) {
-    return AppDataSource.manager.findBy(ServiceLog, { filenumber });
+    return AppDataSource.manager.findOneBy(ServiceLog, { filenumber });
   }
 
   // crud: update service log

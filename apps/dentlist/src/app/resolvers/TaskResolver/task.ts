@@ -31,7 +31,7 @@ export class Task_Resolver {
 
   @Query(() => Task)
   task(@Arg('id') id: number) {
-    return AppDataSource.manager.findBy(Task, { id });
+    return AppDataSource.manager.findOneBy(Task, { id });
   }
 
   // crud: update

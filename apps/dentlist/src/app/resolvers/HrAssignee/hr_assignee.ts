@@ -139,10 +139,9 @@ export class Hr_Assignee_Resolver {
     }
 
     const hr_assignee_id_num = parseInt(hr_assignee_id);
-    const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
+    const hr_assignee = await AppDataSource.manager.findOneBy(HrAssignee, {
       id: hr_assignee_id_num,
     });
-    const hr_assignee = hr_assignees[0];
 
     if (!hr_assignee) {
       return {
@@ -178,10 +177,9 @@ export class Hr_Assignee_Resolver {
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<Hr_Assignee_Response> {
-    const hr_assignees = await AppDataSource.manager.findBy(HrAssignee, {
+    const hr_assignee = await AppDataSource.manager.findOneBy(HrAssignee, {
       email,
     });
-    const hr_assignee = hr_assignees[0];
 
     if (!hr_assignee) {
       return {

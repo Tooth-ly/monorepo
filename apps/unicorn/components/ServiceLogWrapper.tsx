@@ -39,5 +39,5 @@ export const ServiceLogWrapper: React.FC<ServiceLogWrapperProps> = ({
         })}
       </>
     );
-  else return <>No services for this file</>;
+  else return null;
 };

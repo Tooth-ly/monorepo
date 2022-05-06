@@ -1,5 +1,4 @@
-import { AddIcon } from '@chakra-ui/icons';
-import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import {
   File,
   ServiceLog,
@@ -10,7 +9,6 @@ import {
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import { AddPatientService } from '../AddPatientService';
-import { ServiceModal } from '../Modals/AddServiceModal';
 import { Task } from '../Task';
 import {
   InnerServiceDone,
@@ -47,23 +45,18 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   // pfile
   const { patient_id, file_number } = pFileData;
 
-  // tasks
-  const {
-    data: tasks,
-    error: taskError,
-    loading: taskLoading,
-  } = useTasksByServiceQuery({
-    variables: {
-      sid: serviceLogData.id,
-    },
-  });
+  if (serviceLogData) {
+    // tasks
+    const { data: tasks } = useTasksByServiceQuery({
+      variables: {
+        sid: serviceLogData.id,
+      },
+    });
 
-  // service
-  const { data: serviceData } = useServiceQuery({
-    variables: { serviceId: serviceLogData.service_id },
-  });
-
-  if (serviceLogData && tasks && !taskError && !taskLoading && serviceData)
+    // service
+    const { data: serviceData } = useServiceQuery({
+      variables: { serviceId: serviceLogData.service_id },
+    });
     return (
       <Box
         backgroundColor={'#dedede'}
@@ -170,7 +163,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         </Grid>
       </Box>
     );
-  else
+  } else
     return (
       <AddPatientService
         finalRef={finalRef}
