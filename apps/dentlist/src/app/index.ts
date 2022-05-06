@@ -11,7 +11,7 @@ import { buildSchema, registerEnumType } from 'type-graphql';
 import { COOKIE_NAME, __prod__ } from './constants';
 import { HR_Type } from './entities/HrAssignee';
 import { Gender } from './entities/Patient';
-import { ServiceType } from './entities/Service';
+import { ServiceType } from './entities/ServiceLog';
 import { Stage } from './entities/Task';
 import { File_Resolver } from './resolvers/File/file';
 import { Hr_Assignee_Resolver } from './resolvers/HrAssignee/hr_assignee';

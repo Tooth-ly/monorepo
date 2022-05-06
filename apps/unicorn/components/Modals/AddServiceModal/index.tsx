@@ -13,6 +13,7 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { useServiceQuery } from 'libs/generated/graphql';
 import { FC } from 'react';
 import { InputField } from '../../InputField';
 
