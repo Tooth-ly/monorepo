@@ -27,7 +27,6 @@ export class Hr_Assignee_Resolver {
   async me(@Ctx() { req }: MyContext) {
     // you are not logged in
     if (!req.session.hr_assignee_Id) {
-      console.log('not logged in');
       return null;
     }
 
@@ -72,12 +71,19 @@ export class Hr_Assignee_Resolver {
     return AppDataSource.getRepository(HrAssignee).find();
   }
 
-  @Query(() => HrAssignee)
-  hrAssignee(@Arg('id') id: number, @Ctx() { req }: MyContext) {
+  @Query(() => Hr_Assignee_Response)
+  async hrAssignee(@Arg('id') id: number, @Ctx() { req }: MyContext) {
     if (!req.session.hr_assignee_Id) {
       return null;
     }
-    return AppDataSource.manager.findOneBy(HrAssignee, { id });
+
+    const hr_assignee = await AppDataSource.manager.findOneBy(HrAssignee, {
+      id,
+    });
+
+    return {
+      hr_assignee,
+    };
   }
 
   // crud: update

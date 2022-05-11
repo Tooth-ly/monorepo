@@ -34,6 +34,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   // pfile
   const { patient_id, file_number, assignee_id } = pFileData;
 
+  console.log('sl data', serviceLogData);
   if (serviceLogData) {
     // tasks
     const { data: tasks } = useTasksByServiceQuery({
@@ -46,6 +47,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
     const { data: serviceData } = useServiceQuery({
       variables: { serviceId: serviceLogData.service_id },
     });
+
     return (
       <Box
         backgroundColor={'#dedede'}

@@ -34,7 +34,7 @@ export class ServiceLogResolver {
 
   @Query(() => [ServiceLog])
   servicelogsByFilenumber(@Arg('filenumber') filenumber: number) {
-    return AppDataSource.manager.findOneBy(ServiceLog, { filenumber });
+    return AppDataSource.manager.findBy(ServiceLog, { filenumber });
   }
 
   // crud: update service log

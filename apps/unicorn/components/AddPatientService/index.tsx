@@ -33,6 +33,7 @@ export const AddPatientService: React.FC<AddPatientServiceProps> = ({
       justifyContent={'center'}
       alignItems={'center'}
       onClick={onOpen}
+      cursor={'pointer'}
     >
       <AddIcon w={50} h={50} m={10} />
       <ServiceModal

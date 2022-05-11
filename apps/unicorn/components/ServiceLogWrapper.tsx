@@ -15,7 +15,7 @@ export const ServiceLogWrapper: React.FC<ServiceLogWrapperProps> = ({
   assigneeData,
   pFileData,
 }) => {
-  const { patient_id, file_number } = pFileData;
+  const { file_number } = pFileData;
   const { data, error, loading } = useServicelogsByFilenumberQuery({
     variables: {
       filenumber: file_number,
@@ -26,16 +26,15 @@ export const ServiceLogWrapper: React.FC<ServiceLogWrapperProps> = ({
     return (
       <>
         {data.servicelogsByFilenumber.map((serviceLog) => {
-          if (serviceLog.patient_id == patient_id)
-            return (
-              <div>
-                <PatientService
-                  key={serviceLog.id}
-                  serviceLogData={serviceLog}
-                  pFileData={pFileData}
-                />
-              </div>
-            );
+          return (
+            <div>
+              <PatientService
+                key={serviceLog.id}
+                serviceLogData={serviceLog}
+                pFileData={pFileData}
+              />
+            </div>
+          );
         })}
       </>
     );
