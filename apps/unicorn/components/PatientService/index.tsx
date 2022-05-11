@@ -24,8 +24,6 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   pFileData,
   serviceLogData,
 }) => {
-  const router = useRouter();
-
   // modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef();
@@ -34,7 +32,6 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   // pfile
   const { patient_id, file_number, assignee_id } = pFileData;
 
-  console.log('sl data', serviceLogData);
   if (serviceLogData) {
     // tasks
     const { data: tasks } = useTasksByServiceQuery({
@@ -56,7 +53,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         padding={'15px'}
         shadow={'lg'}
       >
-        <Text fontWeight={600}>Service</Text>
+        <Text fontWeight={600}>Service: {serviceData.service.name}</Text>
         <Grid
           templateColumns={'repeat(auto-fit, minmax(100px, 1fr))'}
           gap={2}
@@ -65,29 +62,28 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         >
           <InnerServiceNew>
             New
-            {tasks.tasksByService.length > 0 &&
-            serviceLogData.filenumber == file_number ? (
+            {tasks && tasks.tasksByService.length > 0 ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <Box m={'7px'} key={task.name}>
                     <Task title={task.name} content={task.description} />
                   </Box>
                 ))}
+
                 {/* replace by modal */}
-                <Box m={'7px'} onClick={() => router.push(`/Task/createTask`)}>
+                <Box m={'7px'}>
                   <Task plusSign={true} />
                 </Box>
               </>
             ) : (
-              <Box m={'7px'} onClick={() => router.push(`/Task/createTask`)}>
+              <Box m={'7px'}>
                 <Task plusSign={true} />
               </Box>
             )}
           </InnerServiceNew>
           <InnerServiceInProgress>
             In Progress
-            {tasks.tasksByService.length > 0 &&
-            serviceLogData.patient_id == patient_id ? (
+            {tasks && tasks.tasksByService.length > 0 ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <>
@@ -96,28 +92,19 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                     </Box>
                   </>
                 ))}
-                <Box
-                  m={'7px'}
-                  onClick={() =>
-                    router.push(`/Patient/${patient_id}/createTask`)
-                  }
-                >
+                <Box m={'7px'}>
                   <Task plusSign={true} />
                 </Box>
               </>
             ) : (
-              <Box
-                m={'7px'}
-                onClick={() => router.push(`/File/${patient_id}/createTask`)}
-              >
+              <Box m={'7px'}>
                 <Task plusSign={true} />
               </Box>
             )}
           </InnerServiceInProgress>
           <InnerServiceDone>
             Done
-            {tasks.tasksByService.length > 0 &&
-            serviceLogData.patient_id == patient_id ? (
+            {tasks && tasks.tasksByService.length > 0 ? (
               <>
                 {tasks.tasksByService.map((task) => (
                   <>
@@ -126,23 +113,13 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                     </Box>
                   </>
                 ))}
-                <Box
-                  m={'7px'}
-                  onClick={() =>
-                    router.push(`/Patient/${patient_id}/createTask`)
-                  }
-                >
+                <Box m={'7px'}>
                   <Task plusSign={true} />
                 </Box>
               </>
             ) : (
               <>
-                <Box
-                  m={'7px'}
-                  onClick={() =>
-                    router.push(`/Patient/${patient_id}/createTask`)
-                  }
-                >
+                <Box m={'7px'}>
                   <Task plusSign={true} />
                 </Box>
               </>
