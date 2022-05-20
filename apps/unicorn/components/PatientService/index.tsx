@@ -1,13 +1,11 @@
 import { Box, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import {
-  File,
   ServiceLog,
   useServiceQuery,
   useTasksByServiceQuery,
 } from 'libs/generated/graphql';
-import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import { AddPatientService } from '../AddPatientService';
+import { NewTaskModal } from '../NewTaskModal';
 import { Task } from '../Task';
 import {
   InnerServiceDone,
@@ -16,35 +14,31 @@ import {
 } from './styled';
 
 interface PatientServiceProps {
-  serviceLogData?: ServiceLog;
-  pFileData: File;
+  serviceLogData: ServiceLog;
 }
 
 export const PatientService: React.FC<PatientServiceProps> = ({
-  pFileData,
   serviceLogData,
 }) => {
-  // modal
+  // tasks
+  const { data: tasks } = useTasksByServiceQuery({
+    variables: {
+      serviceLogId: serviceLogData.id,
+    },
+  });
+
+  // service
+  const { data: serviceData, loading: serviceLoading } = useServiceQuery({
+    variables: { serviceId: serviceLogData.service_id },
+  });
+
+  // new task modal
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const initialRef = useRef();
   const finalRef = useRef();
 
-  // pfile
-  const { patient_id, file_number, assignee_id } = pFileData;
-
-  if (serviceLogData) {
-    // tasks
-    const { data: tasks } = useTasksByServiceQuery({
-      variables: {
-        sid: serviceLogData.id,
-      },
-    });
-
-    // service
-    const { data: serviceData } = useServiceQuery({
-      variables: { serviceId: serviceLogData.service_id },
-    });
-
+  if (serviceData && tasks && !serviceLoading)
     return (
       <Box
         backgroundColor={'#dedede'}
@@ -71,13 +65,27 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                 ))}
 
                 {/* replace by modal */}
-                <Box m={'7px'}>
+                <Box m={'7px'} onClick={() => console.log('yeet?')}>
                   <Task plusSign={true} />
                 </Box>
+                <NewTaskModal
+                  finalRef={finalRef}
+                  initialRef={initialRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  serviceLogId={serviceData.service.id}
+                />
               </>
             ) : (
-              <Box m={'7px'}>
+              <Box m={'7px'} onClick={onOpen}>
                 <Task plusSign={true} />
+                <NewTaskModal
+                  finalRef={finalRef}
+                  initialRef={initialRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  serviceLogId={serviceData.service.id}
+                />
               </Box>
             )}
           </InnerServiceNew>
@@ -128,17 +136,5 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         </Grid>
       </Box>
     );
-  } else
-    return (
-      <AddPatientService
-        finalRef={finalRef}
-        initialRef={initialRef}
-        isOpen={isOpen}
-        onClose={onClose}
-        onOpen={onOpen}
-        assignee_id={assignee_id}
-        patient_id={patient_id}
-        filenumber={file_number}
-      />
-    );
+  else return null;
 };

@@ -1,15 +1,9 @@
 import { Box, FormErrorMessage } from '@chakra-ui/react';
 import { isValidEmail } from '@tooth.ly/validation';
 import { Form, Formik, FormikErrors, FormikProps } from 'formik';
-import {
-  MeDocument,
-  MeQuery,
-  useLoginMutation,
-  useMeQuery,
-} from 'libs/generated/graphql';
+import { MeDocument, MeQuery, useLoginMutation } from 'libs/generated/graphql';
 import { NextLayoutComponentType } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { InputField } from '../components/InputField';
 import Layout from '../layouts/Layout';

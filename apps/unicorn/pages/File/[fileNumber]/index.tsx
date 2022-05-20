@@ -97,7 +97,16 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
                   assigneeData={assigneeData.me}
                   pFileData={pFileData.file.file}
                 />
-                <PatientService pFileData={pFileData.file.file} />
+                <AddPatientService
+                  finalRef={finalRef}
+                  initialRef={initialRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  onOpen={onOpen}
+                  assignee_id={assigneeData.me.id}
+                  patient_id={patient_id}
+                  filenumber={file_number}
+                />
               </Grid>
             </Container600>
           </Flex>

@@ -1,13 +1,24 @@
 query HrAssignee($hrAssigneeId: Float!) {
   hrAssignee(id: $hrAssigneeId) {
-    id
-    name
-    password
-    profile_pic_url
-    hr_type
-    email
-    createdAt
-    updatedAt
-    email
+    errors {
+      field
+      message
+    }
+    hr_assignee {
+      id
+      name
+      password
+      email
+      phone_number
+      home_number
+      home_address
+      SSN
+      martial_status
+      nationality
+      profile_pic_url
+      hr_type
+      createdAt
+      updatedAt
+    }
   }
 }

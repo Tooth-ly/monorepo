@@ -1,5 +1,5 @@
-query TasksByService($sid: Int!) {
-  tasksByService(sid: $sid) {
+query TasksByService($serviceLogId: Int!) {
+  tasksByService(service_log_id: $serviceLogId) {
     id
     service_log_id
     stage

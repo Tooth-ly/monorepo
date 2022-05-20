@@ -123,7 +123,7 @@ export type Mutation = {
   createHrAssignee: Hr_Assignee_Response;
   createPatient: Patient;
   createService: Service;
-  createTask: Task;
+  createTask: Task_Response;
   deleteFile: Scalars['Boolean'];
   deleteHrAssignee: Scalars['Boolean'];
   deletePatient: Scalars['Boolean'];
@@ -280,7 +280,7 @@ export type Query = {
   __typename?: 'Query';
   file: File_Response;
   files: Files_Response;
-  hrAssignee: HrAssignee;
+  hrAssignee: Hr_Assignee_Response;
   hrAssignees: Array<HrAssignee>;
   me?: Maybe<HrAssignee>;
   patient: Patient_Response;
@@ -332,7 +332,7 @@ export type QueryTaskArgs = {
 
 
 export type QueryTasksByServiceArgs = {
-  sid: Scalars['Int'];
+  service_log_id: Scalars['Int'];
 };
 
 export type ServeLog_Response = {
@@ -408,6 +408,12 @@ export type Task_Input = {
   stage: Stage;
 };
 
+export type Task_Response = {
+  __typename?: 'Task_Response';
+  errors?: Maybe<Array<FieldError>>;
+  task?: Maybe<Task>;
+};
+
 export type AddServiceMutationVariables = Exact<{
   input: ServiceLog_Input;
 }>;
@@ -456,7 +462,7 @@ export type CreateTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateTaskMutation = { __typename?: 'Mutation', createTask: { __typename?: 'Task', id: number, service_log_id: number, stage: Stage, name: string, description?: string | null, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string } };
+export type CreateTaskMutation = { __typename?: 'Mutation', createTask: { __typename?: 'Task_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'Task', id: number, service_log_id: number, stage: Stage, name: string, description?: string | null, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string } | null } };
 
 export type DeleteFileMutationVariables = Exact<{
   fileNumber: Scalars['Int'];
@@ -578,7 +584,7 @@ export type HrAssigneeQueryVariables = Exact<{
 }>;
 
 
-export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'HrAssignee', id: number, name: string, password: string, profile_pic_url?: string | null, hr_type?: Hr_Type | null, email: string, createdAt: string, updatedAt: string } };
+export type HrAssigneeQuery = { __typename?: 'Query', hrAssignee: { __typename?: 'Hr_Assignee_Response', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, hr_assignee?: { __typename?: 'HrAssignee', id: number, name: string, password: string, email: string, phone_number?: string | null, home_number?: string | null, home_address?: string | null, SSN?: string | null, martial_status?: string | null, nationality?: string | null, profile_pic_url?: string | null, hr_type?: Hr_Type | null, createdAt: string, updatedAt: string } | null } };
 
 export type HrAssigneesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -641,7 +647,7 @@ export type TaskQueryVariables = Exact<{
 export type TaskQuery = { __typename?: 'Query', task: { __typename?: 'Task', id: number, service_log_id: number, stage: Stage, name: string, description?: string | null, assignee_notes?: string | null, date: string, createdAt: string, updatedAt: string } };
 
 export type TasksByServiceQueryVariables = Exact<{
-  sid: Scalars['Int'];
+  serviceLogId: Scalars['Int'];
 }>;
 
 
@@ -919,15 +925,21 @@ export type CreateServiceMutationOptions = Apollo.BaseMutationOptions<CreateServ
 export const CreateTaskDocument = gql`
     mutation CreateTask($input: Task_Input!) {
   createTask(input: $input) {
-    id
-    service_log_id
-    stage
-    name
-    description
-    assignee_notes
-    date
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    task {
+      id
+      service_log_id
+      stage
+      name
+      description
+      assignee_notes
+      date
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -1507,15 +1519,26 @@ export type FilesQueryResult = Apollo.QueryResult<FilesQuery, FilesQueryVariable
 export const HrAssigneeDocument = gql`
     query HrAssignee($hrAssigneeId: Float!) {
   hrAssignee(id: $hrAssigneeId) {
-    id
-    name
-    password
-    profile_pic_url
-    hr_type
-    email
-    createdAt
-    updatedAt
-    email
+    errors {
+      field
+      message
+    }
+    hr_assignee {
+      id
+      name
+      password
+      email
+      phone_number
+      home_number
+      home_address
+      SSN
+      martial_status
+      nationality
+      profile_pic_url
+      hr_type
+      createdAt
+      updatedAt
+    }
   }
 }
     `;
@@ -1966,8 +1989,8 @@ export type TaskQueryHookResult = ReturnType<typeof useTaskQuery>;
 export type TaskLazyQueryHookResult = ReturnType<typeof useTaskLazyQuery>;
 export type TaskQueryResult = Apollo.QueryResult<TaskQuery, TaskQueryVariables>;
 export const TasksByServiceDocument = gql`
-    query TasksByService($sid: Int!) {
-  tasksByService(sid: $sid) {
+    query TasksByService($serviceLogId: Int!) {
+  tasksByService(service_log_id: $serviceLogId) {
     id
     service_log_id
     stage
@@ -1993,7 +2016,7 @@ export const TasksByServiceDocument = gql`
  * @example
  * const { data, loading, error } = useTasksByServiceQuery({
  *   variables: {
- *      sid: // value for 'sid'
+ *      serviceLogId: // value for 'serviceLogId'
  *   },
  * });
  */

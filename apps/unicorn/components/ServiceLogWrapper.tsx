@@ -2,6 +2,8 @@ import {
   File,
   HrAssignee,
   useServicelogsByFilenumberQuery,
+  useServiceQuery,
+  useTasksByServiceQuery,
 } from 'libs/generated/graphql';
 import React from 'react';
 import { PatientService } from './PatientService';
@@ -28,11 +30,7 @@ export const ServiceLogWrapper: React.FC<ServiceLogWrapperProps> = ({
         {data.servicelogsByFilenumber.map((serviceLog) => {
           return (
             <div>
-              <PatientService
-                key={serviceLog.id}
-                serviceLogData={serviceLog}
-                pFileData={pFileData}
-              />
+              <PatientService key={serviceLog.id} serviceLogData={serviceLog} />
             </div>
           );
         })}

@@ -7,7 +7,7 @@ import { validateTask } from './validation';
 @Resolver()
 export class Task_Resolver {
   // crud: create
-  @Mutation(() => Task)
+  @Mutation(() => Task_Response)
   async createTask(
     @Arg('input', () => Task_Input) input: Task_Input
   ): Promise<Task_Response> {
@@ -54,11 +54,13 @@ export class Task_Resolver {
 
   // tasks by service id
   @Query(() => [Task])
-  async tasksByService(@Arg('sid', () => Int) sid: number) {
+  async tasksByService(
+    @Arg('service_log_id', () => Int) service_log_id: number
+  ) {
     const tasks = await AppDataSource.createQueryBuilder()
       .select('task')
       .from(Task, 'task')
-      .where('task.sid = :sid', { sid })
+      .where('task.service_log_id = :service_log_id', { service_log_id })
       .getMany();
     console.log('tasks by service:', tasks);
     return tasks;

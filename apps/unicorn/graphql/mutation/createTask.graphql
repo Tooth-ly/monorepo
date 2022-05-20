@@ -1,13 +1,19 @@
 mutation CreateTask($input: Task_Input!) {
   createTask(input: $input) {
-    id
-    service_log_id
-    stage
-    name
-    description
-    assignee_notes
-    date
-    createdAt
-    updatedAt
+    errors {
+      field
+      message
+    }
+    task {
+      id
+      service_log_id
+      stage
+      name
+      description
+      assignee_notes
+      date
+      createdAt
+      updatedAt
+    }
   }
 }
