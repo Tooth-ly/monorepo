@@ -1,6 +1,7 @@
 import { Box, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import {
   ServiceLog,
+  Stage,
   useServiceQuery,
   useTasksByServiceQuery,
 } from 'libs/generated/graphql';
@@ -38,6 +39,17 @@ export const PatientService: React.FC<PatientServiceProps> = ({
   const initialRef = useRef();
   const finalRef = useRef();
 
+  // tasks
+  const newTasks =
+    tasks && tasks.tasksByService.filter((task) => task.stage === Stage.New);
+
+  const pendingTasks =
+    tasks &&
+    tasks.tasksByService.filter((task) => task.stage === Stage.Pending);
+
+  const doneTasks =
+    tasks && tasks.tasksByService.filter((task) => task.stage === Stage.Done);
+
   if (serviceData && tasks && !serviceLoading)
     return (
       <Box
@@ -56,9 +68,9 @@ export const PatientService: React.FC<PatientServiceProps> = ({
         >
           <InnerServiceNew>
             New
-            {tasks && tasks.tasksByService.length > 0 ? (
+            {newTasks.length > 0 ? (
               <>
-                {tasks.tasksByService.map((task) => (
+                {newTasks.map((task) => (
                   <Box m={'7px'} key={task.name}>
                     <Task title={task.name} content={task.description} />
                   </Box>
@@ -90,10 +102,10 @@ export const PatientService: React.FC<PatientServiceProps> = ({
             )}
           </InnerServiceNew>
           <InnerServiceInProgress>
-            In Progress
-            {tasks && tasks.tasksByService.length > 0 ? (
+            Pending
+            {pendingTasks.length > 0 ? (
               <>
-                {tasks.tasksByService.map((task) => (
+                {pendingTasks.map((task) => (
                   <>
                     <Box m={'7px'} key={task.id}>
                       <Task title={task.name} content={task.description} />
@@ -112,9 +124,9 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           </InnerServiceInProgress>
           <InnerServiceDone>
             Done
-            {tasks && tasks.tasksByService.length > 0 ? (
+            {doneTasks.length > 0 ? (
               <>
-                {tasks.tasksByService.map((task) => (
+                {doneTasks.map((task) => (
                   <>
                     <Box m={'7px'} key={task.id}>
                       <Task title={task.name} content={task.description} />

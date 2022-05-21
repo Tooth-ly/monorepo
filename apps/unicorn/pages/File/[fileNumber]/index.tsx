@@ -8,7 +8,6 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import NavBar from '../../../components/NavBar';
 import { PatientMenu } from '../../../components/PatientMenu';
-import { PatientService } from '../../../components/PatientService';
 import Layout from '../../../layouts/Layout';
 
 interface PatientProps {}
