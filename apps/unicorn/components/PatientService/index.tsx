@@ -64,6 +64,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
           templateColumns={'repeat(auto-fit, minmax(100px, 1fr))'}
           gap={2}
           textAlign={'center'}
+          autoRows={'1fr'}
           mt={'10px'}
         >
           <InnerServiceNew>
@@ -85,7 +86,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                   initialRef={initialRef}
                   isOpen={isOpen}
                   onClose={onClose}
-                  serviceLogId={serviceData.service.id}
+                  serviceLogId={serviceLogData.id}
                 />
               </>
             ) : (
@@ -96,7 +97,7 @@ export const PatientService: React.FC<PatientServiceProps> = ({
                   initialRef={initialRef}
                   isOpen={isOpen}
                   onClose={onClose}
-                  serviceLogId={serviceData.service.id}
+                  serviceLogId={serviceLogData.id}
                 />
               </Box>
             )}

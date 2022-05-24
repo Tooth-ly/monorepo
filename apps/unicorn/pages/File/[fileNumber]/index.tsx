@@ -61,6 +61,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
               <PatientMenu pFileData={pFileData.file.file} />
               <Grid
                 templateColumns={'repeat(auto-fit, minmax(300px, 1fr))'}
+                autoRows={'1fr'}
                 m={'0px 20px'}
               >
                 <ServiceLogWrapper
@@ -90,6 +91,7 @@ const Patient: NextLayoutComponentType<PatientProps> = ({}) => {
               <Grid
                 templateColumns={'repeat(auto-fill, minmax(400px, 1fr))'}
                 gap={4}
+                autoRows={'1fr'}
                 m={'20px'}
               >
                 <ServiceLogWrapper

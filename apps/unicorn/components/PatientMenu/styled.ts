@@ -9,6 +9,7 @@ export const Container900 = styled.div({
   display: 'grid',
   // templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'},
   gridTemplateColumns: '110px 1fr',
+  gridAutoRows: '1fr',
 });
 
 export const Container = styled.div({
@@ -21,6 +22,7 @@ export const Container = styled.div({
   // templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'},
   gridTemplateColumns: '90px 1fr',
   padding: '17px',
+  gridAutoRows: '1fr',
 });
 
 export const GreenCircle = styled.span`

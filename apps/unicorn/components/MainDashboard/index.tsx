@@ -22,6 +22,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({ modules }) => {
               templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
               rowGap={50}
               mt={50}
+              autoRows={'1fr'}
               w={'100%'}
             >
               {modules.map((module) => (

@@ -2,8 +2,6 @@ import {
   File,
   HrAssignee,
   useServicelogsByFilenumberQuery,
-  useServiceQuery,
-  useTasksByServiceQuery,
 } from 'libs/generated/graphql';
 import React from 'react';
 import { PatientService } from './PatientService';

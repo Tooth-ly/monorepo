@@ -34,7 +34,10 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
     <Flex w="100%" flexDir={'column'}>
       <NavBar />
       {typeof window != 'undefined' && (
-        <Grid templateColumns={isLargerThan600 ? 'repeat(2, 1fr)' : '1fr'}>
+        <Grid
+          autoRows={'1fr'}
+          templateColumns={isLargerThan600 ? 'repeat(2, 1fr)' : '1fr'}
+        >
           <Box>
             <Title>Patients</Title>
             <Grid
@@ -70,6 +73,7 @@ const pfiles: NextLayoutComponentType<pfilesProps> = ({}) => {
               paddingRight={25}
               templateColumns={'repeat(auto-fill, minmax(200px, 1fr))'}
               columnGap={10}
+              autoRows={'1fr'}
               rowGap={7}
             >
               {isPatientFilesLoading ? (
