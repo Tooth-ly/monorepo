@@ -72,11 +72,7 @@ export class Hr_Assignee_Resolver {
   }
 
   @Query(() => Hr_Assignee_Response)
-  async hrAssignee(@Arg('id') id: number, @Ctx() { req }: MyContext) {
-    if (!req.session.hr_assignee_Id) {
-      return null;
-    }
-
+  async hrAssignee(@Arg('id') id: number) {
     const hr_assignee = await AppDataSource.manager.findOneBy(HrAssignee, {
       id,
     });
